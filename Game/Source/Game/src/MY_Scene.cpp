@@ -66,6 +66,12 @@ MY_Scene::MY_Scene(Game * _game) :
 
 	textShader->textComponent->setColor(glm::vec3(0.0f, 0.0f, 0.0f));
 
+
+	// remove initial camera
+	childTransform->removeChild(cameras.at(0)->parents.at(0));
+	delete cameras.at(0)->parents.at(0);
+	cameras.pop_back();
+
 	//Set up debug camera
 	debugCam = new MousePerspectiveCamera();
 	cameras.push_back(debugCam);
@@ -78,11 +84,6 @@ MY_Scene::MY_Scene(Game * _game) :
 	debugCam->speed = 1;
 
 	activeCamera = debugCam;
-	
-	// remove initial camera
-	childTransform->removeChild(cameras.at(0)->parents.at(0));
-	delete cameras.at(0)->parents.at(0);
-	cameras.pop_back();
 
 	//
 	glm::uvec2 sd = sweet::getScreenDimensions();
@@ -110,6 +111,25 @@ MY_Scene::MY_Scene(Game * _game) :
 	box2dDebug->AppendFlags(b2Draw::e_shapeBit);
 	box2dDebug->AppendFlags(b2Draw::e_centerOfMassBit);
 	box2dDebug->AppendFlags(b2Draw::e_jointBit);
+
+
+
+
+
+	/** GAME STUFF **/
+	OrthographicCamera * cam = new OrthographicCamera(0, 100, 0, 100, -100, 100);
+	cameras.push_back(cam);
+	childTransform->addChild(cam);
+	cam->childTransform->rotate(90, 0, 1, 0, kWORLD);
+	cam->parents.at(0)->translate(5.0f, 1.5f, 22.5f);
+	cam->yaw = 90.0f;
+	cam->pitch = -10.0f;
+
+	PointLight * l = new PointLight(glm::vec3(1, 1, 1), 1, 0, 0);
+	lights.push_back(l);
+
+	MeshEntity * cube = new MeshEntity(MeshFactory::getCubeMesh(), baseShader);
+	childTransform->addChild(cube);
 }
 
 MY_Scene::~MY_Scene(){
