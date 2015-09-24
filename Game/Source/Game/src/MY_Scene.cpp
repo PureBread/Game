@@ -46,6 +46,16 @@
 #include <Box2DWorld.h>
 #include <Box2DDebugDrawer.h>
 
+
+
+
+
+
+
+
+
+#include <VCam.h>
+
 MY_Scene::MY_Scene(Game * _game) :
 	Scene(_game),
 	screenSurfaceShader(new Shader("assets/engine basics/DefaultRenderSurface", false, true)),
@@ -117,19 +127,23 @@ MY_Scene::MY_Scene(Game * _game) :
 
 
 	/** GAME STUFF **/
-	OrthographicCamera * cam = new OrthographicCamera(0, 100, 0, 100, -100, 100);
+	VCam * cam = new VCam(1920, 1080/*, 0, 0*/);
+	//OrthographicCamera * cam = new OrthographicCamera(-1920/2, 1920/2, -1080/2, 1080/2, -1000, 1000);
 	cameras.push_back(cam);
 	childTransform->addChild(cam);
-	cam->childTransform->rotate(90, 0, 1, 0, kWORLD);
-	cam->parents.at(0)->translate(5.0f, 1.5f, 22.5f);
-	cam->yaw = 90.0f;
-	cam->pitch = -10.0f;
+	//cam->childTransform->rotate(90, 0, 1, 0, kWORLD);
+	cam->parents.at(0)->translate(0, 0, -10.f);
+	//cam->yaw = 90.0f;
+	//cam->pitch = -10.0f;
 
-	PointLight * l = new PointLight(glm::vec3(1, 1, 1), 1, 0, 0);
+	PointLight * l = new PointLight(glm::vec3(1, 1, 1), 0.25, 0, 0);
 	lights.push_back(l);
+	childTransform->addChild(l)->translate(0, 15, 0);
 
-	MeshEntity * cube = new MeshEntity(MeshFactory::getCubeMesh(), baseShader);
-	childTransform->addChild(cube);
+	for (unsigned long int i = 0; i < 15; ++i){
+		MeshEntity * cube = new MeshEntity(MeshFactory::getCubeMesh(5), baseShader);
+		childTransform->addChild(cube)->translate(sweet::NumberUtils::randomFloat(-50, 50), sweet::NumberUtils::randomFloat(-50, 50), sweet::NumberUtils::randomFloat(-50, 50));
+	}
 }
 
 MY_Scene::~MY_Scene(){
@@ -157,8 +171,10 @@ void MY_Scene::update(Step * _step){
 		game->toggleFullScreen();
 	}
 
-	if(keyboard->keyJustDown(GLFW_KEY_1)){
+	if (keyboard->keyJustDown(GLFW_KEY_1)){
 		cycleCamera();
+	}if (keyboard->keyJustDown(GLFW_KEY_2)){
+		Transform::drawTransforms = !Transform::drawTransforms;
 	}
 
 	float speed = 1;
@@ -168,10 +184,10 @@ void MY_Scene::update(Step * _step){
 	}
 	// camera controls
 	if (keyboard->keyDown(GLFW_KEY_UP)){
-		activeCamera->parents.at(0)->translate((activeCamera->forwardVectorRotated) * speed);
+		activeCamera->parents.at(0)->translate((activeCamera->upVectorRotated) * speed);
 	}
 	if (keyboard->keyDown(GLFW_KEY_DOWN)){
-		activeCamera->parents.at(0)->translate((activeCamera->forwardVectorRotated) * -speed);
+		activeCamera->parents.at(0)->translate((activeCamera->upVectorRotated) * -speed);
 	}
 	if (keyboard->keyDown(GLFW_KEY_LEFT)){
 		activeCamera->parents.at(0)->translate((activeCamera->rightVectorRotated) * -speed);
