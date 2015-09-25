@@ -67,10 +67,12 @@ MY_Scene::MY_Scene(Game * _game) :
 	debugDrawer(nullptr),
 	uiLayer(this, 0,0,0,0),
 	box2dWorld(new Box2DWorld(b2Vec2(0.f, -10.0f))),
-	box2dDebug(new Box2DDebugDrawer(box2dWorld))
+	box2dDebug(new Box2DDebugDrawer(box2dWorld)),
+	progress(0),
+	speed(0)
 {
 	baseShader->addComponent(new ShaderComponentMVP(baseShader));
-	baseShader->addComponent(new ShaderComponentDiffuse(baseShader));
+	//baseShader->addComponent(new ShaderComponentDiffuse(baseShader));
 	baseShader->addComponent(new ShaderComponentTexture(baseShader));
 	baseShader->compileShader();
 
@@ -132,18 +134,33 @@ MY_Scene::MY_Scene(Game * _game) :
 	cameras.push_back(cam);
 	childTransform->addChild(cam);
 	//cam->childTransform->rotate(90, 0, 1, 0, kWORLD);
-	cam->parents.at(0)->translate(0, 0, -10.f);
+	cam->parents.at(0)->translate(0, -25, -10.f);
 	//cam->yaw = 90.0f;
 	//cam->pitch = -10.0f;
 
-	PointLight * l = new PointLight(glm::vec3(1, 1, 1), 0.25, 0, 0);
+	PointLight * l = new PointLight(glm::vec3(1, 1, 1), 1.f, 0.1f, 0.1f);
 	lights.push_back(l);
 	childTransform->addChild(l)->translate(0, 15, 0);
 
-	for (unsigned long int i = 0; i < 15; ++i){
-		MeshEntity * cube = new MeshEntity(MeshFactory::getCubeMesh(5), baseShader);
-		childTransform->addChild(cube)->translate(sweet::NumberUtils::randomFloat(-50, 50), sweet::NumberUtils::randomFloat(-50, 50), sweet::NumberUtils::randomFloat(-50, 50));
-	}
+	for(unsigned long int i = 5; i > 0; --i){
+		std::stringstream ss;
+		ss << "BG" << i;
+		MeshEntity * bg = new MeshEntity(MeshFactory::getPlaneMesh(192/2.f, 108/2.f), baseShader);
+		bgLayers.push_back(bg);
+		bg->mesh->textures.push_back(MY_ResourceManager::scenario->getTexture(ss.str())->texture);
+		bg->mesh->scaleModeMag = GL_NEAREST;
+		bg->mesh->scaleModeMin = GL_NEAREST;
+		bg->childTransform->translate(0,0,i*5);
+		childTransform->addChild(bg);
+	}/*for(unsigned long int i = 5; i > 0; --i){
+		childTransform->addChild(bgLayers.at(i-1));
+	}*/
+
+	/*for (unsigned long int i = 0; i < 250; ++i){
+		MeshEntity * cube = new MeshEntity(MeshFactory::getCubeMesh(sweet::NumberUtils::randomFloat(5, 25)), baseShader);
+		childTransform->addChild(cube)->translate(sweet::NumberUtils::randomFloat(-100, 100), sweet::NumberUtils::randomFloat(-100, 100), sweet::NumberUtils::randomFloat(-100, 100));
+		cube->mesh->textures.push_back(MY_ResourceManager::scenario->getTexture("LOGO")->texture);
+	}*/
 }
 
 MY_Scene::~MY_Scene(){
@@ -159,6 +176,10 @@ MY_Scene::~MY_Scene(){
 
 
 void MY_Scene::update(Step * _step){
+	for(unsigned long int i = 0; i < bgLayers.size(); ++i){
+		bgLayers.at(i)->firstParent()->translate(progress*((float)i/bgLayers.size() + 0.5f), 0, 0, false);
+	}
+
 
 	box2dWorld->update(_step);
 
@@ -166,9 +187,10 @@ void MY_Scene::update(Step * _step){
 	uiLayer.resize(0, sd.x, 0, sd.y);
 
 	mouseIndicator->parents.at(0)->translate(mouse->mouseX(), mouse->mouseY(), 0, false);
-
+	
 	if(keyboard->keyJustDown(GLFW_KEY_F12)){
-		game->toggleFullScreen();
+		//game->toggleFullScreen();
+		game->takeScreenshot();
 	}
 
 	if (keyboard->keyJustDown(GLFW_KEY_1)){
@@ -177,24 +199,31 @@ void MY_Scene::update(Step * _step){
 		Transform::drawTransforms = !Transform::drawTransforms;
 	}
 
-	float speed = 1;
+	float camSpeed = 1;
 	MousePerspectiveCamera * cam = dynamic_cast<MousePerspectiveCamera *>(activeCamera);
 	if(cam != nullptr){
-		speed = cam->speed;
+		camSpeed = cam->speed;
 	}
 	// camera controls
 	if (keyboard->keyDown(GLFW_KEY_UP)){
-		activeCamera->parents.at(0)->translate((activeCamera->upVectorRotated) * speed);
+		activeCamera->parents.at(0)->translate((activeCamera->upVectorRotated) * camSpeed);
 	}
 	if (keyboard->keyDown(GLFW_KEY_DOWN)){
-		activeCamera->parents.at(0)->translate((activeCamera->upVectorRotated) * -speed);
+		activeCamera->parents.at(0)->translate((activeCamera->upVectorRotated) * -camSpeed);
 	}
 	if (keyboard->keyDown(GLFW_KEY_LEFT)){
-		activeCamera->parents.at(0)->translate((activeCamera->rightVectorRotated) * -speed);
+		activeCamera->parents.at(0)->translate((activeCamera->rightVectorRotated) * -camSpeed);
 	}
 	if (keyboard->keyDown(GLFW_KEY_RIGHT)){
-		activeCamera->parents.at(0)->translate((activeCamera->rightVectorRotated) * speed);
+		activeCamera->parents.at(0)->translate((activeCamera->rightVectorRotated) * camSpeed);
 	}
+
+	if (keyboard->keyJustDown(GLFW_KEY_A)){
+		speed += 0.1;
+	}if (keyboard->keyJustDown(GLFW_KEY_D)){
+		speed -= 0.1;
+	}
+	progress += speed;
 
 	debugCam->update(_step);
 
@@ -202,6 +231,8 @@ void MY_Scene::update(Step * _step){
 }
 
 void MY_Scene::render(sweet::MatrixStack * _matrixStack, RenderOptions * _renderOptions){
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	clearColor[0] = 1;
 	clear();
 	screenFBO->resize(game->viewPortWidth, game->viewPortHeight);
 	//Bind frameBuffer

@@ -18,8 +18,8 @@ void VCam::update(Step * _step){
 		t = 6 - t;
 	}
 
-	width = Easing::easeInOutQuad(t, 1920, -1920 / 2, 3);
-	height = Easing::easeInOutQuad(t, 1080, -1080 / 2, 3);
+	width = Easing::easeInOutBack(t, 192/4*3, -192 / 32, 3);
+	height = Easing::easeInOutBack(t, 108/4*3, -108 / 32, 3);
 
 
 	left = -width * 0.5f;

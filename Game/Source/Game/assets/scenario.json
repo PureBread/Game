@@ -4,6 +4,34 @@
       "id": "CURSOR",
       "type": "texture",
       "src": "../engine basics/cursor.png"
+    },
+    {
+    	"id": "LOGO",
+    	"type": "texture",
+    	"src": "PureBread-logo.png"
+    },
+
+
+    {
+    	"id": "BG1",
+    	"type": "texture",
+    	"src": "bg1.png"
+    },{
+    	"id": "BG2",
+    	"type": "texture",
+    	"src": "bg2.png"
+    },{
+    	"id": "BG3",
+    	"type": "texture",
+    	"src": "bg3.png"
+    },{
+    	"id": "BG4",
+    	"type": "texture",
+    	"src": "bg4.png"
+    },{
+    	"id": "BG5",
+    	"type": "texture",
+    	"src": "bg5.png"
     }
   ]
 }

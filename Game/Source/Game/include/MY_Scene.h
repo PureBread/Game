@@ -48,6 +48,14 @@ public:
 	Box2DWorld * box2dWorld;
 	Box2DDebugDrawer * box2dDebug;
 
+
+
+	float speed;
+	float progress;
+	std::vector<MeshEntity *> bgLayers;
+
+
+
 	virtual void update(Step * _step) override;
 	virtual void render(sweet::MatrixStack * _matrixStack, RenderOptions * _renderOptions) override;
 	
