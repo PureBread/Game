@@ -5,6 +5,8 @@
 #include <BulletDebugDrawer.h>
 #include <BulletWorld.h>
 
+#include <ContinuousArtScroller.h>
+
 class PerspectiveCamera;
 class MousePerspectiveCamera;
 
@@ -53,6 +55,7 @@ public:
 	float speed;
 	float progress;
 	std::vector<MeshEntity *> bgLayers;
+	ContinuousArtScroller * testScroller;
 
 
 

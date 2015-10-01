@@ -147,7 +147,7 @@ MY_Scene::MY_Scene(Game * _game) :
 		ss << "BG" << i;
 		MeshEntity * bg = new MeshEntity(MeshFactory::getPlaneMesh(192/2.f, 108/2.f), baseShader);
 		bgLayers.push_back(bg);
-		bg->mesh->textures.push_back(MY_ResourceManager::scenario->getTexture(ss.str())->texture);
+		bg->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture(ss.str())->texture);
 		bg->mesh->scaleModeMag = GL_NEAREST;
 		bg->mesh->scaleModeMin = GL_NEAREST;
 		bg->childTransform->translate(0,0,i*5);
@@ -161,6 +161,10 @@ MY_Scene::MY_Scene(Game * _game) :
 		childTransform->addChild(cube)->translate(sweet::NumberUtils::randomFloat(-100, 100), sweet::NumberUtils::randomFloat(-100, 100), sweet::NumberUtils::randomFloat(-100, 100));
 		cube->mesh->textures.push_back(MY_ResourceManager::scenario->getTexture("LOGO")->texture);
 	}*/
+
+
+	testScroller = new ContinuousArtScroller("scrollerTest", 1, baseShader);
+	childTransform->addChild(testScroller)->scale(25);// ->translate(0, 0, -5);
 }
 
 MY_Scene::~MY_Scene(){
@@ -176,9 +180,10 @@ MY_Scene::~MY_Scene(){
 
 
 void MY_Scene::update(Step * _step){
-	for(unsigned long int i = 0; i < bgLayers.size(); ++i){
+	/*for(unsigned long int i = 0; i < bgLayers.size(); ++i){
 		bgLayers.at(i)->firstParent()->translate(progress*((float)i/bgLayers.size() + 0.5f), 0, 0, false);
-	}
+	}*/
+	testScroller->firstParent()->translate(progress, 0, 0, false);
 
 
 	box2dWorld->update(_step);
@@ -223,6 +228,13 @@ void MY_Scene::update(Step * _step){
 	}if (keyboard->keyJustDown(GLFW_KEY_D)){
 		speed -= 0.1;
 	}
+
+	if (keyboard->keyJustDown(GLFW_KEY_W)){
+		testScroller->cycle(1);
+	}if (keyboard->keyJustDown(GLFW_KEY_S)){
+		testScroller->cycle(-1);
+	}
+
 	progress += speed;
 
 	debugCam->update(_step);
