@@ -54,7 +54,7 @@ public:
 
 	float speed;
 	float progress;
-	std::vector<MeshEntity *> bgLayers;
+	std::vector<ContinuousArtScroller *> bgLayers;
 	ContinuousArtScroller * testScroller;
 
 

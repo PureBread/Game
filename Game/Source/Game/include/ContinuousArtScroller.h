@@ -12,8 +12,11 @@ public:
 	std::string fileDir;
 	// speed at which the scroller moves
 	float speed;
+	// current progress along the scroller
+	float progress;
+
 	// currently loaded image
-	unsigned long int imageId;
+	signed long int imageId;
 
 	MeshEntity * plane1;
 	MeshEntity * plane2;
@@ -29,4 +32,6 @@ public:
 	void loadTexOntoPlane(unsigned long int _texId, MeshEntity * _plane);
 	void cycle(signed long int _delta);
 	void swapPlanes();
+
+	virtual void update(Step * _step) override;
 };

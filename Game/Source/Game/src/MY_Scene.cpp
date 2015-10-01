@@ -145,13 +145,10 @@ MY_Scene::MY_Scene(Game * _game) :
 	for(unsigned long int i = 5; i > 0; --i){
 		std::stringstream ss;
 		ss << "BG" << i;
-		MeshEntity * bg = new MeshEntity(MeshFactory::getPlaneMesh(192/2.f, 108/2.f), baseShader);
+		ContinuousArtScroller * bg = new ContinuousArtScroller(ss.str(), ((float)i / 5 + 0.5f)/100, baseShader);
 		bgLayers.push_back(bg);
-		bg->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture(ss.str())->texture);
-		bg->mesh->scaleModeMag = GL_NEAREST;
-		bg->mesh->scaleModeMin = GL_NEAREST;
-		bg->childTransform->translate(0,0,i*5);
-		childTransform->addChild(bg);
+		childTransform->addChild(bg)->translate(0, 0, i * 5);
+		bg->firstParent()->scale(25);
 	}/*for(unsigned long int i = 5; i > 0; --i){
 		childTransform->addChild(bgLayers.at(i-1));
 	}*/
@@ -180,9 +177,10 @@ MY_Scene::~MY_Scene(){
 
 
 void MY_Scene::update(Step * _step){
-	/*for(unsigned long int i = 0; i < bgLayers.size(); ++i){
-		bgLayers.at(i)->firstParent()->translate(progress*((float)i/bgLayers.size() + 0.5f), 0, 0, false);
-	}*/
+	for(unsigned long int i = 0; i < bgLayers.size(); ++i){
+		bgLayers.at(i)->progress = progress;
+		//bgLayers.at(i)->firstParent()->translate(progress*bgLayers.at(i)->speed, 0, 0, false);
+	}
 	testScroller->firstParent()->translate(progress, 0, 0, false);
 
 

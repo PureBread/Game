@@ -13,7 +13,8 @@ ContinuousArtScroller::ContinuousArtScroller(std::string _fileDir, float _speed,
 	plane1(new MeshEntity(MeshFactory::getPlaneMesh(), _shader)),
 	plane2(new MeshEntity(MeshFactory::getPlaneMesh(), _shader)),
 	imageId(1),
-	imageCount(0)
+	imageCount(0),
+	progress(0)
 {
 	while (true){
 		++imageCount;
@@ -81,4 +82,18 @@ void ContinuousArtScroller::swapPlanes(){
 	MeshEntity * t = frontPlane;
 	frontPlane = backPlane;
 	backPlane = t;
+}
+
+void ContinuousArtScroller::update(Step * _step){
+	childTransform->translate(progress*speed, 0, 0, false);
+
+	//std::cout << progress* speed << ": " << imageId << std::endl;
+
+	while (imageId - progress*speed < -1){
+		cycle(1);
+	}while (imageId - progress*speed > 1){
+		cycle(-1);
+	}
+
+	Entity::update(_step);
 }
