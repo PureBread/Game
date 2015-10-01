@@ -163,7 +163,7 @@ MY_Scene::MY_Scene(Game * _game) :
 	}*/
 
 
-	testScroller = new ContinuousArtScroller("scrollerTest", 1, baseShader);
+	testScroller = new ContinuousArtScroller("scrollerTest2", 1, baseShader);
 	childTransform->addChild(testScroller)->scale(25);// ->translate(0, 0, -5);
 }
 

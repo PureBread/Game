@@ -1,6 +1,7 @@
 #pragma once
 
 #include <MeshEntity.h>
+class Texture;
 
 /*
 Two planes which move in sync such that a sequence of images can be displayed on them without ever seeing a break.
@@ -19,7 +20,11 @@ public:
 	MeshEntity * frontPlane;
 	MeshEntity * backPlane;
 
+	std::vector<Texture *> images;
+	unsigned long int imageCount;
+
 	ContinuousArtScroller(std::string _fileDir, float _speed, Shader * _shader);
+	~ContinuousArtScroller();
 
 	void loadTexOntoPlane(unsigned long int _texId, MeshEntity * _plane);
 	void cycle(signed long int _delta);
