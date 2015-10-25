@@ -7,9 +7,8 @@
 #include <sstream>
 #include <MY_ResourceManager.h>
 
-ContinuousArtScroller::ContinuousArtScroller(std::string _fileDir, float _speed, Shader * _shader) :
+ContinuousArtScroller::ContinuousArtScroller(std::string _fileDir, Shader * _shader) :
 	fileDir(_fileDir),
-	speed(_speed),
 	plane1(new MeshEntity(MeshFactory::getPlaneMesh(), _shader)),
 	plane2(new MeshEntity(MeshFactory::getPlaneMesh(), _shader)),
 	imageId(1),
@@ -85,13 +84,13 @@ void ContinuousArtScroller::swapPlanes(){
 }
 
 void ContinuousArtScroller::update(Step * _step){
-	childTransform->translate(progress*speed, 0, 0, false);
+	//childTransform->translate(progress*speed, 0, 0, false);
 
 	//std::cout << progress* speed << ": " << imageId << std::endl;
 
-	while (imageId - progress*speed < -1){
+	while (imageId - progress < -1){
 		cycle(1);
-	}while (imageId - progress*speed > 1){
+	}while (imageId - progress > 1){
 		cycle(-1);
 	}
 

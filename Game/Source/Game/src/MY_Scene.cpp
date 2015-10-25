@@ -46,7 +46,7 @@
 #include <Box2DWorld.h>
 #include <Box2DDebugDrawer.h>
 
-
+#include <RenderOptions.h>
 
 
 
@@ -129,39 +129,49 @@ MY_Scene::MY_Scene(Game * _game) :
 
 
 	/** GAME STUFF **/
-	VCam * cam = new VCam(1920, 1080/*, 0, 0*/);
+	//VCam * cam = new VCam(1920, 1080/*, 0, 0*/);
+	PerspectiveCamera * cam = new PerspectiveCamera();
+	
 	//OrthographicCamera * cam = new OrthographicCamera(-1920/2, 1920/2, -1080/2, 1080/2, -1000, 1000);
 	cameras.push_back(cam);
 	childTransform->addChild(cam);
 	//cam->childTransform->rotate(90, 0, 1, 0, kWORLD);
-	cam->parents.at(0)->translate(0, -25, -10.f);
-	//cam->yaw = 90.0f;
-	//cam->pitch = -10.0f;
+	//cam->childTransform->rotate(90, 0, 1, 0, kOBJECT);
+	cam->yaw = 91;
+	cam->pitch = 12.5f;
+	cam->parents.at(0)->translate(0, -25.f, 50.f);
+	cam->fieldOfView = 25;
 
 	PointLight * l = new PointLight(glm::vec3(1, 1, 1), 1.f, 0.1f, 0.1f);
 	lights.push_back(l);
 	childTransform->addChild(l)->translate(0, 15, 0);
 
-	for(unsigned long int i = 5; i > 0; --i){
-		std::stringstream ss;
-		ss << "BG" << i;
-		ContinuousArtScroller * bg = new ContinuousArtScroller(ss.str(), ((float)i / 5 + 0.5f)/100, baseShader);
-		bgLayers.push_back(bg);
-		childTransform->addChild(bg)->translate(0, 0, i * 5);
-		bg->firstParent()->scale(25);
-	}/*for(unsigned long int i = 5; i > 0; --i){
-		childTransform->addChild(bgLayers.at(i-1));
-	}*/
 
-	/*for (unsigned long int i = 0; i < 250; ++i){
-		MeshEntity * cube = new MeshEntity(MeshFactory::getCubeMesh(sweet::NumberUtils::randomFloat(5, 25)), baseShader);
-		childTransform->addChild(cube)->translate(sweet::NumberUtils::randomFloat(-100, 100), sweet::NumberUtils::randomFloat(-100, 100), sweet::NumberUtils::randomFloat(-100, 100));
-		cube->mesh->textures.push_back(MY_ResourceManager::scenario->getTexture("LOGO")->texture);
-	}*/
+	layerSky = new MeshEntity(MeshFactory::getPlaneMesh(), baseShader);
+	layerBgDetail = new ContinuousArtScroller("BG5", baseShader);
+	layerBg = new ContinuousArtScroller("BG4", baseShader);
+	layerLlamas = new ContinuousArtScroller("BG3", baseShader);
+	layerFg = new ContinuousArtScroller("BG2", baseShader);
+	layerFgDetail = new ContinuousArtScroller("BG1", baseShader);
+	
+	bgLayers.push_back(layerBgDetail);
+	bgLayers.push_back(layerBg);
+	bgLayers.push_back(layerLlamas);
+	bgLayers.push_back(layerFg);
+	bgLayers.push_back(layerFgDetail);
 
+	childTransform->addChild(layerSky);
+	for(signed long int i = 0; i < bgLayers.size(); ++i){
+		childTransform->addChild(bgLayers.at(i))->translate(0, 0, i * 5);
+		bgLayers.at(i)->firstParent()->scale(50);
+	}
+	layerSky->childTransform->translate(0,0,-5);
+	layerSky->meshTransform->translate(0,0.5,0);
+	layerSky->childTransform->scale(50);
 
-	testScroller = new ContinuousArtScroller("scrollerTest2", 1, baseShader);
-	childTransform->addChild(testScroller)->scale(25);// ->translate(0, 0, -5);
+	Texture * texture = new Texture("assets/textures/sky.png", true, false);
+	texture->load();
+	layerSky->mesh->pushTexture2D(texture);
 }
 
 MY_Scene::~MY_Scene(){
@@ -177,12 +187,19 @@ MY_Scene::~MY_Scene(){
 
 
 void MY_Scene::update(Step * _step){
-	for(unsigned long int i = 0; i < bgLayers.size(); ++i){
-		bgLayers.at(i)->progress = progress;
-		//bgLayers.at(i)->firstParent()->translate(progress*bgLayers.at(i)->speed, 0, 0, false);
+	// update sky layer
+	glm::vec3 v = activeCamera->getWorldPos();
+	layerSky->childTransform->translate(v.x, v.y, -5, false);
+	for(unsigned long int i = 0; i < 4; ++i){
+		layerSky->mesh->vertices.at(i).v -= 0.0001;
 	}
-	testScroller->firstParent()->translate(progress, 0, 0, false);
+	layerSky->mesh->dirty = true;
 
+	// update art layers
+	float x = activeCamera->parents.at(0)->getTranslationVector().x;
+	for(unsigned long int i = 0; i < bgLayers.size(); ++i){
+		bgLayers.at(i)->progress = x/50 + 1;
+	}
 
 	box2dWorld->update(_step);
 
@@ -202,7 +219,7 @@ void MY_Scene::update(Step * _step){
 		Transform::drawTransforms = !Transform::drawTransforms;
 	}
 
-	float camSpeed = 1;
+	float camSpeed = 0.3;
 	MousePerspectiveCamera * cam = dynamic_cast<MousePerspectiveCamera *>(activeCamera);
 	if(cam != nullptr){
 		camSpeed = cam->speed;
@@ -221,27 +238,20 @@ void MY_Scene::update(Step * _step){
 		activeCamera->parents.at(0)->translate((activeCamera->rightVectorRotated) * camSpeed);
 	}
 
+	
+
 	if (keyboard->keyJustDown(GLFW_KEY_A)){
 		speed += 0.1;
 	}if (keyboard->keyJustDown(GLFW_KEY_D)){
 		speed -= 0.1;
 	}
 
-	if (keyboard->keyJustDown(GLFW_KEY_W)){
-		testScroller->cycle(1);
-	}if (keyboard->keyJustDown(GLFW_KEY_S)){
-		testScroller->cycle(-1);
-	}
-
 	progress += speed;
-
-	debugCam->update(_step);
 
 	Scene::update(_step);
 }
 
 void MY_Scene::render(sweet::MatrixStack * _matrixStack, RenderOptions * _renderOptions){
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	clearColor[0] = 1;
 	clear();
 	screenFBO->resize(game->viewPortWidth, game->viewPortHeight);
@@ -250,6 +260,7 @@ void MY_Scene::render(sweet::MatrixStack * _matrixStack, RenderOptions * _render
 	//render the scene to the buffer
 	
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	_renderOptions->depthEnabled = false;
 	Scene::render(_matrixStack, _renderOptions);
 
 	//Render the buffer to the render surface

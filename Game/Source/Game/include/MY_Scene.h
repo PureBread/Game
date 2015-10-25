@@ -54,9 +54,15 @@ public:
 
 	float speed;
 	float progress;
+	
 	std::vector<ContinuousArtScroller *> bgLayers;
-	ContinuousArtScroller * testScroller;
-
+	
+	MeshEntity * layerSky;
+	ContinuousArtScroller * layerBgDetail;
+	ContinuousArtScroller * layerBg;
+	ContinuousArtScroller * layerLlamas;
+	ContinuousArtScroller * layerFg;
+	ContinuousArtScroller * layerFgDetail;
 
 
 	virtual void update(Step * _step) override;

@@ -10,8 +10,6 @@ class ContinuousArtScroller : public Entity{
 public:
 	// file directory which contains the separated art pieces
 	std::string fileDir;
-	// speed at which the scroller moves
-	float speed;
 	// current progress along the scroller
 	float progress;
 
@@ -26,7 +24,7 @@ public:
 	std::vector<Texture *> images;
 	unsigned long int imageCount;
 
-	ContinuousArtScroller(std::string _fileDir, float _speed, Shader * _shader);
+	ContinuousArtScroller(std::string _fileDir, Shader * _shader);
 	~ContinuousArtScroller();
 
 	void loadTexOntoPlane(unsigned long int _texId, MeshEntity * _plane);
