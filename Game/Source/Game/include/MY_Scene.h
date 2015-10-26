@@ -6,6 +6,7 @@
 #include <BulletWorld.h>
 
 #include <ContinuousArtScroller.h>
+#include <ShaderComponentReplace.h>
 
 class PerspectiveCamera;
 class MousePerspectiveCamera;
@@ -35,7 +36,7 @@ public:
 	StandardFrameBuffer * screenFBO;
 	
 	ComponentShaderBase * baseShader;
-	ComponentShaderBase * characterShader;
+	ShaderComponentReplace * replaceShaderComponent;
 	ComponentShaderText * textShader;
 
 	BulletWorld * bulletWorld;

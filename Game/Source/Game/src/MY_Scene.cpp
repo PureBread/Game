@@ -62,7 +62,7 @@ MY_Scene::MY_Scene(Game * _game) :
 	screenSurface(new RenderSurface(screenSurfaceShader)),
 	screenFBO(new StandardFrameBuffer(true)),
 	baseShader(new ComponentShaderBase(true)),
-	characterShader(new ComponentShaderBase(true)),
+	replaceShaderComponent(new ShaderComponentReplace(baseShader)),
 	textShader(new ComponentShaderText(true)),
 	debugDrawer(nullptr),
 	uiLayer(this, 0,0,0,0),
@@ -74,6 +74,7 @@ MY_Scene::MY_Scene(Game * _game) :
 	baseShader->addComponent(new ShaderComponentMVP(baseShader));
 	//baseShader->addComponent(new ShaderComponentDiffuse(baseShader));
 	baseShader->addComponent(new ShaderComponentTexture(baseShader));
+	baseShader->addComponent(replaceShaderComponent);
 	baseShader->compileShader();
 
 	textShader->textComponent->setColor(glm::vec3(0.0f, 0.0f, 0.0f));
@@ -177,7 +178,6 @@ MY_Scene::MY_Scene(Game * _game) :
 MY_Scene::~MY_Scene(){
 	deleteChildTransform();
 	baseShader->safeDelete();
-	characterShader->safeDelete();
 	textShader->safeDelete();
 
 	screenSurface->safeDelete();
