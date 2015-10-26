@@ -173,6 +173,7 @@ MY_Scene::MY_Scene(Game * _game) :
 	Texture * texture = new Texture("assets/textures/sky.png", true, false);
 	texture->load();
 	layerSky->mesh->pushTexture2D(texture);
+	layerSky->mesh->scaleModeMag = layerSky->mesh->scaleModeMin = GL_NEAREST;
 }
 
 MY_Scene::~MY_Scene(){
