@@ -1,0 +1,9 @@
+{
+	"resources" : 
+	{
+		"food" : 0,
+		"health" : 0,
+		"speed" : 0,
+		"wool" : 0
+	}
+}
