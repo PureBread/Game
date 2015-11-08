@@ -6,9 +6,44 @@
       "src": "../engine basics/cursor.png"
     },
     {
-    	"id": "LOGO",
-    	"type": "texture",
-    	"src": "PureBread-logo.png"
+        "id": "LOGO",
+        "type": "texture",
+        "src": "PureBread-logo.png"
+    },
+    {
+        "id": "HURLY-BURLY",
+        "type": "font",
+        "src": "Hurly-Burly.ttf",
+        "size": 24
+    },
+
+    
+    {
+        "id": "MENU_MAIN",
+        "type": "texture",
+        "src": "menu_main.png"
+    },
+    {
+        "id": "MENU_OPTIONS",
+        "type": "texture",
+        "src": "menu_options.png"
+    },
+
+    
+    {
+        "id": "BUTTON_NORMAL",
+        "type": "texture",
+        "src": "button/normal.png"
+    },
+    {
+        "id": "BUTTON_OVER",
+        "type": "texture",
+        "src": "button/over.png"
+    },
+    {
+        "id": "BUTTON_DOWN",
+        "type": "texture",
+        "src": "button/down.png"
     },
 
 
