@@ -4,6 +4,8 @@
 
 #include <sweet/UI.h>
 #include <MY_ResourceManager.h>
+#include <MeshFactory.h>
+#include <shader/ComponentShaderBase.h>
 
 MY_Button::MY_Button(BulletWorld * _world, Scene * _scene, Font * _font, Shader * _textShader, float _width, float _height) :
 	NodeUI(_world, _scene, kENTITIES, true),
@@ -13,7 +15,11 @@ MY_Button::MY_Button(BulletWorld * _world, Scene * _scene, Font * _font, Shader 
 	setHeight(_height);
 	setMargin(0, 5);
 
-	background->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("BUTTON_NORMAL")->texture);
+	texNormal = MY_ResourceManager::scenario->getTexture("BUTTON_NORMAL")->texture;
+	texOver = MY_ResourceManager::scenario->getTexture("BUTTON_OVER")->texture;
+	texDown = MY_ResourceManager::scenario->getTexture("BUTTON_DOWN")->texture;
+
+	background->mesh->pushTexture2D(texNormal);
 
 	VerticalLinearLayout * vl = new VerticalLinearLayout(world, scene);
 	vl->addChild(label);
@@ -25,14 +31,20 @@ MY_Button::MY_Button(BulletWorld * _world, Scene * _scene, Font * _font, Shader 
 }
 
 void MY_Button::update(Step * _step){
-	NodeUI::update(_step);
+	Texture * texNow = background->mesh->getTexture(0);
+	Texture * texNew;
 	if(isHovered){
 		if(isDown){
-			setBackgroundColour(0, -1, -1);
+			texNew = texDown;
 		}else{
-			setBackgroundColour(-1, 0, -1);
+			texNew = texOver;
 		}
 	}else{
-		setBackgroundColour(-1, -1, 0);
+		texNew = texNormal;
 	}
+	if(texNow != texNew){
+		background->mesh->removeTextureAt(0);
+		background->mesh->pushTexture2D(texNew);
+	}
+	NodeUI::update(_step);
 }

@@ -14,7 +14,13 @@
         "id": "HURLY-BURLY",
         "type": "font",
         "src": "Hurly-Burly.ttf",
-        "size": 24
+        "size": 32
+    },
+    {
+        "id": "HURLY-BURLY_BIG",
+        "type": "font",
+        "src": "Hurly-Burly.ttf",
+        "size": 64
     },
 
     
@@ -27,6 +33,16 @@
         "id": "MENU_OPTIONS",
         "type": "texture",
         "src": "menu_options.png"
+    },
+    {
+        "id": "SCROLL_TALL",
+        "type": "texture",
+        "src": "scroll_tall.png"
+    },
+    {
+        "id": "SCROLL_SMALL",
+        "type": "texture",
+        "src": "scroll_small.png"
     },
 
     
@@ -46,27 +62,33 @@
         "src": "button/down.png"
     },
 
+    {
+        "id": "BGM",
+        "type": "audio",
+        "src": "Sound1.ogg"
+    },
+
 
     {
-    	"id": "BG1",
+    	"id": "MENU_BG1",
     	"type": "texture",
-    	"src": "bg1.png"
+    	"src": "menu/1.png"
     },{
-    	"id": "BG2",
+    	"id": "MENU_BG2",
     	"type": "texture",
-    	"src": "bg2.png"
+    	"src": "menu/2.png"
     },{
-    	"id": "BG3",
+    	"id": "MENU_BG3",
     	"type": "texture",
-    	"src": "bg3.png"
+    	"src": "menu/3.png"
     },{
-    	"id": "BG4",
+    	"id": "MENU_BG4",
     	"type": "texture",
-    	"src": "bg4.png"
+    	"src": "menu/4.png"
     },{
-    	"id": "BG5",
+    	"id": "MENU_BG5",
     	"type": "texture",
-    	"src": "bg5.png"
+    	"src": "menu/5.png"
     }
   ]
 }
