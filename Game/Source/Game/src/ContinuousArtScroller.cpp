@@ -48,6 +48,16 @@ ContinuousArtScroller::ContinuousArtScroller(std::string _fileDir, Shader * _sha
 }
 
 ContinuousArtScroller::~ContinuousArtScroller(){
+	// remove any active textures so they aren't delete twice
+	while(frontPlane->mesh->textures.size() > 0){
+		frontPlane->mesh->textures.at(0)->unload();
+		frontPlane->mesh->removeTextureAt(0);
+	}while(backPlane->mesh->textures.size() > 0){
+		backPlane->mesh->textures.at(0)->unload();
+		backPlane->mesh->removeTextureAt(0);
+	}
+
+	// delete textures
 	while (images.size() > 0){
 		delete images.back();
 		images.pop_back();
