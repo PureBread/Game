@@ -253,15 +253,15 @@ void MY_Scene::update(Step * _step){
 }
 
 void MY_Scene::render(sweet::MatrixStack * _matrixStack, RenderOptions * _renderOptions){
-	clearColor[0] = 1;
-	clear();
 	screenFBO->resize(game->viewPortWidth, game->viewPortHeight);
 	//Bind frameBuffer
 	screenFBO->bindFrameBuffer();
 	//render the scene to the buffer
 	
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	_renderOptions->clearColour[0] = 1;
 	_renderOptions->depthEnabled = false;
+	_renderOptions->clear();
 	Scene::render(_matrixStack, _renderOptions);
 
 	//Render the buffer to the render surface
