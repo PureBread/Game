@@ -7,9 +7,9 @@
 #include <MeshFactory.h>
 #include <shader/ComponentShaderBase.h>
 
-MY_Button::MY_Button(BulletWorld * _world, Scene * _scene, Font * _font, Shader * _textShader, float _width, float _height) :
-	NodeUI(_world, _scene, kENTITIES, true),
-	label(new TextLabel(_world, _scene, _font, _textShader))
+MY_Button::MY_Button(BulletWorld * _world, Font * _font, Shader * _textShader, float _width, float _height) :
+	NodeUI(_world, kENTITIES, true),
+	label(new TextLabel(_world, _font, _textShader))
 {
 	setWidth(_width);
 	setHeight(_height);
@@ -21,7 +21,7 @@ MY_Button::MY_Button(BulletWorld * _world, Scene * _scene, Font * _font, Shader 
 
 	background->mesh->pushTexture2D(texNormal);
 
-	VerticalLinearLayout * vl = new VerticalLinearLayout(world, scene);
+	VerticalLinearLayout * vl = new VerticalLinearLayout(world);
 	vl->addChild(label);
 	vl->horizontalAlignment = kCENTER;
 	vl->verticalAlignment = kMIDDLE;

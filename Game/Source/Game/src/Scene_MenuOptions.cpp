@@ -55,16 +55,16 @@ Scene_MenuOptions::Scene_MenuOptions(Game * _game) :
 	Scene_Menu(_game)
 {
 	// buttons
-	VerticalLinearLayout * vl = new VerticalLinearLayout(uiLayer.world, this);
+	VerticalLinearLayout * vl = new VerticalLinearLayout(uiLayer.world);
 	vl->setBackgroundColour(1.f, 1.f, 1.f, 1.f);
 	vl->background->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("SCROLL_SMALL")->texture);
 
-	TextLabel * optionsText = new TextLabel(uiLayer.world, this, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, textShader);
+	TextLabel * optionsText = new TextLabel(uiLayer.world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, textShader);
 	
-	MY_Button * fullscreenToggle = new MY_Button(uiLayer.world, this, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, textShader, 202, 45);
-	volumeText = new TextLabel(uiLayer.world, this, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, textShader);
-	volume = new Slider(uiLayer.world, this, NodeOpenAL::getListenerGain(), 0, 2.f);
-	MY_Button * back = new MY_Button(uiLayer.world, this, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, textShader, 202, 45);
+	MY_Button * fullscreenToggle = new MY_Button(uiLayer.world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, textShader, 202, 45);
+	volumeText = new TextLabel(uiLayer.world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, textShader);
+	volume = new Slider(uiLayer.world, NodeOpenAL::getListenerGain(), 0, 2.f);
+	MY_Button * back = new MY_Button(uiLayer.world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, textShader, 202, 45);
 	
 	optionsText->setText(L"OPTIONS");
 	if(sweet::fullscreen){

@@ -13,7 +13,7 @@ public:
 	Texture * texOver;
 	Texture * texDown;
 
-	MY_Button(BulletWorld * _world, Scene * _scene, Font * _font, Shader * _textShader, float _width, float _height);
+	MY_Button(BulletWorld * _world, Font * _font, Shader * _textShader, float _width, float _height);
 	
 	void update(Step * _step) override;
 };

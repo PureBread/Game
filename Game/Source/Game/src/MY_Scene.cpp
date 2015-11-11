@@ -65,7 +65,7 @@ MY_Scene::MY_Scene(Game * _game) :
 	replaceShaderComponent(new ShaderComponentReplace(baseShader)),
 	textShader(new ComponentShaderText(true)),
 	debugDrawer(nullptr),
-	uiLayer(this, 0,0,0,0),
+	uiLayer(0,0,0,0),
 	box2dWorld(new Box2DWorld(b2Vec2(0.f, -10.0f))),
 	box2dDebug(new Box2DDebugDrawer(box2dWorld)),
 	progress(0),

@@ -55,14 +55,14 @@ Scene_MenuMain::Scene_MenuMain(Game * _game) :
 	Scene_Menu(_game)
 {
 	// buttons
-	VerticalLinearLayout * vl = new VerticalLinearLayout(uiLayer.world, this);
+	VerticalLinearLayout * vl = new VerticalLinearLayout(uiLayer.world);
 	vl->setBackgroundColour(1.f, 1.f, 1.f, 1.f);
 	vl->background->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("SCROLL_SMALL")->texture);
 
-	MY_Button * b1 = new MY_Button(uiLayer.world, this, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, textShader, 202, 45);
-	MY_Button * b2 = new MY_Button(uiLayer.world, this, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, textShader, 202, 45);
-	MY_Button * b3 = new MY_Button(uiLayer.world, this, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, textShader, 202, 45);
-	MY_Button * b4 = new MY_Button(uiLayer.world, this, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, textShader, 202, 45);
+	MY_Button * b1 = new MY_Button(uiLayer.world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, textShader, 202, 45);
+	MY_Button * b2 = new MY_Button(uiLayer.world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, textShader, 202, 45);
+	MY_Button * b3 = new MY_Button(uiLayer.world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, textShader, 202, 45);
+	MY_Button * b4 = new MY_Button(uiLayer.world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, textShader, 202, 45);
 	b1->label->setText(L"new game");
 	b2->label->setText(L"continue game");
 	b3->label->setText(L"options");

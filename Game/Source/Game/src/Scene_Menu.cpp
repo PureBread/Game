@@ -58,7 +58,7 @@ Scene_Menu::Scene_Menu(Game * _game) :
 	screenFBO(new StandardFrameBuffer(true)),
 	baseShader(new ComponentShaderBase(true)),
 	textShader(new ComponentShaderText(true)),
-	uiLayer(this, 0,0,0,0)
+	uiLayer(0,0,0,0)
 {
 	baseShader->addComponent(new ShaderComponentMVP(baseShader));
 	baseShader->addComponent(new ShaderComponentTexture(baseShader));
@@ -87,7 +87,7 @@ Scene_Menu::Scene_Menu(Game * _game) :
 	bg4->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("MENU_BG4")->texture);
 	bg5->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("MENU_BG5")->texture);
 	
-	NodeUI * bgNode = new NodeUI(uiLayer.world, this);
+	NodeUI * bgNode = new NodeUI(uiLayer.world);
 	uiLayer.addChild(bgNode);
 	bgNode->childTransform->addChild(bg5);
 	bgNode->childTransform->addChild(bg4);
@@ -97,7 +97,7 @@ Scene_Menu::Scene_Menu(Game * _game) :
 
 
 	// title text
-	TextLabel * title = new TextLabel(uiLayer.world, this, MY_ResourceManager::scenario->getFont("HURLY-BURLY_BIG")->font, textShader);
+	TextLabel * title = new TextLabel(uiLayer.world, MY_ResourceManager::scenario->getFont("HURLY-BURLY_BIG")->font, textShader);
 	title->setText(L"LLAMMIGRATION");
 	title->setRationalWidth(1.f);
 	title->setMarginBottom(0.9f);
