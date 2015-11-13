@@ -149,11 +149,13 @@ MY_Scene::MY_Scene(Game * _game) :
 
 	LevelPath * lp = new LevelPath("BG1/2.png");
 
-	MeshEntity * mesh = new MeshEntity(new MeshInterface(GL_POLYGON, GL_STATIC_DRAW), baseShader);
+	MeshEntity * mesh = new MeshEntity(new MeshInterface(GL_LINE_STRIP, GL_STATIC_DRAW), baseShader);
 	for (int i = 0; i < lp->vertices.size(); ++i){
 		mesh->mesh->pushVert(Vertex(glm::vec3(lp->vertices.at(i).x, lp->vertices.at(i).y, 0)));
 	}
-	
+	//mesh->meshTransform->rotate(180, 0, 0, 1, kWORLD);
+	mesh->meshTransform->scale(0.1, true);
+	mesh->meshTransform->translate(glm::vec3(0, 50, 0));
 	childTransform->addChild(mesh);
 
 	layerSky = new MeshEntity(MeshFactory::getPlaneMesh(), baseShader);
