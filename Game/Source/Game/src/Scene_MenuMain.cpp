@@ -95,7 +95,7 @@ Scene_MenuMain::Scene_MenuMain(Game * _game) :
 	vl->horizontalAlignment = kCENTER;
 	uiLayer.addChild(vl);
 
-	addMouse();
+	uiLayer.addMouseIndicator();
 }
 
 Scene_MenuMain::~Scene_MenuMain(){

@@ -119,8 +119,6 @@ Scene_Menu::~Scene_Menu(){
 void Scene_Menu::update(Step * _step){
 	glm::uvec2 sd = sweet::getScreenDimensions();
 	uiLayer.resize(0, sd.x, 0, sd.y);
-
-	mouseIndicator->firstParent()->translate(mouse->mouseX(), mouse->mouseY(), 0, false);
 	
 	bg5->firstParent()->scale(sd.x*1.02f, sd.y*1.02f, 1, false);
 	bg4->firstParent()->scale(sd.x*1.04f, sd.y*1.04f, 1, false);
@@ -183,22 +181,4 @@ void Scene_Menu::unload(){
 	screenSurface->unload();
 
 	Scene::unload();	
-}
-
-void Scene_Menu::addMouse(){
-	// mouse cursor
-	mouseIndicator = new Sprite();
-	uiLayer.childTransform->addChild(mouseIndicator);
-	mouseIndicator->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("CURSOR")->texture);
-	mouseIndicator->parents.at(0)->scale(32, 32, 1);
-	mouseIndicator->mesh->scaleModeMag = GL_NEAREST;
-	mouseIndicator->mesh->scaleModeMin = GL_NEAREST;
-
-	for(unsigned long int i = 0; i < mouseIndicator->mesh->vertices.size(); ++i){
-		mouseIndicator->mesh->vertices[i].x += 0.5f;
-		mouseIndicator->mesh->vertices[i].y -= 0.5f;
-	}
-
-	mouseIndicator->mesh->dirty = true;
-	mouseIndicator->setShader(uiLayer.shader, true);
 }

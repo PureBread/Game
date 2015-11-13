@@ -56,6 +56,4 @@ public:
 
 	Scene_Menu(Game * _game);
 	~Scene_Menu();
-
-	void addMouse();
 };
