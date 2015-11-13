@@ -50,7 +50,7 @@
 
 #include <PlayerResources.h>
 
-
+#include <LevelPath.h>
 
 
 
@@ -147,6 +147,14 @@ MY_Scene::MY_Scene(Game * _game) :
 	lights.push_back(l);
 	childTransform->addChild(l)->translate(0, 15, 0);
 
+	LevelPath * lp = new LevelPath("BG1/2.png");
+
+	MeshEntity * mesh = new MeshEntity(new MeshInterface(GL_POLYGON, GL_STATIC_DRAW), baseShader);
+	for (int i = 0; i < lp->vertices.size(); ++i){
+		mesh->mesh->pushVert(Vertex(glm::vec3(lp->vertices.at(i).x, lp->vertices.at(i).y, 0)));
+	}
+	
+	childTransform->addChild(mesh);
 
 	layerSky = new MeshEntity(MeshFactory::getPlaneMesh(), baseShader);
 	layerBgDetail = new ContinuousArtScroller("BG5", baseShader);
@@ -264,14 +272,15 @@ void MY_Scene::render(sweet::MatrixStack * _matrixStack, RenderOptions * _render
 	//Bind frameBuffer
 	screenFBO->bindFrameBuffer();
 	//render the scene to the buffer
-	
-	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	_renderOptions->clearColour[0] = 1;
 	_renderOptions->depthEnabled = false;
 	_renderOptions->clear();
+	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	Scene::render(_matrixStack, _renderOptions);
 
 	//Render the buffer to the render surface
+
+	//glPolygonMode(GL_FRONT_AND_BACK, GL_POLYGON);
 	screenSurface->render(screenFBO->getTextureId());
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	uiLayer.render(_matrixStack, _renderOptions);
