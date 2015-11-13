@@ -10,4 +10,5 @@ public:
 
 	LevelPath(std::string _texDir);
 	~LevelPath();
+
 };

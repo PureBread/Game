@@ -4,6 +4,7 @@
 #include <Texture.h>
 #include <sstream>
 #include <TextureUtils.h>
+#include <NumberUtils.h>
 
 LevelPath::LevelPath(std::string _texDir)
 {
@@ -60,41 +61,41 @@ LevelPath::LevelPath(std::string _texDir)
 		}
 	}
 
-	// Simplify path
-	// 0 = constant, 1 = increasing, -1 = decreasing
-	int smooth = 3;
+	std::vector<glm::vec2> diagonals;
+	// Blah
+	for (int i = 0; i < vertices.size(); ++i){
+		if (i % 2 == 0){
+			diagonals.push_back(vertices.at(i));
+		}
+	}
+	vertices = diagonals;
 
-	if (vertices.size() > 2){
+	// Simplify path
+	float threshold = 0.1;
+	int spacing = 10;
+
+	if (vertices.size() > spacing * 2){
 		std::vector<glm::vec2> simplified;
 		simplified.push_back(vertices.front());
 
-		int slope = vertices.at(1).y - vertices.at(0).y > 0 ? 1 : vertices.at(1).y - vertices.at(0).y < 0 ? 1 : 0;
-
-		for (int i = 1; i < vertices.size(); ++i){
+		for (int i = spacing; i < vertices.size()-1; i+= spacing){
 			glm::vec2 v = vertices.at(i);
-			glm::vec2 prev = vertices.at(i - 1);
+			glm::vec2 next = vertices.at(i+spacing < vertices.size() ? i+spacing : vertices.size()-1);
+			glm::vec2 prev = vertices.at(i-spacing);
 
-			int deltaY = v.y - prev.y;
-			int prevSlope = slope;
+			float slopeNext = (next.y - v.y)/(next.x - v.x);
+			float slopePrev = (v.y - prev.y)/(v.x - prev.x);
 
-			if (deltaY == 0 && slope != 0){
-				slope = 0;
-			}else if (deltaY > 0 && slope != 1){
-				slope = 1;
-			}else if (deltaY < 0 && slope != -1){
-				slope = -1;
-			}
-			
-			// If slope direction changes at this point, keep the vertex, else remove it
-			if (prevSlope != slope){
-				simplified.push_back(prev);
+			float b = abs(slopeNext - slopePrev);
+			if (abs(slopeNext - slopePrev) >= threshold){
+				simplified.push_back(v);
 			}
 		}
-
+			
 		simplified.push_back(vertices.back());
 		vertices = simplified;
 	}
-
+	
 	int blah = 0;
 }
 
