@@ -35,11 +35,6 @@
         "src": "menu_options.png"
     },
     {
-        "id": "SCROLL_TALL",
-        "type": "texture",
-        "src": "scroll_tall.png"
-    },
-    {
         "id": "SCROLL_SMALL",
         "type": "texture",
         "src": "scroll_small.png"
