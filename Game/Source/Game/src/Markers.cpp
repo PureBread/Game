@@ -10,8 +10,8 @@ Marker::Marker(Json::Value _json){
 
 	for(auto layer = 0; layer < coloursJson.size(); ++layer){
 		for(unsigned long int channel = 0; channel < 3; ++channel){
-			coloursReplaceWhite[layer] = glm::vec3(coloursJson[layer][0][0].asFloat(), coloursJson[layer][0][1].asFloat(), coloursJson[layer][0][2].asFloat());
-			coloursReplaceBlack[layer] = glm::vec3(coloursJson[layer][1][0].asFloat(), coloursJson[layer][1][1].asFloat(), coloursJson[layer][1][2].asFloat());
+			coloursReplaceBlack[layer] = glm::vec3(coloursJson[layer][0][0].asFloat(), coloursJson[layer][0][1].asFloat(), coloursJson[layer][0][2].asFloat());
+			coloursReplaceWhite[layer] = glm::vec3(coloursJson[layer][1][0].asFloat(), coloursJson[layer][1][1].asFloat(), coloursJson[layer][1][2].asFloat());
 		}
 	}
 }
