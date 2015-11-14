@@ -76,6 +76,14 @@ MY_Scene::MY_Scene(Game * _game) :
 	baseShader->addComponent(new ShaderComponentTexture(baseShader));
 	baseShader->addComponent(replaceShaderComponent);
 	baseShader->compileShader();
+	
+	maskShader = new ComponentShaderBase(true);
+	maskShader->addComponent(new ShaderComponentMVP(maskShader));
+	maskShader->addComponent(new ShaderComponentTexture(maskShader));
+	maskComponent = new ShaderComponentMask(maskShader);
+	maskShader->addComponent(maskComponent);
+	maskShader->compileShader();
+
 
 	textShader->textComponent->setColor(glm::vec3(0.0f, 0.0f, 0.0f));
 
@@ -169,6 +177,101 @@ MY_Scene::MY_Scene(Game * _game) :
 	layerSky->mesh->pushTexture2D(texture);
 	layerSky->mesh->scaleModeMag = layerSky->mesh->scaleModeMin = GL_NEAREST;
 
+	stats.loadDefaults();
+
+	
+	NodeUI * ui = new NodeUI(uiLayer.world);
+	ui->background->setVisible(false);
+
+	SliderControlled * food = new SliderControlled(uiLayer.world, &stats.resources["food"], 0, 100, false);
+	SliderControlled * wool = new SliderControlled(uiLayer.world, &stats.resources["wool"], 0, 100, false);
+	SliderControlled * health = new SliderControlled(uiLayer.world, &stats.resources["health"], 0, 100);
+
+	//food->background->setShader(maskShader);
+	food->fill->background->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("SADDLEBAG2-MASK")->texture);
+	wool->fill->background->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("SADDLEBAG-MASK")->texture);
+
+	//MeshInterface * p = MeshFactory::getPlaneMesh();
+	//for(unsigned long int i = 0; i < p->getVertCount(); ++i){
+	//	p->vertices.at(i).x += 0.5f;
+	//	p->vertices.at(i).y += 0.5f;
+	//}
+	//p->dirty = true;
+	//food->fill->background->meshTransform->addChild(new MeshEntity(p, maskShader), false);
+	//maskComponent->setMaskTex(MY_ResourceManager::scenario->getTexture("SADDLEBAG2-MASK")->texture);
+
+	TextLabel * herdSize = new TextLabel(uiLayer.world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, textShader);
+	herdSize->setText(L"99");
+	herdSize->horizontalAlignment = kCENTER;
+
+	SliderController * speed = new SliderController(uiLayer.world, &stats.resources["speed"], 1, 0, 2, false);
+	SliderController * rations = new SliderController(uiLayer.world, &stats.resources["rations"], 1, 0, 2, false);
+	
+	speed->setStepped(1);
+	rations->setStepped(1);
+	
+	wool->setBackgroundColour(1,1,1);
+	wool->fill->setBackgroundColour(1,1,1);
+	food->setBackgroundColour(1,1,1);
+	food->fill->setBackgroundColour(215.f/255.f, 198.f/255.f, 151.f/255.f);
+	health->setBackgroundColour(1,1,1);
+	health->fill->setBackgroundColour(129.f/255.f, 208.f/255.f, 217.f/255.f);
+
+	speed->setBackgroundColour(178.f/255.f, 178.f/255.f, 178.f/255.f);
+	rations->setBackgroundColour(178.f/255.f, 178.f/255.f, 178.f/255.f);
+
+	
+	wool->background->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("SADDLEBAG")->texture);
+	food->background->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("SADDLEBAG2")->texture);
+	
+
+	food->setRationalWidth(0.33f);
+	wool->setRationalWidth(0.33f);
+	
+	food->setMarginTop(0.1f);
+	wool->setMarginTop(0.1f);
+	
+	speed->setRationalWidth(0.1f);
+	rations->setRationalWidth(0.1f);
+	
+	speed->setMarginBottom(0.1f);
+	rations->setMarginBottom(0.1f);
+	
+	speed->setMarginTop(0.2f);
+	rations->setMarginTop(0.2f);
+	
+	health->setMargin(0.25f, 0);
+	health->setRationalHeight(0.1f);
+	health->setRationalWidth(1.f);
+
+	herdSize->setMargin(0.4f, 0.4f);
+	herdSize->setRationalHeight(1.f);
+	herdSize->setRationalWidth(1.f);
+	
+
+	HorizontalLinearLayout * hlayout = new HorizontalLinearLayout(uiLayer.world);
+	
+	hlayout->addChild(wool);
+	hlayout->addChild(speed);
+	hlayout->addChild(rations);
+	hlayout->addChild(food);
+
+	ui->addChild(hlayout);
+	ui->addChild(herdSize);
+	ui->addChild(health);
+
+
+	
+	hlayout->setRationalWidth(1.f);
+	hlayout->setRationalHeight(1.f);
+	hlayout->horizontalAlignment = kCENTER;
+	
+	ui->setMargin(0.33f, 0);
+	ui->setRationalWidth(1.f);
+	ui->setRationalHeight(0.25f);
+	ui->setMarginBottom(0.01f);
+	uiLayer.addChild(ui);
+
 
 	uiLayer.addMouseIndicator();
 }
@@ -248,6 +351,7 @@ void MY_Scene::update(Step * _step){
 	Scene::update(_step);
 	glm::uvec2 sd = sweet::getScreenDimensions();
 	uiLayer.resize(0, sd.x, 0, sd.y);
+	uiLayer.layoutDirty = true;
 	uiLayer.update(_step);
 }
 

@@ -7,6 +7,9 @@
 
 #include <ContinuousArtScroller.h>
 #include <ShaderComponentReplace.h>
+#include <shader/ShaderComponentMask.h>
+#include <Slider.h>
+
 #include <PlayerStatistics.h>
 
 class PerspectiveCamera;
@@ -40,6 +43,9 @@ public:
 	ShaderComponentReplace * replaceShaderComponent;
 	ComponentShaderText * textShader;
 
+	ComponentShaderBase * maskShader;
+	ShaderComponentMask * maskComponent;
+
 	BulletWorld * bulletWorld;
 	BulletDebugDrawer * debugDrawer;
 	
@@ -50,7 +56,7 @@ public:
 	Box2DWorld * box2dWorld;
 	Box2DDebugDrawer * box2dDebug;
 
-
+	PlayerStatistics stats;
 
 	float speed;
 	float progress;

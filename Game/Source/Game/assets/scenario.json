@@ -1,11 +1,6 @@
 {
   "assets": [
     {
-      "id": "CURSOR",
-      "type": "texture",
-      "src": "../engine basics/cursor.png"
-    },
-    {
         "id": "LOGO",
         "type": "texture",
         "src": "PureBread-logo.png"
@@ -21,6 +16,26 @@
         "type": "font",
         "src": "Hurly-Burly.ttf",
         "size": 64
+    },
+    {
+        "id": "SADDLEBAG",
+        "type": "texture",
+        "src": "UI/saddlebag.png"
+    },
+    {
+        "id": "SADDLEBAG2",
+        "type": "texture",
+        "src": "UI/saddlebag2.png"
+    },
+    {
+        "id": "SADDLEBAG-MASK",
+        "type": "texture",
+        "src": "UI/saddlebag-mask.png"
+    },
+    {
+        "id": "SADDLEBAG2-MASK",
+        "type": "texture",
+        "src": "UI/saddlebag2-mask.png"
     },
 
     
