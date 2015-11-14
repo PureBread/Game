@@ -6,10 +6,11 @@
 #include <MeshInterface.h>
 #include <Easing.h>
 
-Llama::Llama(Shader * _shader):
+Llama::Llama(Shader * _shader) :
 	llama(new Sprite(_shader)),
 	isHopping(false),
-	hopDuration(1000.f),
+	hopSpeed(1.f),
+	hopDuration(1.f),
 	hopLength(5.f),
 	hopHeight(2.f),
 	currHopTime(0.f)
@@ -29,30 +30,28 @@ void Llama::update(Step * _step){
 	if (isHopping){
 		currHopTime += _step->deltaTime;
 		
-		float x = Easing::linear(currHopTime, hopStartPos.x, hopEndPos.x - hopStartPos.x, hopDuration);
-		float y = Easing::linear(currHopTime, hopStartPos.y, hopEndPos.y - hopStartPos.y, hopDuration);
-		float ly = currHopTime / hopDuration <= 0.5 ? Easing::easeOutSine(currHopTime, 0, hopHeight, hopDuration) : Easing::easeOutBounce(currHopTime, hopHeight, 0, hopDuration);
+		float ly = currHopTime / hopDuration <= 0.5 ? Easing::easeOutSine(currHopTime, 0, hopHeight, hopDuration) : Easing::easeOutBounce(currHopTime, hopHeight, -hopHeight, hopDuration);
 
-		if (x <= 1.f){
-			// part of stride/hop
-			childTransform->translate(x, 0, 0);
-			llama->childTransform->translate(0, ly, 0);
-		}else {
+		// part of stride/hop
+		childTransform->translate(deltaY * _step->deltaTime * hopSpeed, deltaY * _step->deltaTime * hopSpeed, 0);
+		llama->childTransform->translate(0, ly, 0);
+
+		if (currHopTime >= hopDuration){
 			isHopping = false;
 		}
 	}
 }
 
+void Llama::addTarget(glm::vec2 _target){
+	targets.push_back(_target);
+}
+
 void Llama::setPath(glm::vec2 _startPos, glm::vec2 _targetPos){
-	
+	pathP1 = _startPos;
 	pathP2 = _targetPos;
 
-	if (isHopping){
-		hopEndPos = getPointOnPath(hopLength);
-	}
-
-	pathP1 = _startPos;
-	
+	deltaX = pathP2.x - pathP1.x;
+	deltaY = pathP2.y - pathP1.y;
 }
 
 void Llama::hop(){

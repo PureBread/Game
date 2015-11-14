@@ -13,8 +13,13 @@ private:
 	glm::vec2 hopStartPos;
 	glm::vec2 hopEndPos;
 
+	std::vector<glm::vec2> targets;
+
+	float deltaX;
+	float deltaY;
 
 	bool isHopping;
+	float hopSpeed;
 	float hopDuration;
 	float hopLength;
 	float hopHeight;
@@ -29,6 +34,7 @@ public:
 	void hop();
 
 	void setPath(glm::vec2 _startPos, glm::vec2 _targetPos);
+	void addTarget(glm::vec2 _target);
 	glm::vec2 getPointOnPath(float _distance);
 
 	virtual void update(Step * _step) override;

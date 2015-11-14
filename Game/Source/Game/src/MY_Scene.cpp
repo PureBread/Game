@@ -141,20 +141,26 @@ MY_Scene::MY_Scene(Game * _game) :
 	childTransform->addChild(l)->translate(0, 15, 0);
 
 	LevelPath * lp = new LevelPath("walkLayer.png");
-	Llama * llama = new Llama(baseShader);
-	
-	llama->childTransform->scale(10);
-	llama->childTransform->translate(glm::vec3(lp->vertices.at(0).x, lp->vertices.at(0).y, 0));
-	childTransform->addChild(llama);
 
 	MeshEntity * mesh = new MeshEntity(new MeshInterface(GL_LINE_STRIP, GL_STATIC_DRAW), baseShader);
 	for (int i = 0; i < lp->vertices.size(); ++i){
 		mesh->mesh->pushVert(Vertex(glm::vec3(lp->vertices.at(i).x, lp->vertices.at(i).y, 0)));
 	}
-	
+
 	mesh->meshTransform->scale(200, true);
 	mesh->meshTransform->translate(glm::vec3(0, 50, 0));
 	childTransform->addChild(mesh);
+
+	lp->scaleVertices(200);
+	lp->childTransform->translate(0, 50.f, 0);
+	childTransform->addChild(lp);
+	Llama * llama = new Llama(baseShader);
+	
+	llama->childTransform->scale(2);
+	llama->childTransform->translate(glm::vec3(lp->vertices.at(0).x, lp->vertices.at(0).y, 0));
+	lp->addLlama(llama);
+
+	
 
 	layerSky = new ArtLayer(replaceShaderComponent);
 	layerBgDetail = new ContinuousArtScroller("BG5", replaceShader);

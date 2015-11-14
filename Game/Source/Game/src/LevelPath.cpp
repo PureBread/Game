@@ -6,8 +6,11 @@
 #include <TextureUtils.h>
 #include <NumberUtils.h>
 #include <algorithm>
+#include<Easing.h>
 
-LevelPath::LevelPath(std::string _texDir)
+LevelPath::LevelPath(std::string _texDir):
+	idx(0),
+	speed(5.f)
 {
 	Texture * texture = new Texture("assets/textures/" + _texDir, true, false);
 	texture->loadImageData();
@@ -81,11 +84,46 @@ LevelPath::LevelPath(std::string _texDir)
 		vertices.at(i).x = vertices.at(i).x / scale;
 		vertices.at(i).y = vertices.at(i).y / scale;
 	}
+
+	if (vertices.size() > 0){
+		pos = vertices.at(0);
+	}
 	
 	int blah = 0;
 }
 
 LevelPath::~LevelPath(){
+}
+
+void LevelPath::update(Step * _step){
+	Entity::update(_step);
+
+	if (vertices.size() > 0 && idx < vertices.size() && pos.x >= vertices.at(idx).x && llamas.at(0)->childTransform->getTranslationVector().x >= vertices.at(idx).x){
+		++idx;
+		if (idx < vertices.size()){
+			pos = vertices.at(idx-1);
+			slope = glm::normalize(vertices.at(idx) - vertices.at(idx-1));
+			for (int i = 0; i < llamas.size(); ++i){
+				llamas.at(i)->setPath(vertices.at(idx - 1), vertices.at(idx));
+			}
+		}
+	}
+
+	if (idx < vertices.size()){
+		pos += glm::vec2(slope.x * _step->deltaTime * speed, slope.y * _step->deltaTime * speed);
+		std::cout << "idx: " << idx << " posX: " << pos.x << " posY: " << pos.y << std::endl;
+	}
+
+	for (int i = 0; i < llamas.size(); ++i){
+		llamas.at(i)->hop();
+		//llamas.at(i)->childTransform->translate(pos.x, pos.y, 0, false);
+	}
+}
+
+void LevelPath::addLlama(Llama * _llama){
+	llamas.push_back(_llama);
+	_llama->childTransform->translate(glm::vec3(pos.x, pos.y, 0), false);
+	childTransform->addChild(_llama);
 }
 
 std::vector<glm::vec2> LevelPath::simplifyVertices(std::vector<glm::vec2> _vertices, float _threshold, float _spacing){
@@ -113,5 +151,12 @@ std::vector<glm::vec2> LevelPath::simplifyVertices(std::vector<glm::vec2> _verti
 		return simplified;
 	} else{
 		return _vertices;
+	}
+}
+
+void LevelPath::scaleVertices(float _scale){
+	for (int i = 0; i < vertices.size(); ++i){
+		vertices.at(i).x = vertices.at(i).x * _scale;
+		vertices.at(i).y = vertices.at(i).y * _scale;
 	}
 }
