@@ -10,7 +10,7 @@
 #include <shader/ShaderComponentMask.h>
 #include <Slider.h>
 
-#include <PlayerStatistics.h>
+#include <PlayerManager.h>
 #include <Markers.h>
 #include <ArtLayer.h>
 
@@ -59,7 +59,7 @@ public:
 	Box2DWorld * box2dWorld;
 	Box2DDebugDrawer * box2dDebug;
 
-	PlayerStatistics stats;
+	PlayerManager manager;
 
 	float speed;
 	float progress;

@@ -48,7 +48,7 @@
 
 #include <RenderOptions.h>
 
-#include <PlayerStatistics.h>
+#include <PlayerManager.h>
 
 #include <LevelPath.h>
 
@@ -185,14 +185,14 @@ MY_Scene::MY_Scene(Game * _game) :
 	layerSkyMesh->mesh->pushTexture2D(texture);
 	layerSkyMesh->mesh->scaleModeMag = layerSkyMesh->mesh->scaleModeMin = GL_NEAREST;
 
-	stats.loadDefaults();
+	manager.loadDefaults();
 
 	
 	NodeUI * ui = new NodeUI(uiLayer.world);
 
-	SliderControlled * food = new SliderControlled(uiLayer.world, &stats.resources["food"], 0, 100, false);
-	SliderControlled * wool = new SliderControlled(uiLayer.world, &stats.resources["wool"], 0, 100, false);
-	SliderControlled * health = new SliderControlled(uiLayer.world, &stats.resources["health"], 0, 100);
+	SliderControlled * food = new SliderControlled(uiLayer.world, &manager.statistics["food"], 0, 100, false);
+	SliderControlled * wool = new SliderControlled(uiLayer.world, &manager.statistics["wool"], 0, 100, false);
+	SliderControlled * health = new SliderControlled(uiLayer.world, &manager.statistics["health"], 0, 100);
 
 	//food->background->setShader(maskShader);
 	food->fill->background->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("SADDLEBAG-R-MASK")->texture);
@@ -214,8 +214,8 @@ MY_Scene::MY_Scene(Game * _game) :
 	textShader->setColor(178.f/255.f, 178.f/255.f, 178.f/255.f);
 	herdSize->horizontalAlignment = kCENTER;
 
-	SliderController * speed = new SliderController(uiLayer.world, &stats.resources["speed"], 1, 0, 2, false);
-	SliderController * rations = new SliderController(uiLayer.world, &stats.resources["rations"], 1, 0, 2, false);
+	SliderController * speed = new SliderController(uiLayer.world, &manager.statistics["speed"], 1, 0, 2, false);
+	SliderController * rations = new SliderController(uiLayer.world, &manager.statistics["rations"], 1, 0, 2, false);
 	
 	speed->setStepped(1);
 	rations->setStepped(1);
@@ -300,7 +300,7 @@ MY_Scene::~MY_Scene(){
 
 
 void MY_Scene::update(Step * _step){
-
+	manager.update(_step);
 
 	// update sky layer
 	glm::vec3 v = activeCamera->getWorldPos();

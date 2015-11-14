@@ -20,7 +20,7 @@
     <ClCompile Include="src\MY_Game.cpp" />
     <ClCompile Include="src\MY_ResourceManager.cpp" />
     <ClCompile Include="src\MY_Scene.cpp" />
-    <ClCompile Include="src\PlayerStatistics.cpp" />
+    <ClCompile Include="src\PlayerManager.cpp" />
     <ClCompile Include="src\Scene_Menu.cpp" />
     <ClCompile Include="src\Scene_MenuMain.cpp" />
     <ClCompile Include="src\Scene_MenuOptions.cpp" />
@@ -36,7 +36,7 @@
     <ClInclude Include="include\MY_Game.h" />
     <ClInclude Include="include\MY_ResourceManager.h" />
     <ClInclude Include="include\MY_Scene.h" />
-    <ClInclude Include="include\PlayerStatistics.h" />
+    <ClInclude Include="include\PlayerManager.h" />
     <ClInclude Include="include\Scene_Menu.h" />
     <ClInclude Include="include\Scene_MenuMain.h" />
     <ClInclude Include="include\Scene_MenuOptions.h" />

@@ -1,12 +1,12 @@
 #pragma once
 
-#include <node\Node.h>
+#include <node\NodeUpdatable.h>
 #include <map>
 
 
-class PlayerStatistics : public Node{
+class PlayerManager : public NodeUpdatable{
 public:
-	std::map<std::string, float> resources;
+	std::map<std::string, float> statistics;
 
 
 	// saves resources to a json file at data/_path
@@ -16,6 +16,14 @@ public:
 	// loads the default resources
 	void loadDefaults();
 
-	PlayerStatistics();
-	~PlayerStatistics();
+	PlayerManager();
+	~PlayerManager();
+
+	virtual void update(Step * _step) override;
+
+
+	float momentDelay;
+	float momentTimer;
+
+	void moment();
 };
