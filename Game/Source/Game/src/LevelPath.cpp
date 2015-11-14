@@ -5,15 +5,17 @@
 #include <sstream>
 #include <TextureUtils.h>
 #include <NumberUtils.h>
+#include <algorithm>
 
 LevelPath::LevelPath(std::string _texDir)
 {
 	Texture * texture = new Texture("assets/textures/" + _texDir, true, false);
 	texture->loadImageData();
+
 	vertices = sweet::TextureUtils::getTracedContour(texture, 0);
 	
 	unsigned int minX = texture->width, maxX = 0, minY = texture->height;
-
+	
 	// find contour borders
 	for (unsigned int i = 0; i < vertices.size(); ++i){
 		glm::vec2 v = vertices.at(i);
@@ -70,40 +72,46 @@ LevelPath::LevelPath(std::string _texDir)
 	}
 	vertices = diagonals;
 
-	// Simplify path
-	float threshold = 0.1;
-	int spacing = 10;
-
-	if (vertices.size() > spacing * 2){
-		std::vector<glm::vec2> simplified;
-		simplified.push_back(vertices.front());
-
-		for (int i = spacing; i < vertices.size()-1; i+= spacing){
-			glm::vec2 v = vertices.at(i);
-			glm::vec2 next = vertices.at(i+spacing < vertices.size() ? i+spacing : vertices.size()-1);
-			glm::vec2 prev = vertices.at(i-spacing);
-
-			float slopeNext = (next.y - v.y)/(next.x - v.x);
-			float slopePrev = (v.y - prev.y)/(v.x - prev.x);
-
-			float b = abs(slopeNext - slopePrev);
-			if (abs(slopeNext - slopePrev) >= threshold){
-				simplified.push_back(v);
-			}
-		}
-			
-		simplified.push_back(vertices.back());
-		vertices = simplified;
-	}
-
+	vertices = simplifyVertices(vertices, 0.1, 15);
+	
 	// Normalize Path
+	int scale = std::max(texture->width, texture->height);
+
 	for (int i = 0; i < vertices.size(); ++i){
-		vertices.at(i).x = vertices.at(i).x / texture->width;
-		vertices.at(i).y = vertices.at(i).y / texture->height;
+		vertices.at(i).x = vertices.at(i).x / scale;
+		vertices.at(i).y = vertices.at(i).y / scale;
 	}
 	
 	int blah = 0;
 }
 
 LevelPath::~LevelPath(){
+}
+
+std::vector<glm::vec2> LevelPath::simplifyVertices(std::vector<glm::vec2> _vertices, float _threshold, float _spacing){
+	// Simplify path
+	if (_vertices.size() > _spacing * 2){
+		std::vector<glm::vec2> simplified;
+
+		simplified.push_back(_vertices.front());
+
+		for (int i = _spacing; i < _vertices.size() - 1; i += _spacing){
+			glm::vec2 v = _vertices.at(i);
+			glm::vec2 next = _vertices.at(i + _spacing < _vertices.size() ? i + _spacing : _vertices.size() - 1);
+			glm::vec2 prev = _vertices.at(i - _spacing);
+
+			float slopeNext = (next.y - v.y) / (next.x - v.x);
+			float slopePrev = (v.y - prev.y) / (v.x - prev.x);
+
+			float b = abs(slopeNext - slopePrev);
+			if (abs(slopeNext - slopePrev) >= _threshold){
+				simplified.push_back(v);
+			}
+		}
+
+		simplified.push_back(_vertices.back());
+		return simplified;
+	} else{
+		return _vertices;
+	}
 }

@@ -139,21 +139,19 @@ MY_Scene::MY_Scene(Game * _game) :
 	lights.push_back(l);
 	childTransform->addChild(l)->translate(0, 15, 0);
 
-	LevelPath * lp = new LevelPath("BG1/2.png");
+	LevelPath * lp = new LevelPath("walkLayer.png");
 	Llama * llama = new Llama(baseShader);
-	llama->setShader(baseShader);
 	
-	//llama->meshTransform->scale(20);
-	llama->meshTransform->scale(10);
-	llama->meshTransform->translate(glm::vec3(lp->vertices.at(0).x, lp->vertices.at(0).y, 0));
+	llama->childTransform->scale(10);
+	llama->childTransform->translate(glm::vec3(lp->vertices.at(0).x, lp->vertices.at(0).y, 0));
 	childTransform->addChild(llama);
 
-	MeshEntity * mesh = new MeshEntity(new MeshInterface(GL_POINTS, GL_STATIC_DRAW), baseShader);
+	MeshEntity * mesh = new MeshEntity(new MeshInterface(GL_LINE_STRIP, GL_STATIC_DRAW), baseShader);
 	for (int i = 0; i < lp->vertices.size(); ++i){
 		mesh->mesh->pushVert(Vertex(glm::vec3(lp->vertices.at(i).x, lp->vertices.at(i).y, 0)));
 	}
 	
-	mesh->meshTransform->scale(50, true);
+	mesh->meshTransform->scale(200, true);
 	mesh->meshTransform->translate(glm::vec3(0, 50, 0));
 	childTransform->addChild(mesh);
 
@@ -406,7 +404,7 @@ void MY_Scene::update(Step * _step){
 }
 
 void MY_Scene::render(sweet::MatrixStack * _matrixStack, RenderOptions * _renderOptions){
-	glPointSize(20);
+	glPointSize(5);
 	
 	screenFBO->resize(game->viewPortWidth, game->viewPortHeight);
 	//Bind frameBuffer

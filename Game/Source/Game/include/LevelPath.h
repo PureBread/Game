@@ -11,4 +11,6 @@ public:
 
 	LevelPath(std::string _texDir);
 	~LevelPath();
+
+	std::vector<glm::vec2> simplifyVertices(std::vector<glm::vec2> _vertices, float _threshold = 0.1, float _spacing = 10);
 };
