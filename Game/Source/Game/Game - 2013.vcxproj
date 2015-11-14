@@ -13,6 +13,7 @@
   <ItemGroup>
     <ClCompile Include="src\ContinuousArtScroller.cpp" />
     <ClCompile Include="src\LevelPath.cpp" />
+    <ClCompile Include="src\Llama.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\MY_Button.cpp" />
     <ClCompile Include="src\MY_Game.cpp" />
@@ -28,6 +29,7 @@
   <ItemGroup>
     <ClInclude Include="include\ContinuousArtScroller.h" />
     <ClInclude Include="include\LevelPath.h" />
+    <ClInclude Include="include\Llama.h" />
     <ClInclude Include="include\MY_Button.h" />
     <ClInclude Include="include\MY_Game.h" />
     <ClInclude Include="include\MY_ResourceManager.h" />
