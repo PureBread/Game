@@ -39,10 +39,17 @@ ContinuousArtScroller::ContinuousArtScroller(std::string _fileDir, ComponentShad
 	loadTexOntoPlane(1, plane1);
 	loadTexOntoPlane(2, plane2);
 
-	plane1->mesh->scaleModeMag = GL_NEAREST;
-	plane1->mesh->scaleModeMin = GL_NEAREST;
-	plane2->mesh->scaleModeMag = GL_NEAREST;
-	plane2->mesh->scaleModeMin = GL_NEAREST;
+	MeshInterface * m = MeshFactory::getPlaneMesh();
+	m->configureDefaultVertexAttributes(_shader);
+	m->pushTexture2D(MY_ResourceManager::scenario->defaultTexture->texture);
+	GL_NEAREST;
+
+	backPlane->meshTransform->addChild(m)->translate(0, -1, 0);
+	frontPlane->meshTransform->addChild(m)->translate(0, -1, 0);
+
+	m->referenceCount += 2;
+
+	plane1->mesh->scaleModeMag = plane1->mesh->scaleModeMin = plane2->mesh->scaleModeMag = plane2->mesh->scaleModeMin = m->scaleModeMag = m->scaleModeMin = GL_NEAREST;
 
 	childTransform->addChild(backPlane);
 	childTransform->addChild(frontPlane)->translate(1,0,0);
