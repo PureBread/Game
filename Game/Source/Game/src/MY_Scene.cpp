@@ -70,7 +70,8 @@ MY_Scene::MY_Scene(Game * _game) :
 	box2dWorld(new Box2DWorld(b2Vec2(0.f, -10.0f))),
 	box2dDebug(new Box2DDebugDrawer(box2dWorld)),
 	progress(0),
-	speed(0)
+	speed(0),
+	currentEvent(nullptr)
 {
 	baseShader->addComponent(new ShaderComponentMVP(baseShader));
 	baseShader->addComponent(new ShaderComponentTexture(baseShader));
@@ -307,7 +308,26 @@ MY_Scene::~MY_Scene(){
 
 
 void MY_Scene::update(Step * _step){
-	manager.update(_step);
+	if(currentEvent != nullptr){
+		// if there is an ongoing event, progress it
+		std::stringstream ss;
+		ss << "Event: ";
+		switch (currentEvent->type){
+			case kLOSS: ss << "LOSS"; break;
+			case kDESTINATION: ss << "DESTINATION"; break;
+			case kRANDOM: ss << "RANDOM"; break;
+		}
+		ss << currentEvent->scenario->id << std::endl;
+		Log::info(ss.str());
+
+		// once the event is finished, delete it and remove the reference in order to continue gameplay in the next update
+		delete currentEvent;
+		currentEvent = nullptr;
+	}else{
+		// if there isn't an ongoing event, update the statistics and check for a new event
+		manager.update(_step);
+		currentEvent = manager.consumeEvent();
+	}
 
 	// update sky layer
 	glm::vec3 v = activeCamera->getWorldPos();

@@ -1,0 +1,17 @@
+{
+	"randomEvents": [
+		"1",
+		"2",
+		"3"
+	],
+	"lossEvents": [
+		"1",
+		"2",
+		"3"
+	],
+	"destinationEvents": [
+		"1",
+		"2",
+		"3"
+	]
+}

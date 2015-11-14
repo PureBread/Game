@@ -60,6 +60,7 @@ public:
 	Box2DDebugDrawer * box2dDebug;
 
 	PlayerManager manager;
+	Event * currentEvent;
 
 	float speed;
 	float progress;
