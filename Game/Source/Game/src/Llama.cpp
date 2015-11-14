@@ -29,12 +29,19 @@ void Llama::update(Step * _step){
 
 	if (isHopping){
 		currHopTime += _step->deltaTime;
+
+		if (targets.size() > 0 && childTransform->getTranslationVector().x >= targets.at(0).x){
+			targets.erase(targets.begin());
+
+			if (targets.size() > 0){
+				setPath(glm::vec2(childTransform->getTranslationVector().x, childTransform->getTranslationVector().y), targets.at(0));
+			}
+		}
 		
 		float ly = currHopTime / hopDuration <= 0.5 ? Easing::easeOutSine(currHopTime, 0, hopHeight, hopDuration) : Easing::easeOutBounce(currHopTime, hopHeight, -hopHeight, hopDuration);
 
-		// part of stride/hop
-		childTransform->translate(deltaY * _step->deltaTime * hopSpeed, deltaY * _step->deltaTime * hopSpeed, 0);
-		llama->childTransform->translate(0, ly, 0);
+		childTransform->translate(deltaX * _step->deltaTime * hopSpeed, deltaY * _step->deltaTime * hopSpeed, 0);
+		llama->childTransform->translate(0, ly, 0, false);
 
 		if (currHopTime >= hopDuration){
 			isHopping = false;
@@ -44,6 +51,10 @@ void Llama::update(Step * _step){
 
 void Llama::addTarget(glm::vec2 _target){
 	targets.push_back(_target);
+
+	if (targets.size() == 1){
+		setPath(glm::vec2(childTransform->getTranslationVector().x, childTransform->getTranslationVector().y), targets.at(0));
+	}
 }
 
 void Llama::setPath(glm::vec2 _startPos, glm::vec2 _targetPos){
@@ -55,10 +66,10 @@ void Llama::setPath(glm::vec2 _startPos, glm::vec2 _targetPos){
 }
 
 void Llama::hop(){
-	if (!isHopping){
+	if (!isHopping && targets.size() > 0){
 		isHopping = true;
-		hopStartPos = glm::vec2(childTransform->getTranslationVector().x, childTransform->getTranslationVector().y);
-		hopEndPos = getPointOnPath(hopLength);
+		//hopStartPos = glm::vec2(childTransform->getTranslationVector().x, childTransform->getTranslationVector().y);
+		//hopEndPos = getPointOnPath(hopLength);
 		currHopTime = 0.f;
 	}
 }
