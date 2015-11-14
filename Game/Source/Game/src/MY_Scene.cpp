@@ -127,18 +127,13 @@ MY_Scene::MY_Scene(Game * _game) :
 
 
 	/** GAME STUFF **/
-	//VCam * cam = new VCam(1920, 1080/*, 0, 0*/);
 	PerspectiveCamera * cam = new PerspectiveCamera();
-	
-	//OrthographicCamera * cam = new OrthographicCamera(-1920/2, 1920/2, -1080/2, 1080/2, -1000, 1000);
 	cameras.push_back(cam);
 	childTransform->addChild(cam);
-	//cam->childTransform->rotate(90, 0, 1, 0, kWORLD);
-	//cam->childTransform->rotate(90, 0, 1, 0, kOBJECT);
-	cam->yaw = 91;
-	cam->pitch = 12.5f;
-	cam->parents.at(0)->translate(0, -25.f, 50.f);
-	cam->fieldOfView = 25;
+	cam->yaw = 90;
+	cam->pitch = 0.520833313;
+	cam->parents.at(0)->translate(0, -13.8184452f, 57.8584137f);
+	cam->fieldOfView = 64.3750000;
 
 	PointLight * l = new PointLight(glm::vec3(1, 1, 1), 1.f, 0.1f, 0.1f);
 	lights.push_back(l);
@@ -177,7 +172,7 @@ MY_Scene::MY_Scene(Game * _game) :
 
 	childTransform->addChild(layerSky);
 	for(signed long int i = 0; i < bgLayers.size(); ++i){
-		childTransform->addChild(bgLayers.at(i))->translate(0, 0, i * 5);
+		childTransform->addChild(bgLayers.at(i))->translate(0, 0, i * 10);
 		bgLayers.at(i)->firstParent()->scale(50);
 	}
 
