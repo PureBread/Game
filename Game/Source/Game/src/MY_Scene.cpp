@@ -141,7 +141,7 @@ MY_Scene::MY_Scene(Game * _game) :
 
 	LevelPath * lp = new LevelPath("BG1/2.png");
 
-	MeshEntity * mesh = new MeshEntity(new MeshInterface(GL_LINE_STRIP, GL_STATIC_DRAW), baseShader);
+	MeshEntity * mesh = new MeshEntity(new MeshInterface(GL_POINTS, GL_STATIC_DRAW), baseShader);
 	for (int i = 0; i < lp->vertices.size(); ++i){
 		mesh->mesh->pushVert(Vertex(glm::vec3(lp->vertices.at(i).x, lp->vertices.at(i).y, 0)));
 	}
@@ -356,6 +356,8 @@ void MY_Scene::update(Step * _step){
 }
 
 void MY_Scene::render(sweet::MatrixStack * _matrixStack, RenderOptions * _renderOptions){
+	glPointSize(20);
+	
 	screenFBO->resize(game->viewPortWidth, game->viewPortHeight);
 	//Bind frameBuffer
 	screenFBO->bindFrameBuffer();
