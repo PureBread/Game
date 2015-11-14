@@ -11,15 +11,17 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\ArtLayer.cpp" />
     <ClCompile Include="src\ContinuousArtScroller.cpp" />
     <ClCompile Include="src\LevelPath.cpp" />
     <ClCompile Include="src\Llama.cpp" />
     <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\Markers.cpp" />
     <ClCompile Include="src\MY_Button.cpp" />
     <ClCompile Include="src\MY_Game.cpp" />
     <ClCompile Include="src\MY_ResourceManager.cpp" />
     <ClCompile Include="src\MY_Scene.cpp" />
-    <ClCompile Include="src\PlayerResources.cpp" />
+    <ClCompile Include="src\PlayerManager.cpp" />
     <ClCompile Include="src\Scene_Menu.cpp" />
     <ClCompile Include="src\Scene_MenuMain.cpp" />
     <ClCompile Include="src\Scene_MenuOptions.cpp" />
@@ -27,14 +29,16 @@
     <ClCompile Include="src\VCam.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\ArtLayer.h" />
     <ClInclude Include="include\ContinuousArtScroller.h" />
     <ClInclude Include="include\LevelPath.h" />
     <ClInclude Include="include\Llama.h" />
+    <ClInclude Include="include\Markers.h" />
     <ClInclude Include="include\MY_Button.h" />
     <ClInclude Include="include\MY_Game.h" />
     <ClInclude Include="include\MY_ResourceManager.h" />
     <ClInclude Include="include\MY_Scene.h" />
-    <ClInclude Include="include\PlayerResources.h" />
+    <ClInclude Include="include\PlayerManager.h" />
     <ClInclude Include="include\Scene_Menu.h" />
     <ClInclude Include="include\Scene_MenuMain.h" />
     <ClInclude Include="include\Scene_MenuOptions.h" />

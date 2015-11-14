@@ -146,11 +146,9 @@ MY_Scene::MY_Scene(Game * _game) :
 
 	LevelPath * lp = new LevelPath("BG1/2.png");
 	Llama * llama = new Llama(baseShader);
-	llama->setShader(baseShader);
 	
-	//llama->meshTransform->scale(20);
-	llama->meshTransform->scale(10);
-	llama->meshTransform->translate(glm::vec3(lp->vertices.at(0).x, lp->vertices.at(0).y, 0));
+	llama->childTransform->scale(10);
+	llama->childTransform->translate(glm::vec3(lp->vertices.at(0).x, lp->vertices.at(0).y, 0));
 	childTransform->addChild(llama);
 
 	MeshEntity * mesh = new MeshEntity(new MeshInterface(GL_POINTS, GL_STATIC_DRAW), baseShader);
