@@ -188,8 +188,8 @@ MY_Scene::MY_Scene(Game * _game) :
 	SliderControlled * health = new SliderControlled(uiLayer.world, &stats.resources["health"], 0, 100);
 
 	//food->background->setShader(maskShader);
-	food->fill->background->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("SADDLEBAG2-MASK")->texture);
-	wool->fill->background->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("SADDLEBAG-MASK")->texture);
+	food->fill->background->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("SADDLEBAG-R-MASK")->texture);
+	wool->fill->background->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("SADDLEBAG-L-MASK")->texture);
 
 	//MeshInterface * p = MeshFactory::getPlaneMesh();
 	//for(unsigned long int i = 0; i < p->getVertCount(); ++i){
@@ -219,10 +219,12 @@ MY_Scene::MY_Scene(Game * _game) :
 
 	speed->setBackgroundColour(178.f/255.f, 178.f/255.f, 178.f/255.f);
 	rations->setBackgroundColour(178.f/255.f, 178.f/255.f, 178.f/255.f);
-
 	
-	wool->background->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("SADDLEBAG")->texture);
-	food->background->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("SADDLEBAG2")->texture);
+	speed->fill->background->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("DIAL-L")->texture);
+	rations->fill->background->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("DIAL-R")->texture);
+	
+	wool->background->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("SADDLEBAG-L")->texture);
+	food->background->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("SADDLEBAG-R")->texture);
 	
 
 	food->setRationalWidth(0.33f);

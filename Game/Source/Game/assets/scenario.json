@@ -18,24 +18,34 @@
         "size": 64
     },
     {
-        "id": "SADDLEBAG",
+        "id": "SADDLEBAG-L",
         "type": "texture",
-        "src": "UI/saddlebag.png"
+        "src": "UI/saddlebag-l.png"
     },
     {
-        "id": "SADDLEBAG2",
+        "id": "SADDLEBAG-R",
         "type": "texture",
-        "src": "UI/saddlebag2.png"
+        "src": "UI/saddlebag-r.png"
     },
     {
-        "id": "SADDLEBAG-MASK",
+        "id": "SADDLEBAG-L-MASK",
         "type": "texture",
-        "src": "UI/saddlebag-mask.png"
+        "src": "UI/saddlebag-l-mask.png"
     },
     {
-        "id": "SADDLEBAG2-MASK",
+        "id": "SADDLEBAG-R-MASK",
         "type": "texture",
-        "src": "UI/saddlebag2-mask.png"
+        "src": "UI/saddlebag-r-mask.png"
+    },
+    {
+        "id": "DIAL-R",
+        "type": "texture",
+        "src": "UI/dial-r.png"
+    },
+    {
+        "id": "DIAL-L",
+        "type": "texture",
+        "src": "UI/dial-l.png"
     },
 
     
