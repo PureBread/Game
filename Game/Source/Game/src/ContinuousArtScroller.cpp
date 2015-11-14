@@ -19,7 +19,11 @@ ContinuousArtScroller::ContinuousArtScroller(std::string _fileDir, ComponentShad
 	while (true){
 		++imageCount;
 		std::stringstream src;
-		src << "assets/textures/" << fileDir << "/" << imageCount << ".png";
+		src << "assets/textures/" << fileDir << "/";
+		if(imageCount < 10){
+			src << "0";
+		}
+		src << imageCount << ".png";
 		if (!FileUtils::fileExists(src.str())){
 			break;
 		}
