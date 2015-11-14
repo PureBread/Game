@@ -81,7 +81,8 @@ MY_Scene::MY_Scene(Game * _game) :
 	replaceShader->addComponent(new ShaderComponentTexture(replaceShader));
 	replaceShader->addComponent(replaceShaderComponent);
 	replaceShader->compileShader();
-	
+	replaceShader->load();
+
 	//maskShader = new ComponentShaderBase(true);
 	//maskShader->addComponent(new ShaderComponentMVP(maskShader));
 	//maskShader->addComponent(new ShaderComponentTexture(maskShader));

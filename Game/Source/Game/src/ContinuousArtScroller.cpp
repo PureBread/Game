@@ -10,11 +10,10 @@
 ContinuousArtScroller::ContinuousArtScroller(std::string _fileDir, ComponentShaderBase * _shader) :
 	ArtLayer(dynamic_cast<ShaderComponentReplace *>(_shader->getComponentAt(2))),
 	fileDir(_fileDir),
-	plane1(new MeshEntity(MeshFactory::getPlaneMesh(), _shader)),
-	plane2(new MeshEntity(MeshFactory::getPlaneMesh(), _shader)),
 	imageId(1),
 	imageCount(0),
-	progress(0)
+	progress(0),
+	numPlanes(4)
 {
 	while (true){
 		++imageCount;
@@ -31,38 +30,34 @@ ContinuousArtScroller::ContinuousArtScroller(std::string _fileDir, ComponentShad
 		texture->loadImageData();
 		images.push_back(texture);
 	}
-
-
-
-	backPlane = plane1;
-	frontPlane = plane2;
-	loadTexOntoPlane(1, plane1);
-	loadTexOntoPlane(2, plane2);
-
+	
 	MeshInterface * m = MeshFactory::getPlaneMesh();
 	m->configureDefaultVertexAttributes(_shader);
 	m->pushTexture2D(MY_ResourceManager::scenario->defaultTexture->texture);
-	GL_NEAREST;
+	m->scaleModeMag = m->scaleModeMin = GL_NEAREST;
 
-	backPlane->meshTransform->addChild(m)->translate(0, -1, 0);
-	frontPlane->meshTransform->addChild(m)->translate(0, -1, 0);
+	for(unsigned long int i = 0; i < numPlanes; ++i){
+		MeshEntity * plane = new MeshEntity(MeshFactory::getPlaneMesh(), _shader);
+		loadTexOntoPlane(i+1, plane);
 
-	m->referenceCount += 2;
+		plane->mesh->scaleModeMag = plane->mesh->scaleModeMin = GL_NEAREST;
+		plane->meshTransform->addChild(m)->translate(0, -1, 0);
+		childTransform->addChild(plane)->translate(i,0,0);
+		planes.push_back(plane);
+	}
+	m->referenceCount += numPlanes;
 
-	plane1->mesh->scaleModeMag = plane1->mesh->scaleModeMin = plane2->mesh->scaleModeMag = plane2->mesh->scaleModeMin = m->scaleModeMag = m->scaleModeMin = GL_NEAREST;
-
-	childTransform->addChild(backPlane);
-	childTransform->addChild(frontPlane)->translate(1,0,0);
+	backPlane = 0;
+	frontPlane = numPlanes-1;
 }
 
 ContinuousArtScroller::~ContinuousArtScroller(){
 	// remove any active textures so they aren't delete twice
-	while(frontPlane->mesh->textures.size() > 0){
-		frontPlane->mesh->textures.at(0)->unload();
-		frontPlane->mesh->removeTextureAt(0);
-	}while(backPlane->mesh->textures.size() > 0){
-		backPlane->mesh->textures.at(0)->unload();
-		backPlane->mesh->removeTextureAt(0);
+	for(MeshEntity * e : planes){
+		while(e->mesh->textures.size() > 0){
+			e->mesh->textures.at(0)->unload();
+			e->mesh->removeTextureAt(0);
+		}
 	}
 
 	// delete textures
@@ -76,13 +71,23 @@ void ContinuousArtScroller::cycle(signed long int _delta){
 	imageId += _delta;
 
 	if (_delta > 0){
-		loadTexOntoPlane(imageId+1, backPlane);
-		backPlane->firstParent()->translate(2, 0, 0);
-		swapPlanes();
+		loadTexOntoPlane(imageId+(numPlanes/2+1), planes.at(backPlane));
+		planes.at(backPlane)->firstParent()->translate(numPlanes, 0, 0);
+
+		frontPlane = backPlane;
+		++backPlane;
+		if(backPlane >= numPlanes){
+			backPlane = 0;
+		}
 	}else{
-		loadTexOntoPlane(imageId, frontPlane);
-		frontPlane->firstParent()->translate(-2, 0, 0);
-		swapPlanes();
+		loadTexOntoPlane(imageId, planes.at(frontPlane));
+		planes.at(frontPlane)->firstParent()->translate(-(signed long int)numPlanes, 0, 0);
+		
+		backPlane = frontPlane;
+		--frontPlane;
+		if(frontPlane >= numPlanes){
+			frontPlane = numPlanes-1;
+		}
 	}
 }
 
@@ -99,20 +104,10 @@ void ContinuousArtScroller::loadTexOntoPlane(unsigned long int _texId, MeshEntit
 	_plane->mesh->textures.at(0)->load();
 }
 
-void ContinuousArtScroller::swapPlanes(){
-	MeshEntity * t = frontPlane;
-	frontPlane = backPlane;
-	backPlane = t;
-}
-
 void ContinuousArtScroller::update(Step * _step){
-	//childTransform->translate(progress*speed, 0, 0, false);
-
-	//std::cout << progress* speed << ": " << imageId << std::endl;
-
-	while (imageId - progress < -1){
+	while (imageId - progress < -(signed long int)numPlanes/2){
 		cycle(1);
-	}while (imageId - progress > 1){
+	}while (imageId - progress > 0){
 		cycle(-1);
 	}
 

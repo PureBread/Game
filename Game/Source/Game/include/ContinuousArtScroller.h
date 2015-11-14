@@ -19,10 +19,10 @@ public:
 	// currently loaded image
 	signed long int imageId;
 
-	MeshEntity * plane1;
-	MeshEntity * plane2;
-	MeshEntity * frontPlane;
-	MeshEntity * backPlane;
+	std::vector<MeshEntity *> planes;
+	unsigned long int frontPlane;
+	unsigned long int backPlane;
+	const unsigned long int numPlanes;
 
 	std::vector<Texture *> images;
 	unsigned long int imageCount;
@@ -32,7 +32,6 @@ public:
 
 	void loadTexOntoPlane(unsigned long int _texId, MeshEntity * _plane);
 	void cycle(signed long int _delta);
-	void swapPlanes();
 
 	virtual void update(Step * _step) override;
 };
