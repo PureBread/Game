@@ -45,8 +45,6 @@ public:
 	
 	MousePerspectiveCamera * playerCam;
 	
-	Sprite * mouseIndicator;
-	Sprite * crosshair;
 	MousePerspectiveCamera * debugCam;
 
 	Box2DWorld * box2dWorld;

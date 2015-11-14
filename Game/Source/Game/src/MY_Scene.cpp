@@ -102,22 +102,6 @@ MY_Scene::MY_Scene(Game * _game) :
 	glm::uvec2 sd = sweet::getScreenDimensions();
 	uiLayer.resize(0, sd.x, 0, sd.y);
 
-	// mouse cursor
-	mouseIndicator = new Sprite();
-	uiLayer.childTransform->addChild(mouseIndicator);
-	mouseIndicator->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("CURSOR")->texture);
-	mouseIndicator->parents.at(0)->scale(32, 32, 1);
-	mouseIndicator->mesh->scaleModeMag = GL_NEAREST;
-	mouseIndicator->mesh->scaleModeMin = GL_NEAREST;
-
-	for(unsigned long int i = 0; i < mouseIndicator->mesh->vertices.size(); ++i){
-		mouseIndicator->mesh->vertices[i].x += 0.5f;
-		mouseIndicator->mesh->vertices[i].y -= 0.5f;
-	}
-
-	mouseIndicator->mesh->dirty = true;
-	mouseIndicator->setShader(uiLayer.shader, true);
-
 	childTransform->addChild(box2dDebug, false);
 	box2dDebug->drawing = true;
 	box2dWorld->b2world->SetDebugDraw(box2dDebug);
@@ -186,6 +170,7 @@ MY_Scene::MY_Scene(Game * _game) :
 	layerSky->mesh->scaleModeMag = layerSky->mesh->scaleModeMin = GL_NEAREST;
 
 
+	uiLayer.addMouseIndicator();
 }
 
 MY_Scene::~MY_Scene(){
@@ -216,10 +201,6 @@ void MY_Scene::update(Step * _step){
 
 	box2dWorld->update(_step);
 
-	glm::uvec2 sd = sweet::getScreenDimensions();
-	uiLayer.resize(0, sd.x, 0, sd.y);
-
-	mouseIndicator->parents.at(0)->translate(mouse->mouseX(), mouse->mouseY(), 0, false);
 	
 	if(keyboard->keyJustDown(GLFW_KEY_F12)){
 		//game->toggleFullScreen();
@@ -265,6 +246,9 @@ void MY_Scene::update(Step * _step){
 	progress += speed;
 
 	Scene::update(_step);
+	glm::uvec2 sd = sweet::getScreenDimensions();
+	uiLayer.resize(0, sd.x, 0, sd.y);
+	uiLayer.update(_step);
 }
 
 void MY_Scene::render(sweet::MatrixStack * _matrixStack, RenderOptions * _renderOptions){
