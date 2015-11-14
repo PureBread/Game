@@ -144,7 +144,7 @@ MY_Scene::MY_Scene(Game * _game) :
 	lights.push_back(l);
 	childTransform->addChild(l)->translate(0, 15, 0);
 
-	LevelPath * lp = new LevelPath("BG1/2.png");
+	LevelPath * lp = new LevelPath("walkLayer.png");
 	Llama * llama = new Llama(baseShader);
 	
 	llama->childTransform->scale(10);
