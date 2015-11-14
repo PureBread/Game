@@ -95,6 +95,12 @@ LevelPath::LevelPath(std::string _texDir)
 		simplified.push_back(vertices.back());
 		vertices = simplified;
 	}
+
+	// Normalize Path
+	for (int i = 0; i < vertices.size(); ++i){
+		vertices.at(i).x = vertices.at(i).x / texture->width;
+		vertices.at(i).y = vertices.at(i).y / texture->height;
+	}
 	
 	int blah = 0;
 }

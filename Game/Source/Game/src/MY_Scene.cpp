@@ -51,7 +51,7 @@
 #include <PlayerStatistics.h>
 
 #include <LevelPath.h>
-
+#include <Llama.h>
 
 
 #include <VCam.h>
@@ -144,13 +144,20 @@ MY_Scene::MY_Scene(Game * _game) :
 	childTransform->addChild(l)->translate(0, 15, 0);
 
 	LevelPath * lp = new LevelPath("BG1/2.png");
+	Llama * llama = new Llama(baseShader);
+	llama->setShader(baseShader);
+	
+	//llama->meshTransform->scale(20);
+	llama->meshTransform->scale(10);
+	llama->meshTransform->translate(glm::vec3(lp->vertices.at(0).x, lp->vertices.at(0).y, 0));
+	childTransform->addChild(llama);
 
 	MeshEntity * mesh = new MeshEntity(new MeshInterface(GL_POINTS, GL_STATIC_DRAW), baseShader);
 	for (int i = 0; i < lp->vertices.size(); ++i){
 		mesh->mesh->pushVert(Vertex(glm::vec3(lp->vertices.at(i).x, lp->vertices.at(i).y, 0)));
 	}
-	//mesh->meshTransform->rotate(180, 0, 0, 1, kWORLD);
-	mesh->meshTransform->scale(0.1, true);
+	
+	mesh->meshTransform->scale(50, true);
 	mesh->meshTransform->translate(glm::vec3(0, 50, 0));
 	childTransform->addChild(mesh);
 
