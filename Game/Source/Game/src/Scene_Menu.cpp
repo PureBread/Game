@@ -47,8 +47,6 @@
 
 #include <RenderOptions.h>
 
-#include <PlayerResources.h>
-
 #include <MY_Button.h>
 
 Scene_Menu::Scene_Menu(Game * _game) :

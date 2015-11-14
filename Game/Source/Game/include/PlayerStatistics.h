@@ -4,7 +4,7 @@
 #include <map>
 
 
-class PlayerResources : public Node{
+class PlayerStatistics : public Node{
 public:
 	std::map<std::string, float> resources;
 
@@ -16,6 +16,6 @@ public:
 	// loads the default resources
 	void loadDefaults();
 
-	PlayerResources();
-	~PlayerResources();
+	PlayerStatistics();
+	~PlayerStatistics();
 };

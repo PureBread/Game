@@ -46,8 +46,6 @@
 
 #include <RenderOptions.h>
 
-#include <PlayerResources.h>
-
 #include <MY_Button.h>
 #include <sweet/UI.h>
 

@@ -7,6 +7,7 @@
 
 #include <ContinuousArtScroller.h>
 #include <ShaderComponentReplace.h>
+#include <PlayerStatistics.h>
 
 class PerspectiveCamera;
 class MousePerspectiveCamera;

@@ -1,19 +1,19 @@
 #pragma once
 
-#include <PlayerResources.h>
+#include <PlayerStatistics.h>
 #include <json\json.h>
 #include <FileUtils.h>
 #include <Log.h>
 
-PlayerResources::PlayerResources(){
+PlayerStatistics::PlayerStatistics(){
 	loadDefaults();
 }
 
-PlayerResources::~PlayerResources(){
+PlayerStatistics::~PlayerStatistics(){
 
 }
 
-void PlayerResources::save(const std::string & _path){
+void PlayerStatistics::save(const std::string & _path){
 	Json::Value jsonResources;
 	for(auto k : resources){
 		jsonResources[k.first] = k.second;
@@ -25,7 +25,7 @@ void PlayerResources::save(const std::string & _path){
 	log.close();
 }
 
-void PlayerResources::load(const std::string & _path){
+void PlayerStatistics::load(const std::string & _path){
 	Json::Value root;
 	Json::Reader reader;
 	std::string jsonLoaded = FileUtils::readFile("data/" + _path);
@@ -41,6 +41,6 @@ void PlayerResources::load(const std::string & _path){
 	}
 }
 
-void PlayerResources::loadDefaults(){
+void PlayerStatistics::loadDefaults(){
 	load("../assets/resourceDefaults.json");
 }

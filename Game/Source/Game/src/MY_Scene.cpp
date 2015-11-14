@@ -48,7 +48,7 @@
 
 #include <RenderOptions.h>
 
-#include <PlayerResources.h>
+#include <PlayerStatistics.h>
 
 #include <LevelPath.h>
 
@@ -186,8 +186,6 @@ MY_Scene::MY_Scene(Game * _game) :
 	layerSky->mesh->scaleModeMag = layerSky->mesh->scaleModeMin = GL_NEAREST;
 
 
-	PlayerResources test;
-	test.save("test.json");
 }
 
 MY_Scene::~MY_Scene(){
