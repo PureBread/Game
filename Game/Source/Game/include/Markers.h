@@ -1,0 +1,29 @@
+#pragma once
+
+#include <node\NodeUpdatable.h>
+#include <vector>
+#include <glm\glm.hpp>
+#include <json\json.h>
+
+#define NUM_LAYERS 6
+
+class Marker{
+public:
+	float position;
+	Marker(Json::Value _json);
+	glm::vec3 coloursReplaceWhite[NUM_LAYERS];
+	glm::vec3 coloursReplaceBlack[NUM_LAYERS];
+};
+
+class Markers : public virtual NodeUpdatable{
+public:
+	unsigned long int currentMarker;
+	float nextMarker;
+	float currentPosition;
+	std::vector<Marker> markers;
+	glm::vec3 coloursReplaceWhite[NUM_LAYERS];
+	glm::vec3 coloursReplaceBlack[NUM_LAYERS];
+
+	Markers();
+	virtual void update(Step * _step) override;
+};

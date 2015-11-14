@@ -47,6 +47,11 @@
         "type": "texture",
         "src": "UI/dial-l.png"
     },
+    {
+        "id": "BACK",
+        "type": "texture",
+        "src": "UI/back.png"
+    },
 
     
     {

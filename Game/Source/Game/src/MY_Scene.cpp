@@ -62,7 +62,8 @@ MY_Scene::MY_Scene(Game * _game) :
 	screenSurface(new RenderSurface(screenSurfaceShader)),
 	screenFBO(new StandardFrameBuffer(true)),
 	baseShader(new ComponentShaderBase(true)),
-	replaceShaderComponent(new ShaderComponentReplace(baseShader)),
+	replaceShader(new ComponentShaderBase(true)),
+	replaceShaderComponent(new ShaderComponentReplace(replaceShader)),
 	textShader(new ComponentShaderText(true)),
 	debugDrawer(nullptr),
 	uiLayer(0,0,0,0),
@@ -72,17 +73,20 @@ MY_Scene::MY_Scene(Game * _game) :
 	speed(0)
 {
 	baseShader->addComponent(new ShaderComponentMVP(baseShader));
-	//baseShader->addComponent(new ShaderComponentDiffuse(baseShader));
 	baseShader->addComponent(new ShaderComponentTexture(baseShader));
-	baseShader->addComponent(replaceShaderComponent);
 	baseShader->compileShader();
+
+	replaceShader->addComponent(new ShaderComponentMVP(replaceShader));
+	replaceShader->addComponent(new ShaderComponentTexture(replaceShader));
+	replaceShader->addComponent(replaceShaderComponent);
+	replaceShader->compileShader();
 	
-	maskShader = new ComponentShaderBase(true);
-	maskShader->addComponent(new ShaderComponentMVP(maskShader));
-	maskShader->addComponent(new ShaderComponentTexture(maskShader));
-	maskComponent = new ShaderComponentMask(maskShader);
-	maskShader->addComponent(maskComponent);
-	maskShader->compileShader();
+	//maskShader = new ComponentShaderBase(true);
+	//maskShader->addComponent(new ShaderComponentMVP(maskShader));
+	//maskShader->addComponent(new ShaderComponentTexture(maskShader));
+	//maskComponent = new ShaderComponentMask(maskShader);
+	//maskShader->addComponent(maskComponent);
+	//maskShader->compileShader();
 
 
 	textShader->textComponent->setColor(glm::vec3(0.0f, 0.0f, 0.0f));
@@ -150,12 +154,12 @@ MY_Scene::MY_Scene(Game * _game) :
 	mesh->meshTransform->translate(glm::vec3(0, 50, 0));
 	childTransform->addChild(mesh);
 
-	layerSky = new MeshEntity(MeshFactory::getPlaneMesh(), baseShader);
-	layerBgDetail = new ContinuousArtScroller("BG5", baseShader);
-	layerBg = new ContinuousArtScroller("BG4", baseShader);
-	layerLlamas = new ContinuousArtScroller("BG3", baseShader);
-	layerFg = new ContinuousArtScroller("BG2", baseShader);
-	layerFgDetail = new ContinuousArtScroller("BG1", baseShader);
+	layerSky = new ArtLayer(replaceShaderComponent);
+	layerBgDetail = new ContinuousArtScroller("BG5", replaceShader);
+	layerBg = new ContinuousArtScroller("BG4", replaceShader);
+	layerLlamas = new ContinuousArtScroller("BG3", replaceShader);
+	layerFg = new ContinuousArtScroller("BG2", replaceShader);
+	layerFgDetail = new ContinuousArtScroller("BG1", replaceShader);
 	
 	bgLayers.push_back(layerBgDetail);
 	bgLayers.push_back(layerBg);
@@ -168,20 +172,23 @@ MY_Scene::MY_Scene(Game * _game) :
 		childTransform->addChild(bgLayers.at(i))->translate(0, 0, i * 5);
 		bgLayers.at(i)->firstParent()->scale(50);
 	}
-	layerSky->childTransform->translate(0,0,-5);
-	layerSky->meshTransform->translate(0,0.5,0);
-	layerSky->childTransform->scale(50);
+
+
+	layerSkyMesh = new MeshEntity(MeshFactory::getPlaneMesh(), replaceShader);
+	layerSky->childTransform->addChild(layerSkyMesh, false);
+	layerSkyMesh->childTransform->translate(0,0,-5);
+	layerSkyMesh->meshTransform->translate(0,0.5,0);
+	layerSkyMesh->childTransform->scale(50);
 
 	Texture * texture = new Texture("assets/textures/sky.png", true, false);
 	texture->load();
-	layerSky->mesh->pushTexture2D(texture);
-	layerSky->mesh->scaleModeMag = layerSky->mesh->scaleModeMin = GL_NEAREST;
+	layerSkyMesh->mesh->pushTexture2D(texture);
+	layerSkyMesh->mesh->scaleModeMag = layerSkyMesh->mesh->scaleModeMin = GL_NEAREST;
 
 	stats.loadDefaults();
 
 	
 	NodeUI * ui = new NodeUI(uiLayer.world);
-	ui->background->setVisible(false);
 
 	SliderControlled * food = new SliderControlled(uiLayer.world, &stats.resources["food"], 0, 100, false);
 	SliderControlled * wool = new SliderControlled(uiLayer.world, &stats.resources["wool"], 0, 100, false);
@@ -190,6 +197,8 @@ MY_Scene::MY_Scene(Game * _game) :
 	//food->background->setShader(maskShader);
 	food->fill->background->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("SADDLEBAG-R-MASK")->texture);
 	wool->fill->background->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("SADDLEBAG-L-MASK")->texture);
+	ui->background->setVisible(false);
+	//ui->background->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("BACK")->texture);
 
 	//MeshInterface * p = MeshFactory::getPlaneMesh();
 	//for(unsigned long int i = 0; i < p->getVertCount(); ++i){
@@ -202,6 +211,7 @@ MY_Scene::MY_Scene(Game * _game) :
 
 	TextLabel * herdSize = new TextLabel(uiLayer.world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, textShader);
 	herdSize->setText(L"99");
+	textShader->setColor(178.f/255.f, 178.f/255.f, 178.f/255.f);
 	herdSize->horizontalAlignment = kCENTER;
 
 	SliderController * speed = new SliderController(uiLayer.world, &stats.resources["speed"], 1, 0, 2, false);
@@ -290,19 +300,35 @@ MY_Scene::~MY_Scene(){
 
 
 void MY_Scene::update(Step * _step){
+
+
 	// update sky layer
 	glm::vec3 v = activeCamera->getWorldPos();
 	layerSky->childTransform->translate(v.x, v.y, -5, false);
 	for(unsigned long int i = 0; i < 4; ++i){
-		layerSky->mesh->vertices.at(i).v -= 0.0001;
+		layerSkyMesh->mesh->vertices.at(i).v -= 0.0001;
 	}
-	layerSky->mesh->dirty = true;
+	layerSkyMesh->mesh->dirty = true;
 
 	// update art layers
 	float x = activeCamera->parents.at(0)->getTranslationVector().x;
 	for(unsigned long int i = 0; i < bgLayers.size(); ++i){
 		bgLayers.at(i)->progress = x/50 + 1;
 	}
+
+
+	
+	markers.currentPosition = x/50.f;
+	markers.update(_step);
+
+	for(unsigned long int i = 0; i < bgLayers.size(); ++i){
+		bgLayers.at(i)->colorReplaceBlack = markers.coloursReplaceBlack[i];
+		bgLayers.at(i)->colorReplaceWhite = markers.coloursReplaceWhite[i];
+	}
+	layerSky->colorReplaceBlack = markers.coloursReplaceBlack[NUM_LAYERS-1];
+	layerSky->colorReplaceWhite = markers.coloursReplaceWhite[NUM_LAYERS-1];
+
+
 
 	box2dWorld->update(_step);
 

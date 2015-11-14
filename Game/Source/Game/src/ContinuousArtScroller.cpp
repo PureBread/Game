@@ -7,11 +7,8 @@
 #include <sstream>
 #include <MY_ResourceManager.h>
 
-#include <shader/ComponentShaderBase.h>
-#include <ShaderComponentReplace.h>
-#include <NumberUtils.h>
-
-ContinuousArtScroller::ContinuousArtScroller(std::string _fileDir, Shader * _shader) :
+ContinuousArtScroller::ContinuousArtScroller(std::string _fileDir, ComponentShaderBase * _shader) :
+	ArtLayer(dynamic_cast<ShaderComponentReplace *>(_shader->getComponentAt(2))),
 	fileDir(_fileDir),
 	plane1(new MeshEntity(MeshFactory::getPlaneMesh(), _shader)),
 	plane2(new MeshEntity(MeshFactory::getPlaneMesh(), _shader)),
@@ -109,13 +106,4 @@ void ContinuousArtScroller::update(Step * _step){
 	}
 
 	Entity::update(_step);
-}
-
-void ContinuousArtScroller::render(sweet::MatrixStack * _matrixStack, RenderOptions * _renderOptions){
-	ShaderComponentReplace * s = dynamic_cast<ShaderComponentReplace *>(dynamic_cast<ComponentShaderBase *>(plane1->getShader())->getComponentAt(2));
-	
-	s->setWhite(glm::vec3(sweet::NumberUtils::randomFloat(0.7, 0.8), sweet::NumberUtils::randomFloat(0.6, 0.7), sweet::NumberUtils::randomFloat(0.3, 0.4)));
-	s->setBlack(glm::vec3(sweet::NumberUtils::randomFloat(0.2, 0.3), sweet::NumberUtils::randomFloat(0.1, 0.2), sweet::NumberUtils::randomFloat(0, 0.1)));
-
-	Entity::render(_matrixStack, _renderOptions);
 }

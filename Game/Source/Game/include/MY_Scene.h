@@ -11,6 +11,8 @@
 #include <Slider.h>
 
 #include <PlayerStatistics.h>
+#include <Markers.h>
+#include <ArtLayer.h>
 
 class PerspectiveCamera;
 class MousePerspectiveCamera;
@@ -40,11 +42,12 @@ public:
 	StandardFrameBuffer * screenFBO;
 	
 	ComponentShaderBase * baseShader;
+	ComponentShaderBase * replaceShader;
 	ShaderComponentReplace * replaceShaderComponent;
 	ComponentShaderText * textShader;
 
-	ComponentShaderBase * maskShader;
-	ShaderComponentMask * maskComponent;
+	//ComponentShaderBase * maskShader;
+	//ShaderComponentMask * maskComponent;
 
 	BulletWorld * bulletWorld;
 	BulletDebugDrawer * debugDrawer;
@@ -63,13 +66,13 @@ public:
 	
 	std::vector<ContinuousArtScroller *> bgLayers;
 	
-	MeshEntity * layerSky;
+	ArtLayer * layerSky;
+	MeshEntity * layerSkyMesh;
 	ContinuousArtScroller * layerBgDetail;
 	ContinuousArtScroller * layerBg;
 	ContinuousArtScroller * layerLlamas;
 	ContinuousArtScroller * layerFg;
 	ContinuousArtScroller * layerFgDetail;
-
 
 	virtual void update(Step * _step) override;
 	virtual void render(sweet::MatrixStack * _matrixStack, RenderOptions * _renderOptions) override;
@@ -78,6 +81,7 @@ public:
 	virtual void unload() override;
 
 	UILayer uiLayer;
+	Markers markers;
 
 	MY_Scene(Game * _game);
 	~MY_Scene();
