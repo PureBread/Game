@@ -26,7 +26,7 @@ ContinuousArtScroller::ContinuousArtScroller(std::string _fileDir, ComponentShad
 		if (!FileUtils::fileExists(src.str())){
 			break;
 		}
-		Texture * texture = new Texture(src.str(), true, false);
+		Texture * texture = new Texture(src.str(), true, false, false);
 		texture->loadImageData();
 		images.push_back(texture);
 	}
