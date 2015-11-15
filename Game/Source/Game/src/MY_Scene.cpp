@@ -184,9 +184,9 @@ MY_Scene::MY_Scene(Game * _game) :
 
 	layerSkyMesh = new MeshEntity(MeshFactory::getPlaneMesh(), replaceShader);
 	layerSky->childTransform->addChild(layerSkyMesh, false);
-	layerSkyMesh->childTransform->translate(0,0,-5);
+	layerSkyMesh->childTransform->translate(0,-50,0);
 	layerSkyMesh->meshTransform->translate(0,0.5,0);
-	layerSkyMesh->childTransform->scale(50);
+	layerSkyMesh->childTransform->scale(150);
 
 	Texture * texture = new Texture("assets/textures/sky.png", true, false);
 	texture->load();
@@ -349,11 +349,11 @@ void MY_Scene::update(Step * _step){
 	markers.update(_step);
 
 	for(unsigned long int i = 0; i < bgLayers.size(); ++i){
-		bgLayers.at(i)->colorReplaceBlack = markers.coloursReplaceBlack[i];
-		bgLayers.at(i)->colorReplaceWhite = markers.coloursReplaceWhite[i];
+		bgLayers.at(i)->colorReplaceBlack = markers.coloursReplaceBlack[i+1];
+		bgLayers.at(i)->colorReplaceWhite = markers.coloursReplaceWhite[i+1];
 	}
-	layerSky->colorReplaceBlack = markers.coloursReplaceBlack[NUM_LAYERS-1];
-	layerSky->colorReplaceWhite = markers.coloursReplaceWhite[NUM_LAYERS-1];
+	layerSky->colorReplaceBlack = markers.coloursReplaceBlack[0];
+	layerSky->colorReplaceWhite = markers.coloursReplaceWhite[0];
 
 
 

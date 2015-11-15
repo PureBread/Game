@@ -110,6 +110,5 @@ void ContinuousArtScroller::update(Step * _step){
 	}while (imageId - progress > -(signed long int)numPlanes/2+1){
 		cycle(-1);
 	}
-
 	Entity::update(_step);
 }

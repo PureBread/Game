@@ -61,10 +61,10 @@ Scene_MenuMain::Scene_MenuMain(Game * _game) :
 	MY_Button * b2 = new MY_Button(uiLayer.world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, textShader, 202, 45);
 	MY_Button * b3 = new MY_Button(uiLayer.world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, textShader, 202, 45);
 	MY_Button * b4 = new MY_Button(uiLayer.world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, textShader, 202, 45);
-	b1->label->setText(L"new game");
-	b2->label->setText(L"continue game");
-	b3->label->setText(L"options");
-	b4->label->setText(L"exit game");
+	b1->label->setText(L"NEW GAME");
+	b2->label->setText(L"CONTINUE GAME");
+	b3->label->setText(L"OPTIONS");
+	b4->label->setText(L"EXIT GAME");
 	
 	b1->onClickFunction = [this](){
 		// TODO: reset game before switching to scene
