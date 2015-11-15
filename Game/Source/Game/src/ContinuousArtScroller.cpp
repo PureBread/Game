@@ -107,7 +107,7 @@ void ContinuousArtScroller::loadTexOntoPlane(unsigned long int _texId, MeshEntit
 void ContinuousArtScroller::update(Step * _step){
 	while (imageId - progress < -(signed long int)numPlanes/2){
 		cycle(1);
-	}while (imageId - progress > 0){
+	}while (imageId - progress > -(signed long int)numPlanes/2+1){
 		cycle(-1);
 	}
 
