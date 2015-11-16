@@ -17,9 +17,12 @@ Event::Event(EventType _type, Scenario * _scenario) :
 PlayerManager::PlayerManager() :
 	momentDelay(0.5f),
 	momentTimer(0),
+	speedMultiplier(0.1f),
 	eventToTrigger(nullptr)
 {
 	loadDefaults();
+
+	markers.eventManager.listeners["destination"].push_back([this](sweet::Event * _e){std::cout << _e->getStringData("scenario");});
 }
 
 PlayerManager::~PlayerManager(){
@@ -73,7 +76,8 @@ void PlayerManager::update(Step * _step){
 
 void PlayerManager::moment(){
 	// update statistics
-	statistics["progress"] += statistics["speed"];
+	statistics["progress"] += statistics["speed"]*speedMultiplier;
+	std::cout << "Progress: " << statistics["progress"] << std::endl;
 	statistics["wool"] += statistics["herdSize"];
 	if(statistics["food"] <= 0){
 		statistics["rations"] = 0;
@@ -83,6 +87,9 @@ void PlayerManager::moment(){
 	statistics["health"] += (statistics["rations"]-1)*1.5f - (statistics["speed"] - 1);
 
 	// check for events
+	markers.currentPosition = statistics["progress"];
+	markers.update(nullptr);
+
 	if(shouldTriggerDestinationEvent()){
 		eventToTrigger = triggerDestinationEvent();
 	}else if(shouldTriggerLossEvent()){

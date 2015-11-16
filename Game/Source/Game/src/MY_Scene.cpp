@@ -350,20 +350,13 @@ void MY_Scene::update(Step * _step){
 
 
 	
-	markers.currentPosition = x/50.f;
-	markers.update(_step);
 
 	for(unsigned long int i = 0; i < bgLayers.size(); ++i){
-		bgLayers.at(i)->colorReplaceBlack = markers.coloursReplaceBlack[i+1];
-		bgLayers.at(i)->colorReplaceWhite = markers.coloursReplaceWhite[i+1];
+		bgLayers.at(i)->colorReplaceBlack = manager.markers.coloursReplaceBlack[i+1];
+		bgLayers.at(i)->colorReplaceWhite = manager.markers.coloursReplaceWhite[i+1];
 	}
-	layerSky->colorReplaceBlack = markers.coloursReplaceBlack[0];
-	layerSky->colorReplaceWhite = markers.coloursReplaceWhite[0];
-
-
-
-	box2dWorld->update(_step);
-
+	layerSky->colorReplaceBlack = manager.markers.coloursReplaceBlack[0];
+	layerSky->colorReplaceWhite = manager.markers.coloursReplaceWhite[0];
 	
 	if(keyboard->keyJustDown(GLFW_KEY_F12)){
 		//game->toggleFullScreen();

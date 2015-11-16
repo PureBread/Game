@@ -69,7 +69,6 @@ public:
 	virtual void unload() override;
 
 	UILayer uiLayer;
-	Markers markers;
 
 	MY_Scene(Game * _game);
 	~MY_Scene();

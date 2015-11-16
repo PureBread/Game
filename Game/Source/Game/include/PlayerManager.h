@@ -4,6 +4,9 @@
 #include <scenario\Scenario.h>
 #include <map>
 
+#include <EventManager.h>
+#include <Markers.h>
+
 enum EventType {
 	kDESTINATION = 0,
 	kLOSS = 1,
@@ -31,7 +34,11 @@ private:
 	Event * triggerLossEvent();
 	Event * triggerRandomEvent();
 public:
+	Markers markers;
 	std::map<std::string, float> statistics;
+
+	// global multiplier applied to speed, regardless of player input
+	float speedMultiplier;
 
 
 	// saves resources to a json file at data/_path

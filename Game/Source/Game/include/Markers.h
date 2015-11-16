@@ -4,12 +4,14 @@
 #include <vector>
 #include <glm\glm.hpp>
 #include <json\json.h>
+#include <EventManager.h>
 
 #define NUM_LAYERS 6
 
 class Marker{
 public:
 	float position;
+	std::string event;
 	Marker(Json::Value _json);
 	glm::vec3 coloursReplaceWhite[NUM_LAYERS];
 	glm::vec3 coloursReplaceBlack[NUM_LAYERS];
@@ -17,6 +19,9 @@ public:
 
 class Markers : public virtual NodeUpdatable{
 public:
+
+	sweet::EventManager eventManager;
+
 	unsigned long int currentMarker;
 	float nextMarker;
 	float currentPosition;
