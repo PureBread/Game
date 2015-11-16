@@ -42,7 +42,7 @@ std::string ShaderComponentReplace::getOutColorMod(){
 		"// discard transparent pixels" + ENDL +
 		"if("+GL_OUT_OUT_COLOR+".a < 1){ discard; }" + ENDL +
 		"// replace based on 0.5 threshold" + ENDL +
-		"if("+GL_OUT_OUT_COLOR+".r < 0.5){" + 
+		"if("+GL_OUT_OUT_COLOR+".r > 0.5){" + 
 			TAB + GL_OUT_OUT_COLOR + " = vec4(replaceWhite,1)" + SEMI_ENDL +
 		"}else{" + 
 			TAB + GL_OUT_OUT_COLOR + " = vec4(replaceBlack,1)" + SEMI_ENDL +
