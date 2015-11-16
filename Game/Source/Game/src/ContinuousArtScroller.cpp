@@ -16,19 +16,19 @@ ContinuousArtScroller::ContinuousArtScroller(std::string _fileDir, ComponentShad
 	numPlanes(4)
 {
 	while (true){
-		++imageCount;
 		std::stringstream src;
 		src << "assets/textures/" << fileDir << "/";
-		if(imageCount < 10){
+		if(imageCount+1 < 10){
 			src << "0";
 		}
-		src << imageCount << ".png";
+		src << imageCount+1 << ".png";
 		if (!FileUtils::fileExists(src.str())){
 			break;
 		}
 		Texture * texture = new Texture(src.str(), true, false, false);
 		texture->loadImageData();
 		images.push_back(texture);
+		++imageCount;
 	}
 	
 	MeshInterface * m = MeshFactory::getPlaneMesh();
