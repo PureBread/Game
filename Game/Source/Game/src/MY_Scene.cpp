@@ -58,17 +58,14 @@
 
 MY_Scene::MY_Scene(Game * _game) :
 	Scene(_game),
-	screenSurfaceShader(new Shader("assets/engine basics/DefaultRenderSurface", false, true)),
+	screenSurfaceShader(new Shader("assets/RenderSurface", false, true)),
 	screenSurface(new RenderSurface(screenSurfaceShader)),
 	screenFBO(new StandardFrameBuffer(true)),
 	baseShader(new ComponentShaderBase(true)),
 	replaceShader(new ComponentShaderBase(true)),
 	replaceShaderComponent(new ShaderComponentReplace(replaceShader)),
 	textShader(new ComponentShaderText(true)),
-	debugDrawer(nullptr),
 	uiLayer(0,0,0,0),
-	box2dWorld(new Box2DWorld(b2Vec2(0.f, -10.0f))),
-	box2dDebug(new Box2DDebugDrawer(box2dWorld)),
 	progress(0),
 	speed(0),
 	currentEvent(nullptr)
@@ -82,6 +79,8 @@ MY_Scene::MY_Scene(Game * _game) :
 	replaceShader->addComponent(replaceShaderComponent);
 	replaceShader->compileShader();
 	replaceShader->load();
+
+	screenSurface->uvEdgeMode = GL_CLAMP_TO_EDGE;
 
 	//maskShader = new ComponentShaderBase(true);
 	//maskShader->addComponent(new ShaderComponentMVP(maskShader));
@@ -116,16 +115,6 @@ MY_Scene::MY_Scene(Game * _game) :
 	glm::uvec2 sd = sweet::getScreenDimensions();
 	uiLayer.resize(0, sd.x, 0, sd.y);
 
-	childTransform->addChild(box2dDebug, false);
-	box2dDebug->drawing = true;
-	box2dWorld->b2world->SetDebugDraw(box2dDebug);
-	box2dDebug->AppendFlags(b2Draw::e_shapeBit);
-	box2dDebug->AppendFlags(b2Draw::e_centerOfMassBit);
-	box2dDebug->AppendFlags(b2Draw::e_jointBit);
-
-
-
-
 
 	/** GAME STUFF **/
 	PerspectiveCamera * cam = new PerspectiveCamera();
@@ -140,26 +129,7 @@ MY_Scene::MY_Scene(Game * _game) :
 	lights.push_back(l);
 	childTransform->addChild(l)->translate(0, 15, 0);
 
-	LevelPath * lp = new LevelPath("walkLayer.png");
-
-	MeshEntity * mesh = new MeshEntity(new MeshInterface(GL_LINE_STRIP, GL_STATIC_DRAW), baseShader);
-	for (int i = 0; i < lp->vertices.size(); ++i){
-		mesh->mesh->pushVert(Vertex(glm::vec3(lp->vertices.at(i).x, lp->vertices.at(i).y, 0)));
-	}
-
-	mesh->meshTransform->scale(200, true);
-	mesh->meshTransform->translate(glm::vec3(0, 50, 0));
-	childTransform->addChild(mesh);
-
-	lp->scaleVertices(200);
-	lp->childTransform->translate(0, 50.f, 0);
-	childTransform->addChild(lp);
-	Llama * llama = new Llama(baseShader);
 	
-	llama->childTransform->scale(2.f);
-	llama->childTransform->translate(glm::vec3(lp->vertices.at(0).x, lp->vertices.at(0).y, 0));
-	lp->addLlama(llama);
-
 	
 
 	layerSky = new ArtLayer(replaceShaderComponent);
@@ -184,9 +154,9 @@ MY_Scene::MY_Scene(Game * _game) :
 
 	layerSkyMesh = new MeshEntity(MeshFactory::getPlaneMesh(), replaceShader);
 	layerSky->childTransform->addChild(layerSkyMesh, false);
-	layerSkyMesh->childTransform->translate(0,0,-5);
+	layerSkyMesh->childTransform->translate(0,-50,0);
 	layerSkyMesh->meshTransform->translate(0,0.5,0);
-	layerSkyMesh->childTransform->scale(50);
+	layerSkyMesh->childTransform->scale(150);
 
 	Texture * texture = new Texture("assets/textures/sky.png", true, false);
 	texture->load();
@@ -294,6 +264,27 @@ MY_Scene::MY_Scene(Game * _game) :
 
 
 	uiLayer.addMouseIndicator();
+
+	LevelPath * lp = new LevelPath("walkLayer.png");
+
+	MeshEntity * mesh = new MeshEntity(new MeshInterface(GL_LINE_STRIP, GL_STATIC_DRAW), baseShader);
+	for (int i = 0; i < lp->vertices.size(); ++i){
+		mesh->mesh->pushVert(Vertex(glm::vec3(lp->vertices.at(i).x, lp->vertices.at(i).y, 0)));
+	}
+
+	mesh->meshTransform->scale(200, true);
+	mesh->meshTransform->translate(glm::vec3(0, 50, 0));
+	childTransform->addChild(mesh);
+
+	lp->scaleVertices(200);
+	lp->childTransform->translate(0, 50.f, 0);
+	childTransform->addChild(lp);
+	Llama * llama = new Llama(baseShader);
+
+	llama->childTransform->scale(2.f);
+	llama->childTransform->translate(glm::vec3(lp->vertices.at(0).x, lp->vertices.at(0).y, 0));
+	lp->addLlama(llama);
+
 }
 
 MY_Scene::~MY_Scene(){
@@ -308,6 +299,22 @@ MY_Scene::~MY_Scene(){
 
 
 void MY_Scene::update(Step * _step){
+	if(keyboard->keyJustDown(GLFW_KEY_L)){
+		screenSurfaceShader->unload();
+		screenSurfaceShader->loadFromFile(screenSurfaceShader->vertSource, screenSurfaceShader->fragSource);
+		screenSurfaceShader->load();
+	}
+	
+	
+	glUseProgram(screenSurfaceShader->getProgramId());
+	GLint test = glGetUniformLocation(screenSurfaceShader->getProgramId(), "time");
+	checkForGlError(0,__FILE__,__LINE__);
+	if(test != -1){
+		glUniform1f(test, (float)sweet::lastTimestamp);
+		checkForGlError(0,__FILE__,__LINE__);
+	}
+
+
 	if(currentEvent != nullptr){
 		// if there is an ongoing event, progress it
 		std::stringstream ss;
@@ -345,20 +352,13 @@ void MY_Scene::update(Step * _step){
 
 
 	
-	markers.currentPosition = x/50.f;
-	markers.update(_step);
 
 	for(unsigned long int i = 0; i < bgLayers.size(); ++i){
-		bgLayers.at(i)->colorReplaceBlack = markers.coloursReplaceBlack[i];
-		bgLayers.at(i)->colorReplaceWhite = markers.coloursReplaceWhite[i];
+		bgLayers.at(i)->colorReplaceBlack = manager.markers.coloursReplaceBlack[i+1];
+		bgLayers.at(i)->colorReplaceWhite = manager.markers.coloursReplaceWhite[i+1];
 	}
-	layerSky->colorReplaceBlack = markers.coloursReplaceBlack[NUM_LAYERS-1];
-	layerSky->colorReplaceWhite = markers.coloursReplaceWhite[NUM_LAYERS-1];
-
-
-
-	box2dWorld->update(_step);
-
+	layerSky->colorReplaceBlack = manager.markers.coloursReplaceBlack[0];
+	layerSky->colorReplaceWhite = manager.markers.coloursReplaceWhite[0];
 	
 	if(keyboard->keyJustDown(GLFW_KEY_F12)){
 		//game->toggleFullScreen();

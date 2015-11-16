@@ -7,6 +7,7 @@
 #include <Easing.h>
 #include <glm/gtx/rotate_vector.hpp>
 #include <glm/gtx/vector_angle.hpp>
+#include <MY_ResourceManager.h>
 
 Llama::Llama(Shader * _shader) :
 	llama(new Sprite(_shader)),
@@ -17,9 +18,7 @@ Llama::Llama(Shader * _shader) :
 	hopHeight(2.f),
 	currHopTime(0.f)
 {
-	Texture * texture = new Texture("assets/textures/PureBread-logo.png", true, false);
-	texture->load();
-	llama->mesh->pushTexture2D(texture);
+	llama->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("LOGO")->texture);
 	childTransform->addChild(llama);
 
 	for (unsigned long int i = 0; i < llama->mesh->vertices.size(); ++i){

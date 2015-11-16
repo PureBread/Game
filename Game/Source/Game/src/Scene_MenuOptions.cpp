@@ -66,23 +66,23 @@ Scene_MenuOptions::Scene_MenuOptions(Game * _game) :
 	
 	optionsText->setText(L"OPTIONS");
 	if(sweet::fullscreen){
-		fullscreenToggle->label->setText(L"windowed");
+		fullscreenToggle->label->setText(L"WINDOWED");
 	}else{
-		fullscreenToggle->label->setText(L"fullscreen");
+		fullscreenToggle->label->setText(L"FULLSCREEN");
 	}
-	volumeText->setText(L"volume");
+	volumeText->setText(L"VOLUME");
 	volume->setWidth(0.5f);
 	volume->setHeight(40);
 	volume->setStepped(0.1);
-	back->label->setText(L"back");
+	back->label->setText(L"BACK");
 	
 	
 	fullscreenToggle->onClickFunction = [this, fullscreenToggle](){
 		game->toggleFullScreen();
 		if(sweet::fullscreen){
-			fullscreenToggle->label->setText(L"windowed");
+			fullscreenToggle->label->setText(L"WINDOWED");
 		}else{
-			fullscreenToggle->label->setText(L"fullscreen");
+			fullscreenToggle->label->setText(L"FULLSCREEN");
 		}
 	};
 	back->onClickFunction = [this](){
@@ -112,7 +112,7 @@ Scene_MenuOptions::~Scene_MenuOptions(){
 
 void Scene_MenuOptions::update(Step * _step){
 	std::wstringstream ss;
-	ss << L"volume: " << (volume->getValue()/2.f);
+	ss << L"VOLUME: " << (volume->getValue()/2.f);
 	volumeText->setText(ss.str());
 	NodeOpenAL::setListenerGain(volume->getValue());
 	Scene_Menu::update(_step);

@@ -26,7 +26,7 @@ ContinuousArtScroller::ContinuousArtScroller(std::string _fileDir, ComponentShad
 		if (!FileUtils::fileExists(src.str())){
 			break;
 		}
-		Texture * texture = new Texture(src.str(), true, false);
+		Texture * texture = new Texture(src.str(), true, false, false);
 		texture->loadImageData();
 		images.push_back(texture);
 	}
@@ -35,12 +35,14 @@ ContinuousArtScroller::ContinuousArtScroller(std::string _fileDir, ComponentShad
 	m->configureDefaultVertexAttributes(_shader);
 	m->pushTexture2D(MY_ResourceManager::scenario->defaultTexture->texture);
 	m->scaleModeMag = m->scaleModeMin = GL_NEAREST;
+	m->uvEdgeMode = GL_CLAMP_TO_EDGE;
 
 	for(unsigned long int i = 0; i < numPlanes; ++i){
 		MeshEntity * plane = new MeshEntity(MeshFactory::getPlaneMesh(), _shader);
 		loadTexOntoPlane(i+1, plane);
-
+		
 		plane->mesh->scaleModeMag = plane->mesh->scaleModeMin = GL_NEAREST;
+		plane->mesh->uvEdgeMode = GL_CLAMP_TO_EDGE;
 		plane->meshTransform->addChild(m)->translate(0, -1, 0);
 		childTransform->addChild(plane)->translate(i,0,0);
 		planes.push_back(plane);
@@ -107,9 +109,8 @@ void ContinuousArtScroller::loadTexOntoPlane(unsigned long int _texId, MeshEntit
 void ContinuousArtScroller::update(Step * _step){
 	while (imageId - progress < -(signed long int)numPlanes/2){
 		cycle(1);
-	}while (imageId - progress > 0){
+	}while (imageId - progress > -(signed long int)numPlanes/2+1){
 		cycle(-1);
 	}
-
 	Entity::update(_step);
 }

@@ -24,9 +24,9 @@ MY_Button::MY_Button(BulletWorld * _world, Font * _font, Shader * _textShader, f
 	VerticalLinearLayout * vl = new VerticalLinearLayout(world);
 	vl->addChild(label);
 	vl->horizontalAlignment = kCENTER;
-	vl->verticalAlignment = kMIDDLE;
-	vl->setWidth(_width);
-	vl->setHeight(_height);
+	vl->verticalAlignment = kTOP;
+	vl->setWidth(1.f);
+	vl->setHeight(1.f);
 	addChild(vl);
 }
 
