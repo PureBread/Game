@@ -35,12 +35,14 @@ ContinuousArtScroller::ContinuousArtScroller(std::string _fileDir, ComponentShad
 	m->configureDefaultVertexAttributes(_shader);
 	m->pushTexture2D(MY_ResourceManager::scenario->defaultTexture->texture);
 	m->scaleModeMag = m->scaleModeMin = GL_NEAREST;
+	m->uvEdgeMode = GL_CLAMP_TO_EDGE;
 
 	for(unsigned long int i = 0; i < numPlanes; ++i){
 		MeshEntity * plane = new MeshEntity(MeshFactory::getPlaneMesh(), _shader);
 		loadTexOntoPlane(i+1, plane);
-
+		
 		plane->mesh->scaleModeMag = plane->mesh->scaleModeMin = GL_NEAREST;
+		plane->mesh->uvEdgeMode = GL_CLAMP_TO_EDGE;
 		plane->meshTransform->addChild(m)->translate(0, -1, 0);
 		childTransform->addChild(plane)->translate(i,0,0);
 		planes.push_back(plane);

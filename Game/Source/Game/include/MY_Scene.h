@@ -2,8 +2,6 @@
 
 #include <Scene.h>
 #include <UILayer.h>
-#include <BulletDebugDrawer.h>
-#include <BulletWorld.h>
 
 #include <ContinuousArtScroller.h>
 #include <ShaderComponentReplace.h>
@@ -11,15 +9,11 @@
 #include <Slider.h>
 
 #include <PlayerManager.h>
-#include <Markers.h>
 #include <ArtLayer.h>
 
 class PerspectiveCamera;
 class MousePerspectiveCamera;
 
-class Box2DWorld;
-class Box2DDebugDrawer;
-class Box2DMeshEntity;
 class MeshEntity;
 
 class ShaderComponentHsv;
@@ -32,7 +26,6 @@ class Sprite;
 
 class PointLight;
 
-class BulletMeshEntity;
 class ComponentShaderText;
 
 class MY_Scene : public Scene{
@@ -48,16 +41,10 @@ public:
 
 	//ComponentShaderBase * maskShader;
 	//ShaderComponentMask * maskComponent;
-
-	BulletWorld * bulletWorld;
-	BulletDebugDrawer * debugDrawer;
 	
 	MousePerspectiveCamera * playerCam;
 	
 	MousePerspectiveCamera * debugCam;
-
-	Box2DWorld * box2dWorld;
-	Box2DDebugDrawer * box2dDebug;
 
 	PlayerManager manager;
 	Event * currentEvent;
