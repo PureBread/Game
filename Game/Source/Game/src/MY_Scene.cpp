@@ -81,6 +81,7 @@ MY_Scene::MY_Scene(Game * _game) :
 	replaceShader->load();
 
 	screenSurface->uvEdgeMode = GL_CLAMP_TO_EDGE;
+	screenSurface->load();
 
 	//maskShader = new ComponentShaderBase(true);
 	//maskShader->addComponent(new ShaderComponentMVP(maskShader));
@@ -127,18 +128,6 @@ MY_Scene::MY_Scene(Game * _game) :
 	playerCam->parents.at(0)->translate(0, -13.8184452f, 57.8584137f);
 	playerCam->fieldOfView = 64.3750000;
 
-	// level path
-	MeshEntity * mesh = new MeshEntity(manager.levelPath->getMesh(), baseShader);
-	mesh->meshTransform->scale(18, true);
-	mesh->meshTransform->translate(glm::vec3(-1.5f, -0.5f, 0));
-	//childTransform->addChild(mesh);
-
-	manager.levelPath->scaleVertices(18);
-	manager.levelPath->childTransform->translate(-1.5f, -0.5f, 0);
-	
-	manager.addLlama(baseShader);
-	
-	
 	// art layers
 	layerSky = new ArtLayer(replaceShaderComponent);
 	layerBgDetail = new ContinuousArtScroller("BG5", replaceShader);
@@ -146,6 +135,17 @@ MY_Scene::MY_Scene(Game * _game) :
 	layerLlamas = new ContinuousArtScroller("BG3", replaceShader);
 	layerFg = new ContinuousArtScroller("BG2", replaceShader);
 	layerFgDetail = new ContinuousArtScroller("BG1", replaceShader);
+
+	// level path
+	MeshEntity * mesh = new MeshEntity(manager.levelPath->getMesh(), baseShader);
+	mesh->meshTransform->scale(layerLlamas->imageCount, true);
+	mesh->meshTransform->translate(glm::vec3(-1.5f, -0.5f, 0));
+	manager.levelPath->scaleVertices(layerLlamas->imageCount);
+	manager.levelPath->childTransform->translate(-1.5f, -0.5f, 0);
+	
+	manager.addLlama(baseShader);
+	
+	
 	
 	bgLayers.push_back(layerBgDetail);
 	bgLayers.push_back(layerBg);
