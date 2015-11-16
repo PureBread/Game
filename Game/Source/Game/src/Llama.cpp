@@ -32,8 +32,12 @@ Llama::~Llama(){
 }
 
 void Llama::update(Step * _step){
-	Entity::update(_step);
 
+	Entity::update(_step);
+	
+	if (targets.size() > 0){
+		hopSpeed = (targets.back().x - childTransform->getTranslationVector().x)*17;
+	}
 	if (isHopping){
 		currHopTime += _step->deltaTime;
 

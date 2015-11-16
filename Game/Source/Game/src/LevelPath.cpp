@@ -121,11 +121,21 @@ void LevelPath::setProgress(float _x){
 		
 		if (idx < vertices.size()){
 			// snap to starting pos of the new line segment
-			pos = vertices.at(idx - 1);slope = vertices.at(idx) - vertices.at(idx - 1);
+			pos = vertices.at(idx - 1);
+			slope = vertices.at(idx) - vertices.at(idx - 1);
 			for (int i = 0; i < llamas.size(); ++i){
 				// finalize llamas last target and create a new target
 				//llamas.at(i)->
 				llamas.at(i)->addTarget(vertices.at(idx));
+			}
+			// update pos according to line equation (with slope)
+			if (idx > 0 && idx < vertices.size()){
+				pos.x = _x;
+				float dX = slope.x;
+				float dY = slope.y;
+				float s = dX / dY;
+
+				pos.y = slope.y / slope.x * (_x - vertices.at(idx-1).x) + vertices.at(idx - 1).y;
 			}
 		}
 	}
