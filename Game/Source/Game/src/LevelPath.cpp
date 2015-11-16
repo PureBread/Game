@@ -159,3 +159,11 @@ void LevelPath::scaleVertices(float _scale){
 		vertices.at(i).y = vertices.at(i).y * _scale;
 	}
 }
+
+MeshInterface * LevelPath::getMesh(){
+	MeshInterface * mesh = new MeshInterface(GL_LINE_STRIP, GL_STATIC_DRAW);
+	for (int i = 0; i < vertices.size(); ++i){
+		mesh->pushVert(Vertex(glm::vec3(vertices.at(i).x, vertices.at(i).y, 0)));
+	}
+	return mesh;
+}

@@ -64,4 +64,6 @@ public:
 	// if no event is available, returns nullptr
 	// NOTE: this function does not delete events; it only consumes the reference
 	Event * consumeEvent();
+
+	void addLlama(Shader * _shader);
 };

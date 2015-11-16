@@ -163,3 +163,10 @@ Event * PlayerManager::consumeEvent(){
 	eventToTrigger = nullptr;
 	return res;
 }
+
+void PlayerManager::addLlama(Shader * _shader){
+	Llama * llama = new Llama(_shader);
+	llama->childTransform->scale(0.1f);
+	llama->childTransform->translate(glm::vec3(levelPath->vertices.at(0).x, levelPath->vertices.at(0).y, 0));
+	levelPath->addLlama(llama);
+}
