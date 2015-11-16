@@ -297,6 +297,22 @@ MY_Scene::~MY_Scene(){
 
 
 void MY_Scene::update(Step * _step){
+	if(keyboard->keyJustDown(GLFW_KEY_L)){
+		screenSurfaceShader->unload();
+		screenSurfaceShader->loadFromFile(screenSurfaceShader->vertSource, screenSurfaceShader->fragSource);
+		screenSurfaceShader->load();
+	}
+	
+	
+	glUseProgram(screenSurfaceShader->getProgramId());
+	GLint test = glGetUniformLocation(screenSurfaceShader->getProgramId(), "time");
+	checkForGlError(0,__FILE__,__LINE__);
+	if(test != -1){
+		glUniform1f(test, (float)sweet::lastTimestamp);
+		checkForGlError(0,__FILE__,__LINE__);
+	}
+
+
 	if(currentEvent != nullptr){
 		// if there is an ongoing event, progress it
 		std::stringstream ss;
