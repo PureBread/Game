@@ -81,6 +81,7 @@ MY_Scene::MY_Scene(Game * _game) :
 	replaceShader->load();
 
 	screenSurface->uvEdgeMode = GL_CLAMP_TO_EDGE;
+	screenSurface->load();
 
 	//maskShader = new ComponentShaderBase(true);
 	//maskShader->addComponent(new ShaderComponentMVP(maskShader));
@@ -117,6 +118,8 @@ MY_Scene::MY_Scene(Game * _game) :
 
 
 	/** GAME STUFF **/
+
+	// camera
 	playerCam = new PerspectiveCamera();
 	cameras.push_back(playerCam);
 	childTransform->addChild(playerCam);
@@ -125,19 +128,32 @@ MY_Scene::MY_Scene(Game * _game) :
 	playerCam->parents.at(0)->translate(0, -13.8184452f, 57.8584137f);
 	playerCam->fieldOfView = 64.3750000;
 
-	PointLight * l = new PointLight(glm::vec3(1, 1, 1), 1.f, 0.1f, 0.1f);
-	lights.push_back(l);
-	childTransform->addChild(l)->translate(0, 15, 0);
-
-	
-	
-
+	// art layers
 	layerSky = new ArtLayer(replaceShaderComponent);
 	layerBgDetail = new ContinuousArtScroller("BG5", replaceShader);
 	layerBg = new ContinuousArtScroller("BG4", replaceShader);
 	layerLlamas = new ContinuousArtScroller("BG3", replaceShader);
 	layerFg = new ContinuousArtScroller("BG2", replaceShader);
 	layerFgDetail = new ContinuousArtScroller("BG1", replaceShader);
+
+	// level path
+	MeshEntity * mesh = new MeshEntity(manager.levelPath->getMesh(), baseShader);
+	mesh->meshTransform->scale(layerLlamas->imageCount, true);
+	mesh->meshTransform->translate(glm::vec3(-1.5f, -0.5f, 0));
+	manager.levelPath->scaleVertices(layerLlamas->imageCount);
+	manager.levelPath->childTransform->translate(-1.5f, -0.5f, 0);
+	
+	manager.addLlama(baseShader);
+	
+	Sprite * moveThing = new Sprite(baseShader);
+	moveThing->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("LOGO")->texture);
+	for (unsigned long int i = 0; i < moveThing->mesh->vertices.size(); ++i){
+		moveThing->mesh->vertices.at(i).y += 0.5f;
+	}
+	manager.levelPath->moveThing = moveThing;
+	manager.levelPath->moveThing->childTransform->scale(0.01f, 0.5f, 1.f);
+	manager.levelPath->childTransform->addChild(moveThing);
+	
 	
 	bgLayers.push_back(layerBgDetail);
 	bgLayers.push_back(layerBg);
@@ -148,6 +164,10 @@ MY_Scene::MY_Scene(Game * _game) :
 	childTransform->addChild(layerSky);
 	for(signed long int i = 0; i < bgLayers.size(); ++i){
 		childTransform->addChild(bgLayers.at(i))->translate(0, 0, i * 10);
+		if(i == 2){
+			bgLayers.at(i)->childTransform->addChild(manager.levelPath);
+			bgLayers.at(i)->childTransform->addChild(mesh);
+		}
 		bgLayers.at(i)->firstParent()->scale(50);
 	}
 
@@ -264,36 +284,6 @@ MY_Scene::MY_Scene(Game * _game) :
 
 
 	uiLayer.addMouseIndicator();
-	
-	//LevelPath * lp = new LevelPath("walkLayer.png");
-	
-	MeshEntity * mesh = new MeshEntity(new MeshInterface(GL_LINE_STRIP, GL_STATIC_DRAW), baseShader);
-	for (int i = 0; i < manager.levelPath->vertices.size(); ++i){
-		mesh->mesh->pushVert(Vertex(glm::vec3(manager.levelPath->vertices.at(i).x, manager.levelPath->vertices.at(i).y, 0)));
-	}
-
-	mesh->meshTransform->scale(200, true);
-	mesh->meshTransform->translate(glm::vec3(0, 50, 0));
-	childTransform->addChild(mesh);
-
-	manager.levelPath->scaleVertices(200);
-	manager.levelPath->childTransform->translate(0, 50.f, 0);
-	childTransform->addChild(manager.levelPath);
-	Llama * llama = new Llama(baseShader);
-
-	llama->childTransform->scale(2.f);
-	llama->childTransform->translate(glm::vec3(manager.levelPath->vertices.at(0).x, manager.levelPath->vertices.at(0).y, 0));
-	manager.levelPath->addLlama(llama);
-	
-	Sprite * moveThing = new Sprite(baseShader);
-	moveThing->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("LOGO")->texture);
-	for (unsigned long int i = 0; i < moveThing->mesh->vertices.size(); ++i){
-		moveThing->mesh->vertices.at(i).y += 0.5f;
-	}
-	manager.levelPath->moveThing = moveThing;
-	manager.levelPath->moveThing->childTransform->scale(0.5f, 5.f, 1.f);
-	manager.levelPath->childTransform->addChild(moveThing);
-
 }
 
 MY_Scene::~MY_Scene(){
@@ -314,14 +304,13 @@ void MY_Scene::update(Step * _step){
 		screenSurfaceShader->load();
 	}
 	
-	
-	glUseProgram(screenSurfaceShader->getProgramId());
-	GLint test = glGetUniformLocation(screenSurfaceShader->getProgramId(), "time");
-	checkForGlError(0,__FILE__,__LINE__);
-	if(test != -1){
-		glUniform1f(test, (float)sweet::lastTimestamp);
+		glUseProgram(screenSurfaceShader->getProgramId());
+		GLint test = glGetUniformLocation(screenSurfaceShader->getProgramId(), "time");
 		checkForGlError(0,__FILE__,__LINE__);
-	}
+		if(test != -1){
+			glUniform1f(test, (float)sweet::lastTimestamp);
+			checkForGlError(0,__FILE__,__LINE__);
+		}
 
 
 	if(currentEvent != nullptr){

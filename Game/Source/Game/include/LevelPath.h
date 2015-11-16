@@ -5,6 +5,7 @@
 #include <string>
 #include <Entity.h>
 #include <Llama.h>
+#include <MeshInterface.h>
 
 class Sprite;
 
@@ -32,4 +33,6 @@ public:
 
 	std::vector<glm::vec2> simplifyVertices(std::vector<glm::vec2> _vertices, float _threshold = 0.1, float _spacing = 10);
 	void scaleVertices(float _scale);
+
+	MeshInterface * getMesh();
 };

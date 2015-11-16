@@ -10,13 +10,13 @@ private:
 	glm::vec2 pathP1;
 	glm::vec2 pathP2;
 
-	glm::vec2 hopStartPos;
-	glm::vec2 hopEndPos;
-
 	std::vector<glm::vec2> targets;
 
 	float deltaX;
 	float deltaY;
+
+	float angle1;
+	float angle2;
 
 	bool isHopping;
 	float hopSpeed;

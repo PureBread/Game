@@ -115,6 +115,7 @@ void LevelPath::setProgress(float _x){
 	// update index and snap pos if we've reached a new line segment
 	if (vertices.size() > 0 && idx < vertices.size() && _x >= vertices.at(idx).x){
 		while (vertices.size() > 0 && idx < vertices.size() && _x >= vertices.at(idx).x){
+			// Should always be greater than zero as long as x at zero is zero?
 			++idx;
 		}
 		
@@ -202,4 +203,12 @@ void LevelPath::scaleVertices(float _scale){
 		vertices.at(i).x = vertices.at(i).x * _scale;
 		vertices.at(i).y = vertices.at(i).y * _scale;
 	}
+}
+
+MeshInterface * LevelPath::getMesh(){
+	MeshInterface * mesh = new MeshInterface(GL_LINE_STRIP, GL_STATIC_DRAW);
+	for (int i = 0; i < vertices.size(); ++i){
+		mesh->pushVert(Vertex(glm::vec3(vertices.at(i).x, vertices.at(i).y, 0)));
+	}
+	return mesh;
 }
