@@ -42,7 +42,7 @@ public:
 	//ComponentShaderBase * maskShader;
 	//ShaderComponentMask * maskComponent;
 	
-	MousePerspectiveCamera * playerCam;
+	PerspectiveCamera * playerCam;
 	
 	MousePerspectiveCamera * debugCam;
 

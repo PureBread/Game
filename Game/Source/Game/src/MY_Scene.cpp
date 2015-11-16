@@ -117,13 +117,13 @@ MY_Scene::MY_Scene(Game * _game) :
 
 
 	/** GAME STUFF **/
-	PerspectiveCamera * cam = new PerspectiveCamera();
-	cameras.push_back(cam);
-	childTransform->addChild(cam);
-	cam->yaw = 90;
-	cam->pitch = 0.520833313;
-	cam->parents.at(0)->translate(0, -13.8184452f, 57.8584137f);
-	cam->fieldOfView = 64.3750000;
+	playerCam = new PerspectiveCamera();
+	cameras.push_back(playerCam);
+	childTransform->addChild(playerCam);
+	playerCam->yaw = 90;
+	playerCam->pitch = 0.520833313;
+	playerCam->parents.at(0)->translate(0, -13.8184452f, 57.8584137f);
+	playerCam->fieldOfView = 64.3750000;
 
 	PointLight * l = new PointLight(glm::vec3(1, 1, 1), 1.f, 0.1f, 0.1f);
 	lights.push_back(l);
@@ -333,23 +333,26 @@ void MY_Scene::update(Step * _step){
 		manager.update(_step);
 		currentEvent = manager.consumeEvent();
 	}
-
-	// update sky layer
-	glm::vec3 v = activeCamera->getWorldPos();
-	layerSky->childTransform->translate(v.x, v.y, -5, false);
-	for(unsigned long int i = 0; i < 4; ++i){
-		layerSkyMesh->mesh->vertices.at(i).v -= 0.0001;
-	}
-	layerSkyMesh->mesh->dirty = true;
-
-	// update art layers
-	float x = activeCamera->parents.at(0)->getTranslationVector().x;
-	for(unsigned long int i = 0; i < bgLayers.size(); ++i){
-		bgLayers.at(i)->progress = x/50 + 1;
-	}
-
+	
+	float x = manager.statistics["progress"];//activeCamera->parents.at(0)->getTranslationVector().x;
+	glm::vec3 v = playerCam->firstParent()->getTranslationVector();
+	playerCam->firstParent()->translate((x-1)*50.f, v.y, v.z, false);
 
 	
+	{
+		// update sky layer
+		glm::vec3 v = activeCamera->getWorldPos();
+		layerSky->childTransform->translate(v.x, v.y, -5, false);
+		for(unsigned long int i = 0; i < 4; ++i){
+			layerSkyMesh->mesh->vertices.at(i).v -= 0.0001;
+		}
+		layerSkyMesh->mesh->dirty = true;
+
+		// update art layers
+		for(unsigned long int i = 0; i < bgLayers.size(); ++i){
+			bgLayers.at(i)->progress = x;
+		}
+	}
 
 	for(unsigned long int i = 0; i < bgLayers.size(); ++i){
 		bgLayers.at(i)->colorReplaceBlack = manager.markers.coloursReplaceBlack[i+1];
