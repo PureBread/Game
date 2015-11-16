@@ -16,7 +16,9 @@ Llama::Llama(Shader * _shader) :
 	hopDuration(1.f),
 	hopLength(5.f),
 	hopHeight(2.f),
-	currHopTime(0.f)
+	currHopTime(0.f),
+	angle1(0),
+	angle2(0)
 {
 	llama->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("LOGO")->texture);
 	childTransform->addChild(llama);
@@ -52,6 +54,10 @@ void Llama::update(Step * _step){
 			isHopping = false;
 		}
 	}
+	
+	// rotate llama to align it with the tangent of the path, interpolated linearly between the two points making up the segment on which it currently stands
+	float stepProgress = (childTransform->getTranslationVector().x - pathP1.x) / deltaX;
+	llama->childTransform->setOrientation(glm::angleAxis(angle1 + (angle2-angle1) * stepProgress, glm::vec3(0, 0, 1)));
 }
 
 void Llama::addTarget(glm::vec2 _target){
@@ -63,25 +69,24 @@ void Llama::addTarget(glm::vec2 _target){
 }
 
 void Llama::setPath(glm::vec2 _startPos, glm::vec2 _targetPos){
+	angle1 = angle2;
 	pathP1 = _startPos;
 	pathP2 = _targetPos;
 
 	deltaX = pathP2.x - pathP1.x;
 	deltaY = pathP2.y - pathP1.y;
 	glm::vec2 slope = pathP2 - pathP1;
-	glm::vec2 angleDirection = glm::rotate(slope, 90.f);
-	float angle = glm::angle(glm::vec2(1.f, 0), angleDirection) - 90.f;
-
-	llama->childTransform->setOrientation(glm::angleAxis(angle, glm::vec3(0, 0, 1)));
+	angle2 = glm::angle(glm::normalize(slope), glm::vec2(1.f, 0));
 	
-	int i = 0;
+	// if the llama is going down, flip the angle to match
+	if(deltaY < 0){
+		angle2 *= -1;
+	}
 }
 
 void Llama::hop(){
 	if (!isHopping && targets.size() > 0){
 		isHopping = true;
-		//hopStartPos = glm::vec2(childTransform->getTranslationVector().x, childTransform->getTranslationVector().y);
-		//hopEndPos = getPointOnPath(hopLength);
 		currHopTime = 0.f;
 	}
 }
