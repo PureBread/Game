@@ -285,6 +285,12 @@ MY_Scene::MY_Scene(Game * _game) :
 	llama->childTransform->translate(glm::vec3(manager.levelPath->vertices.at(0).x, manager.levelPath->vertices.at(0).y, 0));
 	manager.levelPath->addLlama(llama);
 	
+	Sprite * moveThing = new Sprite(baseShader);
+	moveThing->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("LOGO")->texture);
+	manager.levelPath->moveThing = moveThing;
+	manager.levelPath->moveThing->childTransform->scale(0.5f, 5.f, 1.f);
+	manager.levelPath->childTransform->addChild(moveThing);
+
 }
 
 MY_Scene::~MY_Scene(){

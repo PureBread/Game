@@ -6,6 +6,8 @@
 #include <Entity.h>
 #include <Llama.h>
 
+class Sprite;
+
 class LevelPath : public Entity {
 private:
 	int idx;
@@ -16,6 +18,8 @@ private:
 	std::vector<Llama *> llamas;
 
 public:
+	Sprite * moveThing;
+	
 	std::vector<glm::vec2> vertices;
 
 	LevelPath(std::string _texDir);

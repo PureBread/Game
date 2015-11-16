@@ -8,9 +8,13 @@
 #include <algorithm>
 #include<Easing.h>
 
+#include <Sprite.h>
+#include <MY_ResourceManager.h>
+
 LevelPath::LevelPath(std::string _texDir):
 	idx(0),
-	speed(5.f)
+	speed(5.f),
+	moveThing(nullptr)
 {
 	Texture * texture = new Texture("assets/textures/" + _texDir, true, false);
 	texture->loadImageData();
@@ -97,6 +101,9 @@ LevelPath::~LevelPath(){
 
 void LevelPath::update(Step * _step){
 	Entity::update(_step);
+	if (moveThing != nullptr){
+		moveThing->childTransform->translate(pos.x, pos.y, 0, false);
+	}
 
 	if (vertices.size() > 0 && idx < vertices.size() && pos.x >= vertices.at(idx).x && llamas.at(0)->childTransform->getTranslationVector().x >= vertices.at(idx).x){
 		++idx;
