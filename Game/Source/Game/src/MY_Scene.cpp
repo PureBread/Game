@@ -264,27 +264,27 @@ MY_Scene::MY_Scene(Game * _game) :
 
 
 	uiLayer.addMouseIndicator();
-
-	LevelPath * lp = new LevelPath("walkLayer.png");
-
+	
+	//LevelPath * lp = new LevelPath("walkLayer.png");
+	
 	MeshEntity * mesh = new MeshEntity(new MeshInterface(GL_LINE_STRIP, GL_STATIC_DRAW), baseShader);
-	for (int i = 0; i < lp->vertices.size(); ++i){
-		mesh->mesh->pushVert(Vertex(glm::vec3(lp->vertices.at(i).x, lp->vertices.at(i).y, 0)));
+	for (int i = 0; i < manager.levelPath->vertices.size(); ++i){
+		mesh->mesh->pushVert(Vertex(glm::vec3(manager.levelPath->vertices.at(i).x, manager.levelPath->vertices.at(i).y, 0)));
 	}
 
 	mesh->meshTransform->scale(200, true);
 	mesh->meshTransform->translate(glm::vec3(0, 50, 0));
 	childTransform->addChild(mesh);
 
-	lp->scaleVertices(200);
-	lp->childTransform->translate(0, 50.f, 0);
-	childTransform->addChild(lp);
+	manager.levelPath->scaleVertices(200);
+	manager.levelPath->childTransform->translate(0, 50.f, 0);
+	childTransform->addChild(manager.levelPath);
 	Llama * llama = new Llama(baseShader);
 
 	llama->childTransform->scale(2.f);
-	llama->childTransform->translate(glm::vec3(lp->vertices.at(0).x, lp->vertices.at(0).y, 0));
-	lp->addLlama(llama);
-
+	llama->childTransform->translate(glm::vec3(manager.levelPath->vertices.at(0).x, manager.levelPath->vertices.at(0).y, 0));
+	manager.levelPath->addLlama(llama);
+	
 }
 
 MY_Scene::~MY_Scene(){

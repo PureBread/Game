@@ -18,10 +18,11 @@ PlayerManager::PlayerManager() :
 	momentDelay(0.5f),
 	momentTimer(0),
 	speedMultiplier(0.1f),
-	eventToTrigger(nullptr)
+	eventToTrigger(nullptr),
+	levelPath(new LevelPath("walkLayer.png"))
 {
 	loadDefaults();
-
+	
 	markers.eventManager.listeners["destination"].push_back([this](sweet::Event * _e){std::cout << _e->getStringData("scenario");});
 }
 

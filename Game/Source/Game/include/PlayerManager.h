@@ -6,6 +6,7 @@
 
 #include <EventManager.h>
 #include <Markers.h>
+#include <LevelPath.h>
 
 enum EventType {
 	kDESTINATION = 0,
@@ -23,6 +24,7 @@ public:
 
 class PlayerManager : public NodeUpdatable{
 private:
+	
 	Event * eventToTrigger;
 	float momentDelay;
 	float momentTimer;
@@ -35,6 +37,7 @@ private:
 	Event * triggerRandomEvent();
 public:
 	Markers markers;
+	LevelPath * levelPath;
 	std::map<std::string, float> statistics;
 
 	// global multiplier applied to speed, regardless of player input
