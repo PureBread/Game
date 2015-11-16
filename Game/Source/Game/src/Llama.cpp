@@ -20,8 +20,9 @@ Llama::Llama(Shader * _shader) :
 	angle1(0),
 	angle2(0)
 {
-	llama->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("LOGO")->texture);
+	llama->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("LLAMA")->texture);
 	childTransform->addChild(llama);
+	llama->mesh->scaleModeMag = llama->mesh->scaleModeMin = GL_NEAREST;
 
 	for (unsigned long int i = 0; i < llama->mesh->vertices.size(); ++i){
 		llama->mesh->vertices.at(i).y += 0.5f;

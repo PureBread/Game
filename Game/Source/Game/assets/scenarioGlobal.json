@@ -53,6 +53,15 @@
         "src": "UI/back.png"
     },
 
+
+
+
+    {
+        "id": "LLAMA",
+        "type": "texture",
+        "src": "llama!!!!!/smolllama1.png"
+    },
+
     
     {
         "id": "MENU_MAIN",

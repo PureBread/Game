@@ -11,9 +11,10 @@
 #include <Sprite.h>
 #include <MY_ResourceManager.h>
 
-LevelPath::LevelPath(std::string _texDir):
+LevelPath::LevelPath(std::string _texDir, ShaderComponentReplace * _replaceComponent):
 	idx(0),
-	moveThing(nullptr)
+	moveThing(nullptr),
+	ArtLayer(_replaceComponent)
 {
 	Texture * texture = new Texture("assets/textures/" + _texDir, true, false);
 	texture->loadImageData();

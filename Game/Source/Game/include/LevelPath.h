@@ -6,10 +6,11 @@
 #include <Entity.h>
 #include <Llama.h>
 #include <MeshInterface.h>
+#include <ArtLayer.h>
 
 class Sprite;
 
-class LevelPath : public Entity {
+class LevelPath : public ArtLayer {
 private:
 	int idx;
 	glm::vec2 pos;
@@ -22,7 +23,7 @@ public:
 	
 	std::vector<glm::vec2> vertices;
 
-	LevelPath(std::string _texDir);
+	LevelPath(std::string _texDir, ShaderComponentReplace * _replaceComponent);
 	~LevelPath();
 
 	virtual void update(Step * _step) override;

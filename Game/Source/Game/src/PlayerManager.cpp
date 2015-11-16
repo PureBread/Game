@@ -14,12 +14,12 @@ Event::Event(EventType _type, Scenario * _scenario) :
 {
 }
 
-PlayerManager::PlayerManager() :
+PlayerManager::PlayerManager(ShaderComponentReplace * _replaceComponent) :
 	momentDelay(0.5f),
 	momentTimer(0),
 	speedMultiplier(0.1f),
 	eventToTrigger(nullptr),
-	levelPath(new LevelPath("walkLayer.png"))
+	levelPath(new LevelPath("walkLayer.png", _replaceComponent))
 {
 	loadDefaults();
 	

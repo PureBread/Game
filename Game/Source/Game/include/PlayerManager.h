@@ -8,6 +8,8 @@
 #include <Markers.h>
 #include <LevelPath.h>
 
+class ShaderComponentReplace;
+
 enum EventType {
 	kDESTINATION = 0,
 	kLOSS = 1,
@@ -51,7 +53,7 @@ public:
 	// loads the default resources
 	void loadDefaults();
 
-	PlayerManager();
+	PlayerManager(ShaderComponentReplace * _replaceComponent);
 	~PlayerManager();
 
 	virtual void update(Step * _step) override;

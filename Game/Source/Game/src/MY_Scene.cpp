@@ -68,7 +68,8 @@ MY_Scene::MY_Scene(Game * _game) :
 	uiLayer(0,0,0,0),
 	progress(0),
 	speed(0),
-	currentEvent(nullptr)
+	currentEvent(nullptr),
+	manager(replaceShaderComponent)
 {
 	baseShader->addComponent(new ShaderComponentMVP(baseShader));
 	baseShader->addComponent(new ShaderComponentTexture(baseShader));
@@ -124,7 +125,7 @@ MY_Scene::MY_Scene(Game * _game) :
 	cameras.push_back(playerCam);
 	childTransform->addChild(playerCam);
 	playerCam->yaw = 90;
-	playerCam->pitch = 0.520833313;
+	playerCam->pitch = 0.520833313f;
 	playerCam->parents.at(0)->translate(0, -13.8184452f, 57.8584137f);
 	playerCam->fieldOfView = 64.3750000;
 
@@ -147,7 +148,7 @@ MY_Scene::MY_Scene(Game * _game) :
 	manager.levelPath->scaleVertices(layerLlamas->imageCount);
 	manager.levelPath->childTransform->translate(-1.5f, -0.5f, 0);
 	
-	manager.addLlama(baseShader);
+	manager.addLlama(replaceShader);
 	
 	Sprite * moveThing = new Sprite(baseShader);
 	moveThing->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("LOGO")->texture);
@@ -166,7 +167,7 @@ MY_Scene::MY_Scene(Game * _game) :
 	bgLayers.push_back(layerFgDetail);
 
 	childTransform->addChild(layerSky);
-	for(signed long int i = 0; i < bgLayers.size(); ++i){
+	for(unsigned long int i = 0; i < bgLayers.size(); ++i){
 		childTransform->addChild(bgLayers.at(i))->translate(0, 0, i * 10);
 		if(i == 2){
 			bgLayers.at(i)->childTransform->addChild(manager.levelPath);
@@ -353,7 +354,7 @@ void MY_Scene::update(Step * _step){
 		glm::vec3 v = activeCamera->getWorldPos();
 		layerSky->childTransform->translate(v.x, v.y, -5, false);
 		for(unsigned long int i = 0; i < 4; ++i){
-			layerSkyMesh->mesh->vertices.at(i).v -= 0.0001;
+			layerSkyMesh->mesh->vertices.at(i).v -= 0.0001f;
 		}
 		layerSkyMesh->mesh->dirty = true;
 
@@ -370,6 +371,9 @@ void MY_Scene::update(Step * _step){
 	layerSky->colorReplaceBlack = manager.markers.coloursReplaceBlack[0];
 	layerSky->colorReplaceWhite = manager.markers.coloursReplaceWhite[0];
 	
+	manager.levelPath->colorReplaceBlack = manager.markers.coloursReplaceBlack[NUM_LAYERS-1];
+	manager.levelPath->colorReplaceWhite = manager.markers.coloursReplaceBlack[NUM_LAYERS-2];
+	
 	if(keyboard->keyJustDown(GLFW_KEY_F12)){
 		//game->toggleFullScreen();
 		game->takeScreenshot();
@@ -381,7 +385,7 @@ void MY_Scene::update(Step * _step){
 		Transform::drawTransforms = !Transform::drawTransforms;
 	}
 
-	float camSpeed = 0.3;
+	float camSpeed = 0.3f;
 	MousePerspectiveCamera * cam = dynamic_cast<MousePerspectiveCamera *>(activeCamera);
 	if(cam != nullptr){
 		camSpeed = cam->speed;
@@ -403,9 +407,9 @@ void MY_Scene::update(Step * _step){
 	
 
 	if (keyboard->keyJustDown(GLFW_KEY_A)){
-		speed += 0.1;
+		speed += 0.1f;
 	}if (keyboard->keyJustDown(GLFW_KEY_D)){
-		speed -= 0.1;
+		speed -= 0.1f;
 	}
 	if (keyboard->keyJustDown(GLFW_KEY_ESCAPE)){
 		game->switchScene("MENU_MAIN", false);
