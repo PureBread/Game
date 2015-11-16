@@ -99,7 +99,7 @@ void PlayerManager::moment(){
 		eventToTrigger = triggerRandomEvent();
 	}
 
-	levelPath->setProgress(statistics["progress"]);
+	levelPath->setProgress(statistics["progress"]+0.25f);
 }
 
 

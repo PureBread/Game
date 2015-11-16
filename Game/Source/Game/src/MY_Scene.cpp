@@ -137,9 +137,13 @@ MY_Scene::MY_Scene(Game * _game) :
 	layerFgDetail = new ContinuousArtScroller("BG1", replaceShader);
 
 	// level path
-	MeshEntity * mesh = new MeshEntity(manager.levelPath->getMesh(), baseShader);
-	mesh->meshTransform->scale(layerLlamas->imageCount, true);
-	mesh->meshTransform->translate(glm::vec3(-1.5f, -0.5f, 0));
+	MeshEntity * meshLines = new MeshEntity(manager.levelPath->getMesh(), baseShader);
+	meshLines->meshTransform->scale(layerLlamas->imageCount, true);
+	meshLines->meshTransform->translate(glm::vec3(-1.5f, -0.5f, 0));
+	MeshEntity * meshPoints = new MeshEntity(manager.levelPath->getMesh(), baseShader);
+	meshPoints->meshTransform->scale(layerLlamas->imageCount, true);
+	meshPoints->meshTransform->translate(glm::vec3(-1.5f, -0.5f, 0));
+	meshPoints->mesh->polygonalDrawMode = GL_POINTS;
 	manager.levelPath->scaleVertices(layerLlamas->imageCount);
 	manager.levelPath->childTransform->translate(-1.5f, -0.5f, 0);
 	
@@ -166,7 +170,8 @@ MY_Scene::MY_Scene(Game * _game) :
 		childTransform->addChild(bgLayers.at(i))->translate(0, 0, i * 10);
 		if(i == 2){
 			bgLayers.at(i)->childTransform->addChild(manager.levelPath);
-			bgLayers.at(i)->childTransform->addChild(mesh);
+			bgLayers.at(i)->childTransform->addChild(meshLines);
+			bgLayers.at(i)->childTransform->addChild(meshPoints);
 		}
 		bgLayers.at(i)->firstParent()->scale(50);
 	}

@@ -12,10 +12,10 @@
 Llama::Llama(Shader * _shader) :
 	llama(new Sprite(_shader)),
 	isHopping(false),
-	hopSpeed(1.f),
-	hopDuration(1.f),
+	hopSpeed(0.1f),
+	hopDuration(0.4f),
 	hopLength(5.f),
-	hopHeight(2.f),
+	hopHeight(0.5f),
 	currHopTime(0.f),
 	angle1(0),
 	angle2(0)
@@ -34,10 +34,6 @@ Llama::~Llama(){
 void Llama::update(Step * _step){
 
 	Entity::update(_step);
-	
-	if (targets.size() > 0){
-		hopSpeed = (targets.back().x - childTransform->getTranslationVector().x)*17;
-	}
 	if (isHopping){
 		currHopTime += _step->deltaTime;
 
@@ -49,9 +45,12 @@ void Llama::update(Step * _step){
 			}
 		}
 		
+		glm::vec2 v(deltaX, deltaY);
+		v = glm::normalize(v);
+		childTransform->translate(v.x * _step->deltaTime * hopSpeed, v.y * _step->deltaTime * hopSpeed, 0);
+		
+		// jumping
 		float ly = currHopTime / hopDuration <= 0.5 ? Easing::easeOutCubic(currHopTime, 0, hopHeight, hopDuration/2) : Easing::easeOutBounce(currHopTime - hopDuration/2, hopHeight, -hopHeight, hopDuration/2);
-
-		childTransform->translate(deltaX * _step->deltaTime * hopSpeed, deltaY * _step->deltaTime * hopSpeed, 0);
 		llama->childTransform->translate(0, ly, 0, false);
 
 		if (currHopTime >= hopDuration){
@@ -91,7 +90,15 @@ void Llama::setPath(glm::vec2 _startPos, glm::vec2 _targetPos){
 void Llama::hop(){
 	if (!isHopping && targets.size() > 0){
 		isHopping = true;
-		currHopTime = 0.f;
+		currHopTime -= hopDuration;
+	
+		glm::vec2 v1 = glm::vec2(childTransform->getTranslationVector().x, childTransform->getTranslationVector().y);
+		float d = 0;
+		for(auto v : targets){
+			d += glm::distance(v, v1);
+			v1 = v;
+		}
+		hopSpeed = d;
 	}
 }
 

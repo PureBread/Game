@@ -10,7 +10,6 @@ private:
 	glm::vec2 pathP1;
 	glm::vec2 pathP2;
 
-	std::vector<glm::vec2> targets;
 
 	float deltaX;
 	float deltaY;
@@ -28,6 +27,7 @@ private:
 	Sprite * llama;
 
 public:
+	std::vector<glm::vec2> targets;
 	Llama(Shader * _shader);
 	~Llama();
 
