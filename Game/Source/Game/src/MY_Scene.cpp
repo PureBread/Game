@@ -308,6 +308,11 @@ MY_Scene::~MY_Scene(){
 
 
 void MY_Scene::update(Step * _step){
+	if(_step->time > 1 && manager.statistics["herdSize"] < 2){
+		manager.statistics["herdSize"] += 1;
+		manager.addLlama(replaceShader);
+	}
+
 	if(keyboard->keyJustDown(GLFW_KEY_L)){
 		screenSurfaceShader->unload();
 		screenSurfaceShader->loadFromFile(screenSurfaceShader->vertSource, screenSurfaceShader->fragSource);
