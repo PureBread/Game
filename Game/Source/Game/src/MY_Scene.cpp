@@ -156,7 +156,7 @@ MY_Scene::MY_Scene(Game * _game) :
 	childTransform->addChild(lp);
 	Llama * llama = new Llama(baseShader);
 	
-	llama->childTransform->scale(2);
+	llama->childTransform->scale(2.f);
 	llama->childTransform->translate(glm::vec3(lp->vertices.at(0).x, lp->vertices.at(0).y, 0));
 	lp->addLlama(llama);
 

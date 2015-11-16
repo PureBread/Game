@@ -104,7 +104,6 @@ void LevelPath::update(Step * _step){
 			pos = vertices.at(idx-1);
 			slope = glm::normalize(vertices.at(idx) - vertices.at(idx-1));
 			for (int i = 0; i < llamas.size(); ++i){
-				//llamas.at(i)->setPath(vertices.at(idx - 1), vertices.at(idx));
 				llamas.at(i)->addTarget(vertices.at(idx));
 			}
 		}
@@ -117,7 +116,6 @@ void LevelPath::update(Step * _step){
 
 	for (int i = 0; i < llamas.size(); ++i){
 		llamas.at(i)->hop();
-		//llamas.at(i)->childTransform->translate(pos.x, pos.y, 0, false);
 	}
 }
 

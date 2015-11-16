@@ -5,6 +5,8 @@
 #include <Texture.h>
 #include <MeshInterface.h>
 #include <Easing.h>
+#include <glm/gtx/rotate_vector.hpp>
+#include <glm/gtx/vector_angle.hpp>
 
 Llama::Llama(Shader * _shader) :
 	llama(new Sprite(_shader)),
@@ -19,6 +21,10 @@ Llama::Llama(Shader * _shader) :
 	texture->load();
 	llama->mesh->pushTexture2D(texture);
 	childTransform->addChild(llama);
+
+	for (unsigned long int i = 0; i < llama->mesh->vertices.size(); ++i){
+		llama->mesh->vertices.at(i).y += 0.5f;
+	}
 }
 
 Llama::~Llama(){
@@ -38,7 +44,7 @@ void Llama::update(Step * _step){
 			}
 		}
 		
-		float ly = currHopTime / hopDuration <= 0.5 ? Easing::easeOutSine(currHopTime, 0, hopHeight, hopDuration) : Easing::easeOutBounce(currHopTime, hopHeight, -hopHeight, hopDuration);
+		float ly = currHopTime / hopDuration <= 0.5 ? Easing::easeOutCubic(currHopTime, 0, hopHeight, hopDuration/2) : Easing::easeOutBounce(currHopTime - hopDuration/2, hopHeight, -hopHeight, hopDuration/2);
 
 		childTransform->translate(deltaX * _step->deltaTime * hopSpeed, deltaY * _step->deltaTime * hopSpeed, 0);
 		llama->childTransform->translate(0, ly, 0, false);
@@ -63,6 +69,13 @@ void Llama::setPath(glm::vec2 _startPos, glm::vec2 _targetPos){
 
 	deltaX = pathP2.x - pathP1.x;
 	deltaY = pathP2.y - pathP1.y;
+	glm::vec2 slope = pathP2 - pathP1;
+	glm::vec2 angleDirection = glm::rotate(slope, 90.f);
+	float angle = glm::angle(glm::vec2(1.f, 0), angleDirection) - 90.f;
+
+	llama->childTransform->setOrientation(glm::angleAxis(angle, glm::vec3(0, 0, 1)));
+	
+	int i = 0;
 }
 
 void Llama::hop(){
