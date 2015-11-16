@@ -275,6 +275,10 @@ MY_Scene::MY_Scene(Game * _game) :
 	uiLayer.addChild(ui);
 
 
+	uiEvent = new UI_Event(uiLayer.world, nullptr, textShader);
+
+	uiLayer.addChild(uiEvent);
+
 	uiLayer.addMouseIndicator();
 	
 }

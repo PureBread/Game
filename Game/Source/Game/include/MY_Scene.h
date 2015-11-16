@@ -10,6 +10,7 @@
 
 #include <PlayerManager.h>
 #include <ArtLayer.h>
+#include <UI_Event.h>
 
 class PerspectiveCamera;
 class MousePerspectiveCamera;
@@ -48,6 +49,7 @@ public:
 
 	PlayerManager manager;
 	Event * currentEvent;
+	UI_Event * uiEvent;
 
 	float speed;
 	float progress;
