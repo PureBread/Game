@@ -145,6 +145,14 @@ MY_Scene::MY_Scene(Game * _game) :
 	
 	manager.addLlama(baseShader);
 	
+	Sprite * moveThing = new Sprite(baseShader);
+	moveThing->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("LOGO")->texture);
+	for (unsigned long int i = 0; i < moveThing->mesh->vertices.size(); ++i){
+		moveThing->mesh->vertices.at(i).y += 0.5f;
+	}
+	manager.levelPath->moveThing = moveThing;
+	manager.levelPath->moveThing->childTransform->scale(0.01f, 0.5f, 1.f);
+	manager.levelPath->childTransform->addChild(moveThing);
 	
 	
 	bgLayers.push_back(layerBgDetail);
@@ -280,7 +288,6 @@ MY_Scene::MY_Scene(Game * _game) :
 	uiLayer.addChild(uiEvent);
 
 	uiLayer.addMouseIndicator();
-	
 }
 
 MY_Scene::~MY_Scene(){

@@ -98,6 +98,8 @@ void PlayerManager::moment(){
 	}else if(shouldTriggerRandomEvent()){
 		eventToTrigger = triggerRandomEvent();
 	}
+
+	levelPath->setProgress(statistics["progress"]);
 }
 
 

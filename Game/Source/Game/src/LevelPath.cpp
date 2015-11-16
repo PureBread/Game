@@ -8,15 +8,18 @@
 #include <algorithm>
 #include<Easing.h>
 
+#include <Sprite.h>
+#include <MY_ResourceManager.h>
+
 LevelPath::LevelPath(std::string _texDir):
 	idx(0),
-	speed(5.f)
+	moveThing(nullptr)
 {
 	Texture * texture = new Texture("assets/textures/" + _texDir, true, false);
 	texture->loadImageData();
 
 	vertices = sweet::TextureUtils::getTracedContour(texture, 0);
-	
+
 	unsigned int minX = texture->width, maxX = 0, minY = texture->height;
 	
 	// find contour borders
@@ -95,10 +98,48 @@ LevelPath::LevelPath(std::string _texDir):
 LevelPath::~LevelPath(){
 }
 
+void LevelPath::setProgress(float _x){
+	// idx = target vertex
+	// idx-1 = previous target vertex
+	
+	// update pos according to line equation (with slope)
+	if (idx > 0 && idx < vertices.size()){
+		pos.x = _x;
+		float dX = slope.x;
+		float dY = slope.y;
+		float s = dX / dY;
+
+		pos.y = slope.y / slope.x * (_x - vertices.at(idx-1).x) + vertices.at(idx - 1).y;
+	}
+
+	// update index and snap pos if we've reached a new line segment
+	if (vertices.size() > 0 && idx < vertices.size() && _x >= vertices.at(idx).x){
+		while (vertices.size() > 0 && idx < vertices.size() && _x >= vertices.at(idx).x){
+			// Should always be greater than zero as long as x at zero is zero?
+			++idx;
+		}
+		
+		if (idx < vertices.size()){
+			// snap to starting pos of the new line segment
+			pos = vertices.at(idx - 1);slope = vertices.at(idx) - vertices.at(idx - 1);
+			for (int i = 0; i < llamas.size(); ++i){
+				// finalize llamas last target and create a new target
+				//llamas.at(i)->
+				llamas.at(i)->addTarget(vertices.at(idx));
+			}
+		}
+	}
+}
+
 void LevelPath::update(Step * _step){
 	Entity::update(_step);
-
-	if (vertices.size() > 0 && idx < vertices.size() && pos.x >= vertices.at(idx).x && llamas.at(0)->childTransform->getTranslationVector().x >= vertices.at(idx).x){
+	if (moveThing != nullptr){
+		moveThing->childTransform->translate(pos.x, pos.y, 0, false);
+	}
+	/*
+	// Get new line segment slope and add target to llamas
+	if (vertices.size() > 0 && idx < vertices.size() && pos.x >= vertices.at(idx).x){
+		// first target will be idx = 1
 		++idx;
 		if (idx < vertices.size()){
 			pos = vertices.at(idx-1);
@@ -108,12 +149,16 @@ void LevelPath::update(Step * _step){
 			}
 		}
 	}
+	*/
 
+	// move position
+	/*
 	if (idx < vertices.size()){
 		pos += glm::vec2(slope.x * _step->deltaTime * speed, slope.y * _step->deltaTime * speed);
 		std::cout << "idx: " << idx << " posX: " << pos.x << " posY: " << pos.y << std::endl;
-	}
+	}*/
 
+	// move llamas
 	for (int i = 0; i < llamas.size(); ++i){
 		llamas.at(i)->hop();
 	}
