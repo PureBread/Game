@@ -17,7 +17,7 @@ Event::Event(EventType _type, Scenario * _scenario) :
 PlayerManager::PlayerManager() :
 	momentDelay(0.5f),
 	momentTimer(0),
-	speedMultiplier(0.1f),
+	speedMultiplier(0.5f),
 	eventToTrigger(nullptr),
 	levelPath(new LevelPath("walkLayer.png"))
 {
@@ -98,6 +98,8 @@ void PlayerManager::moment(){
 	}else if(shouldTriggerRandomEvent()){
 		eventToTrigger = triggerRandomEvent();
 	}
+
+	levelPath->setProgress(statistics["progress"]);
 }
 
 

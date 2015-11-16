@@ -287,6 +287,9 @@ MY_Scene::MY_Scene(Game * _game) :
 	
 	Sprite * moveThing = new Sprite(baseShader);
 	moveThing->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("LOGO")->texture);
+	for (unsigned long int i = 0; i < moveThing->mesh->vertices.size(); ++i){
+		moveThing->mesh->vertices.at(i).y += 0.5f;
+	}
 	manager.levelPath->moveThing = moveThing;
 	manager.levelPath->moveThing->childTransform->scale(0.5f, 5.f, 1.f);
 	manager.levelPath->childTransform->addChild(moveThing);
