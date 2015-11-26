@@ -289,7 +289,7 @@ MY_Scene::MY_Scene(Game * _game) :
 	uiLayer.addChild(ui);
 
 
-	uiEvent = new UI_Event(uiLayer.world, nullptr, textShader);
+	uiEvent = new UI_Event(uiLayer.world, textShader);
 
 	uiLayer.addChild(uiEvent);
 
@@ -330,7 +330,7 @@ void MY_Scene::update(Step * _step){
 
 	if(currentEvent != nullptr){
 		// if there is an ongoing event, progress it
-		std::stringstream ss;
+		/*std::stringstream ss;
 		ss << "Event: ";
 		switch (currentEvent->type){
 			case kLOSS: ss << "LOSS"; break;
@@ -338,15 +338,21 @@ void MY_Scene::update(Step * _step){
 			case kRANDOM: ss << "RANDOM"; break;
 		}
 		ss << currentEvent->scenario->id << std::endl;
-		Log::info(ss.str());
+		Log::info(ss.str());*/
 
 		// once the event is finished, delete it and remove the reference in order to continue gameplay in the next update
-		delete currentEvent;
-		currentEvent = nullptr;
+		if(uiEvent->done){
+			delete currentEvent;
+			currentEvent = nullptr;
+			uiEvent->setVisible(false);
+		}
 	}else{
 		// if there isn't an ongoing event, update the statistics and check for a new event
 		manager.update(_step);
 		currentEvent = manager.consumeEvent();
+		if(currentEvent != nullptr){
+			uiEvent->startEvent(currentEvent);
+		}
 	}
 	
 	float x = manager.statistics["progress"];//activeCamera->parents.at(0)->getTranslationVector().x;

@@ -13,6 +13,13 @@ public:
 	MY_Button * optionTwo;
 	NodeUI * nextButton;
 
-	UI_Event(BulletWorld * _world, Event * _event, Shader * _textShader);
+	bool done;
+
+	UI_Event(BulletWorld * _world, Shader * _textShader);
 	~UI_Event();
+
+	Event * currentEvent;
+	void startEvent(Event * _event);
+
+	virtual bool sayNext() override;
 };
