@@ -24,6 +24,7 @@ Llama::Llama(Shader * _shader) :
 	childTransform->addChild(llama);
 	llama->mesh->scaleModeMag = llama->mesh->scaleModeMin = GL_NEAREST;
 
+	// move the llama's mesh up so that the origin is aligned with the base
 	for (unsigned long int i = 0; i < llama->mesh->vertices.size(); ++i){
 		llama->mesh->vertices.at(i).y += 0.5f;
 	}
@@ -99,7 +100,7 @@ void Llama::hop(){
 			d += glm::distance(v, v1);
 			v1 = v;
 		}
-		hopSpeed = d;
+		hopSpeed = hopHeight = d;
 	}
 }
 
