@@ -42,6 +42,13 @@ UI_Event::UI_Event(BulletWorld * _world, Shader * _textShader) :
 		done = !this->sayNext();
 	};
 
+	optionOne->onClickFunction = [this](){
+		select(0);
+	};
+	optionTwo->onClickFunction = [this](){
+		select(1);
+	};
+
 	setVisible(false);
 }
 
@@ -72,8 +79,29 @@ bool UI_Event::sayNext(){
 		tex->load();
 		image->background->mesh->pushTexture2D(tex);
 
-		std::string t = currentConversation->getCurrentDialogue()->getCurrentText();
-		text->setText(std::wstring(t.begin(), t.end()));
+		text->setText(currentConversation->getCurrentDialogue()->getCurrentText());
+
+		if(waitingForInput){
+			nextButton->setVisible(false);
+			optionOne->setVisible(true);
+			optionTwo->setVisible(true);
+			
+			nextButton->setMouseEnabled(false);
+			optionOne->setMouseEnabled(true);
+			optionTwo->setMouseEnabled(true);
+			
+			optionOne->label->setText(currentConversation->options.at(0)->text);
+			optionTwo->label->setText(currentConversation->options.at(1)->text);
+		}else{
+			nextButton->setVisible(true);
+			optionOne->setVisible(false);
+			optionTwo->setVisible(false);
+			
+			nextButton->setMouseEnabled(true);
+			optionOne->setMouseEnabled(false);
+			optionTwo->setMouseEnabled(false);
+		}
+
 		return true;
 	}else{
 		return false;
