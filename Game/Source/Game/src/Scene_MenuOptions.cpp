@@ -77,17 +77,17 @@ Scene_MenuOptions::Scene_MenuOptions(Game * _game) :
 	back->label->setText(L"BACK");
 	
 	
-	fullscreenToggle->onClickFunction = [this, fullscreenToggle](){
+	fullscreenToggle->eventManager.addEventListener("click", [this, fullscreenToggle](sweet::Event *){
 		game->toggleFullScreen();
 		if(sweet::fullscreen){
 			fullscreenToggle->label->setText(L"WINDOWED");
 		}else{
 			fullscreenToggle->label->setText(L"FULLSCREEN");
 		}
-	};
-	back->onClickFunction = [this](){
+	});
+	back->eventManager.addEventListener("click", [this](sweet::Event *){
 		game->switchScene("MENU_MAIN", false);
-	};
+	});
 	
 	vl->addChild(optionsText);
 	vl->addChild(fullscreenToggle);

@@ -66,19 +66,19 @@ Scene_MenuMain::Scene_MenuMain(Game * _game) :
 	b3->label->setText(L"OPTIONS");
 	b4->label->setText(L"EXIT GAME");
 	
-	b1->onClickFunction = [this](){
+	b1->eventManager.addEventListener("click", [this](sweet::Event *){
 		// TODO: reset game before switching to scene
 		game->switchScene("MAIN", false);
-	};
-	b2->onClickFunction = [this](){
+	});
+	b2->eventManager.addEventListener("click", [this](sweet::Event *){
 		game->switchScene("MAIN", false);
-	};
-	b3->onClickFunction = [this](){
+	});
+	b3->eventManager.addEventListener("click", [this](sweet::Event *){
 		game->switchScene("MENU_OPTIONS", false);
-	};
-	b4->onClickFunction = [this](){
+	});
+	b4->eventManager.addEventListener("click", [this](sweet::Event *){
 		game->exit();
-	};
+	});
 	
 	vl->addChild(b1);
 	vl->addChild(b2);

@@ -38,16 +38,15 @@ UI_Event::UI_Event(BulletWorld * _world, Shader * _textShader) :
 	nextButton->setWidth(100);
 	nextButton->setHeight(100);
 
-	nextButton->onClickFunction = [this](){
+	nextButton->eventManager.addEventListener("click", [this](sweet::Event * _event){
 		done = !this->sayNext();
-	};
-
-	optionOne->onClickFunction = [this](){
+	});
+	optionOne->eventManager.addEventListener("click", [this](sweet::Event * _event){
 		select(0);
-	};
-	optionTwo->onClickFunction = [this](){
+	});
+	optionTwo->eventManager.addEventListener("click", [this](sweet::Event * _event){
 		select(1);
-	};
+	});
 
 	setVisible(false);
 }
