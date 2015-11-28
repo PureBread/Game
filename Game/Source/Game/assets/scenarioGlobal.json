@@ -101,6 +101,11 @@
         "type": "audio",
         "src": "Sound1.ogg"
     },
+    {
+        "id": "ANDES",
+        "type": "audio",
+        "src": "Andes.wav"
+    },
 
 
     {

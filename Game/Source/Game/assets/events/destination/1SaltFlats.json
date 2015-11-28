@@ -54,7 +54,8 @@
           "triggers": [
             {
               "type": "destinationUpdate",
-            },            
+              "args": {}
+            }
           ]
         }
       ]
