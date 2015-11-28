@@ -1,9 +1,7 @@
 {
   "assets": [
     {
-        "id": "img_traveller",
-        "type": "texture",
-        "src": "events_R/PureBread-logo.png"
+        
     }
   ],
   "characters": [
@@ -46,8 +44,23 @@
           "text": [
               "The llama explains that they've been separated from their herd and has been on the road for nearly two weeks without any contact. ",
               "You offer to take them with you, and the weary traveller gratefully accepts.",
-              "Feeding their empty belly costs you some precious food, but sharing the road with companions is even more precious.",
-              "test dialogue (conversation 2) 1.4"
+              "Feeding their empty belly costs you some precious food, but sharing the road with companions is even more precious."
+          ],
+          "triggers": [
+            {
+              "type": "statisticUpdate",
+              "args": {
+                "statistic": "food",
+                "amount": -5
+              }
+            },
+            {
+              "type": "statisticUpdate",
+              "args": {
+                "statistic": "herdSize",
+                "amount": 1
+              }
+            }
           ]
         }
       ]
@@ -58,10 +71,8 @@
         {
           "speaker": "Speaker 1",
           "text": [
-              "test dialogue (conversation 2) 1.1",
-              "test dialogue (conversation 2) 1.2",
-              "test dialogue (conversation 2) 1.3",
-              "test dialogue (conversation 2) 1.4"
+              "The traveller looks to you with weary eyes as you approach, and says nothing as you pass.",
+              "You fight the urge to look back as you continue on your way."
           ]
         }
       ]
