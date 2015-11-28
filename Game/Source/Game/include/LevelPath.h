@@ -30,7 +30,8 @@ public:
 
 	void setProgress(float _x);
 
-	void addLlama(Llama * _llama);
+	void addLlama(Llama * _llama, bool _isLeader = false);
+	void removeLlama();
 
 	std::vector<glm::vec2> simplifyVertices(std::vector<glm::vec2> _vertices, float _threshold = 0.1, float _spacing = 10);
 	void scaleVertices(float _scale);

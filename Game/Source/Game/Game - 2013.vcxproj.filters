@@ -1,3 +1,40 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="src\ArtLayer.cpp" />
+    <ClCompile Include="src\ContinuousArtScroller.cpp" />
+    <ClCompile Include="src\LevelPath.cpp" />
+    <ClCompile Include="src\Llama.cpp" />
+    <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\Markers.cpp" />
+    <ClCompile Include="src\MY_Button.cpp" />
+    <ClCompile Include="src\MY_Game.cpp" />
+    <ClCompile Include="src\MY_ResourceManager.cpp" />
+    <ClCompile Include="src\MY_Scene.cpp" />
+    <ClCompile Include="src\PlayerManager.cpp" />
+    <ClCompile Include="src\Scene_Menu.cpp" />
+    <ClCompile Include="src\Scene_MenuMain.cpp" />
+    <ClCompile Include="src\Scene_MenuOptions.cpp" />
+    <ClCompile Include="src\ShaderComponentReplace.cpp" />
+    <ClCompile Include="src\VCam.cpp" />
+    <ClCompile Include="src\UI_Event.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\ArtLayer.h" />
+    <ClInclude Include="include\ContinuousArtScroller.h" />
+    <ClInclude Include="include\LevelPath.h" />
+    <ClInclude Include="include\Llama.h" />
+    <ClInclude Include="include\Markers.h" />
+    <ClInclude Include="include\MY_Button.h" />
+    <ClInclude Include="include\MY_Game.h" />
+    <ClInclude Include="include\MY_ResourceManager.h" />
+    <ClInclude Include="include\MY_Scene.h" />
+    <ClInclude Include="include\PlayerManager.h" />
+    <ClInclude Include="include\Scene_Menu.h" />
+    <ClInclude Include="include\Scene_MenuMain.h" />
+    <ClInclude Include="include\Scene_MenuOptions.h" />
+    <ClInclude Include="include\ShaderComponentReplace.h" />
+    <ClInclude Include="include\VCam.h" />
+    <ClInclude Include="include\UI_Event.h" />
+  </ItemGroup>
 </Project>
