@@ -1,0 +1,75 @@
+{
+  "assets": [
+    
+  ],
+  "characters": [
+    {
+
+    },{
+        
+    }
+  ],
+  "conversations": [
+    {
+      "id": "intro",
+      "dialogue": [
+        {
+          "speaker": "Speaker 1",
+          "text": [
+              "You feel like you’ve been walking for days without end, even though you’ve only just started your journey.",
+              "There is nothing around you but the seemingly endless plain that extends to the horizon.",
+              "You’ve arrived at the Salar de Uyuni in Bolivia, the largest salt flat in the world. ",
+              "Occasionally you pass small piles of salt, the tiniest indication of landmarks in the otherwise featureless, cracked dirt.",
+              "Everyone begins to wonder if the herd is lost.",
+              "Suddenly, you see something glittering brightly up ahead.",              
+              "As the herd approaches, you begin to make out a small hill in the distance.",
+              "The herd picks up the pace in hopes of finding some fragment of civilization in the barren wasteland."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "scene1",
+      "dialogue": [
+        {
+          "speaker": "Speaker 1",
+          "text": [
+              "The herd finds itself in front of Isla Incahuasi, a small rest stop on a rocky outcropping in the middle of the salt flats.",
+              "A few stone buildings lay scattered across the island; you spot a tourist center among them, and the herd strolls in.",
+              "While everyone else enjoys themselves for a bit, you decide to try and stock up on supplies.",
+              "You take all of the wool accumulated from your trip down the mountains and, together with the leftover food, trade it in for oilcake.",
+              "Hopefully it will be enough to sustain your herd for the long journey ahead.",
+              "Do you want to stay and enjoy the sights?"
+          ],
+          "options": [
+          {
+            "text": "Yes",
+            "link": "facts"
+          },
+          {
+            "text": "No",
+            "link": "leave"
+          }
+        ],
+          "triggers": [
+            {
+              "type": "destinationUpdate",
+            },            
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pass_outcome",
+      "dialogue": [
+        {
+          "speaker": "Speaker 1",
+          "text": [
+              "The traveller looks to you with weary eyes as you approach, and says nothing as you pass.",
+              "You fight the urge to look back as you continue on your way."
+          ]
+        }
+      ]
+    }
+  ]
+}
