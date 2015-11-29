@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Scene_MenuMain.h>
+#include <Scene_MenuInstructions.h>
 
 #include <Game.h>
 #include <MeshEntity.h>
@@ -41,14 +41,15 @@
 
 #include <NodeBulletBody.h>
 #include <BulletMeshEntity.h>
-#include <TextArea.h>
 #include <Box2DWorld.h>
 #include <Box2DDebugDrawer.h>
 
 #include <RenderOptions.h>
 
 #include <MY_Button.h>
-Scene_MenuMain::Scene_MenuMain(Game * _game) :
+#include <sweet/UI.h>
+
+Scene_MenuInstructions::Scene_MenuInstructions(Game * _game) :
 	Scene_Menu(_game)
 {
 	// buttons
@@ -56,34 +57,28 @@ Scene_MenuMain::Scene_MenuMain(Game * _game) :
 	vl->setRenderMode(kTEXTURE);
 	vl->setBackgroundColour(1.f, 1.f, 1.f, 1.f);
 	vl->background->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("SCROLL_MENU")->texture);
+	
+	TextLabel * titleText = new TextLabel(uiLayer.world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, textShader);
+	TextArea * instructionsText = new TextArea(uiLayer.world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, textShader, 1.f);
 
-	MY_Button * b1 = new MY_Button(uiLayer.world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, textShader, 282, 45);
-	MY_Button * b2 = new MY_Button(uiLayer.world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, textShader, 282, 45);
-	MY_Button * b3 = new MY_Button(uiLayer.world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, textShader, 282, 45);
-	MY_Button * b4 = new MY_Button(uiLayer.world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, textShader, 282, 45);
-	b1->label->setText(L"PLAY GAME");
-	b2->label->setText(L"INSTRUCTIONS");
-	b3->label->setText(L"OPTIONS");
-	b4->label->setText(L"EXIT GAME");
+	MY_Button * back = new MY_Button(uiLayer.world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, textShader, 282, 45);
 	
-	b1->eventManager.addEventListener("click", [this](sweet::Event *){
-		// TODO: reset game before switching to scene
-		game->switchScene("MAIN", false);
-	});
-	b2->eventManager.addEventListener("click", [this](sweet::Event *){
-		game->switchScene("MENU_INSTRUCTIONS", false);
-	});
-	b3->eventManager.addEventListener("click", [this](sweet::Event *){
-		game->switchScene("MENU_OPTIONS", false);
-	});
-	b4->eventManager.addEventListener("click", [this](sweet::Event *){
-		game->exit();
+	titleText->setText(L"INSTRUCTIONS");
+	titleText->horizontalAlignment = kCENTER;
+
+	instructionsText->setText(L"Bacon ipsum dolor amet anim occaecat pork loin.");
+	instructionsText->horizontalAlignment = kCENTER;
+	instructionsText->setHeight(0.5f);
+	back->label->setText(L"BACK");
+	
+	
+	back->eventManager.addEventListener("click", [this](sweet::Event *){
+		game->switchScene("MENU_MAIN", false);
 	});
 	
-	vl->addChild(b1);
-	vl->addChild(b2);
-	vl->addChild(b3);
-	vl->addChild(b4);
+	vl->addChild(titleText);
+	vl->addChild(instructionsText);
+	vl->addChild(back);
 	
 	vl->boxSizing = BoxSizing::kBORDER_BOX;
 	vl->setMargin(0.33f);
@@ -92,14 +87,14 @@ Scene_MenuMain::Scene_MenuMain(Game * _game) :
 	vl->verticalAlignment = kMIDDLE;
 	vl->horizontalAlignment = kCENTER;
 	uiLayer.addChild(vl);
-	
-	vl->invalidateLayout();
+
 	uiLayer.addMouseIndicator();
 }
 
-Scene_MenuMain::~Scene_MenuMain(){
+Scene_MenuInstructions::~Scene_MenuInstructions(){
 }
 
-void Scene_MenuMain::update(Step * _step){
+
+void Scene_MenuInstructions::update(Step * _step){
 	Scene_Menu::update(_step);
 }

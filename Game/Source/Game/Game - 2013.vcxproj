@@ -23,6 +23,7 @@
     <ClCompile Include="src\MY_Scene.cpp" />
     <ClCompile Include="src\PlayerManager.cpp" />
     <ClCompile Include="src\Scene_Menu.cpp" />
+    <ClCompile Include="src\Scene_MenuInstructions.cpp" />
     <ClCompile Include="src\Scene_MenuMain.cpp" />
     <ClCompile Include="src\Scene_MenuOptions.cpp" />
     <ClCompile Include="src\ShaderComponentReplace.cpp" />
@@ -41,6 +42,7 @@
     <ClInclude Include="include\MY_Scene.h" />
     <ClInclude Include="include\PlayerManager.h" />
     <ClInclude Include="include\Scene_Menu.h" />
+    <ClInclude Include="include\Scene_MenuInstructions.h" />
     <ClInclude Include="include\Scene_MenuMain.h" />
     <ClInclude Include="include\Scene_MenuOptions.h" />
     <ClInclude Include="include\ShaderComponentReplace.h" />
