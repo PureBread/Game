@@ -24,6 +24,23 @@ PlayerManager::PlayerManager(ShaderComponentReplace * _replaceComponent) :
 	loadDefaults();
 	
 	markers.eventManager.listeners["destination"].push_back([this](sweet::Event * _e){std::cout << _e->getStringData("scenario");});
+
+
+	// add all of the scenario event managers as children of the global event manager
+	for(Scenario * s : MY_ResourceManager::randomEvents){
+		globalEventManager.addChildManager(&s->eventManager);
+	}for(Scenario * s : MY_ResourceManager::lossEvents){
+		globalEventManager.addChildManager(&s->eventManager);
+	}for(Scenario * s : MY_ResourceManager::destinationEvents){
+		globalEventManager.addChildManager(&s->eventManager);
+	}
+
+	// add listeners to global event manager
+	globalEventManager.addEventListener("statisticUpdate", [](sweet::Event * _event){
+		std::stringstream ss;
+		ss << _event->tag << ": " << _event->getStringData("statistic") << " " << _event->getFloatData("amount");
+		Log::info(ss.str());
+	});
 }
 
 PlayerManager::~PlayerManager(){
