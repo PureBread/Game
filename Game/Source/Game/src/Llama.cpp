@@ -18,7 +18,8 @@ Llama::Llama(Shader * _shader) :
 	hopHeight(0.5f),
 	currHopTime(0.f),
 	angle1(0),
-	angle2(0)
+	angle2(0),
+	offset(0)
 {
 	llama->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("LLAMA")->texture);
 	childTransform->addChild(llama);
@@ -90,7 +91,7 @@ void Llama::setPath(glm::vec2 _startPos, glm::vec2 _targetPos){
 }
 
 void Llama::hop(){
-	if (!isHopping && targets.size() > 0){
+	if (!isHopping && targets.size() > 0 && childTransform->getTranslationVector().x < targets.back().x - offset){
 		isHopping = true;
 		currHopTime -= hopDuration;
 	

@@ -198,5 +198,16 @@ void PlayerManager::addLlama(Shader * _shader){
 	Llama * llama = new Llama(_shader);
 	llama->childTransform->scale(0.1f);
 	llama->childTransform->translate(glm::vec3(levelPath->vertices.at(0).x, levelPath->vertices.at(0).y, 0));
+
+
+	if (false){
+		// move llama slightly back
+		// we can't have an offset really without going thorugh all the vertices to calculate a posotion, maybe we could?
+		// I don't know, place llama at position of leader?
+
+		// adjust llama attributes
+
+	}
+
 	levelPath->addLlama(llama);
 }

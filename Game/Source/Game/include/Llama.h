@@ -24,6 +24,8 @@ private:
 	float hopHeight;
 	float currHopTime;
 
+	float offset;
+
 	Sprite * llama;
 
 public:
