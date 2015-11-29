@@ -11,6 +11,5 @@ public:
 	static std::vector<Scenario *> destinationEvents;
 
 	static Scenario * scenario;
-	static sweet::EventManager globalEventManager;
 	static void init();
 };

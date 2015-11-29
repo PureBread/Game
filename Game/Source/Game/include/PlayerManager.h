@@ -26,7 +26,9 @@ public:
 
 class PlayerManager : public NodeUpdatable{
 private:
-	
+	// container for all of the event managers on the event scenarios
+	sweet::EventManager globalEventManager;
+
 	Event * eventToTrigger;
 	float momentDelay;
 	float momentTimer;
