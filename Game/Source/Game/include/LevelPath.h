@@ -15,10 +15,9 @@ private:
 	int idx;
 	glm::vec2 pos;
 	glm::vec2 slope;
+public:
 
 	std::vector<Llama *> llamas;
-
-public:
 	Sprite * moveThing;
 	
 	std::vector<glm::vec2> vertices;

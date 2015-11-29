@@ -194,16 +194,19 @@ Event * PlayerManager::consumeEvent(){
 	return res;
 }
 
-void PlayerManager::addLlama(Shader * _shader){
+void PlayerManager::addLlama(Shader * _shader, bool _isLeader){
 	Llama * llama = new Llama(_shader);
 	llama->childTransform->scale(0.1f);
 	llama->childTransform->translate(glm::vec3(levelPath->vertices.at(0).x, levelPath->vertices.at(0).y, 0));
 
 
-	if (false){
+	if (!_isLeader){
+
+		llama->leader = levelPath->llamas.front();
 		// move llama slightly back
 		// we can't have an offset really without going thorugh all the vertices to calculate a posotion, maybe we could?
 		// I don't know, place llama at position of leader?
+		llama->offset = sweet::NumberUtils::randomFloat(0.001, 0.008);
 
 		// adjust llama attributes
 

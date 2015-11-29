@@ -24,6 +24,13 @@
               "Suddenly, you see something glittering brightly up ahead.",              
               "As the herd approaches, you begin to make out a small hill in the distance.",
               "The herd picks up the pace in hopes of finding some fragment of civilization in the barren wasteland."
+          ],
+
+          "options": [
+          {
+            "text": "",
+            "link": "scene1"
+          }
           ]
         }
       ]
@@ -61,13 +68,29 @@
       ]
     },
     {
-      "id": "pass_outcome",
+      "id": "facts",
       "dialogue": [
         {
           "speaker": "Speaker 1",
           "text": [
-              "The traveller looks to you with weary eyes as you approach, and says nothing as you pass.",
-              "You fight the urge to look back as you continue on your way."
+              "You find the rest of your herd waiting in line for the tour and decide to join them.",
+              "Through the museum tour, you learn that the Salar de Uyuni is 10 kilometers squared, and someone jokes that it feels much larger than that when you’re walking."
+              "The guide explains that the salt flats mainly produce lithium, and that they also serve as a breeding ground for different species of pink flamingos.",
+              "The flats are the remains of various desert lakes, the water that remains there today is still around because it has no drainage routes.",
+              "Isla Incahuasi was once an island within these desert lakes, but as the water dried up, became a small hill. ",
+              "As the tour comes to an end, the herd picks up some souvenirs at the gift shop and babble about all of the cool salt facts they’ve learned."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "leave",
+      "dialogue": [
+        {
+          "speaker": "Speaker 1",
+          "text": [
+              "After a much-needed break from life on the road, the herd gathers outside the tourist center.",
+              "You take this opportunity to make sure everyone goes to the bathroom and set out once again."
           ]
         }
       ]
