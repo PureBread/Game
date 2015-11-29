@@ -8,17 +8,25 @@
 #include <shader/ComponentShaderBase.h>
 #include <NumberUtils.h>
 
-MY_Button::MY_Button(BulletWorld * _world, Font * _font, Shader * _textShader, float _width, float _height) :
+MY_Button::MY_Button(BulletWorld * _world, Font * _font, Shader * _textShader, unsigned long int _size) :
 	NodeUI(_world, kENTITIES, true),
 	label(new TextLabel(_world, _font, _textShader))
 {
-	setWidth(_width);
-	setHeight(_height);
+	if(_size == 1){
+		setWidth(202);
+	}else if(_size == 2){
+		setWidth(242);
+	}else{
+		setWidth(282);
+	}
+	setHeight(45);
 	setMargin(0, 5);
 
-	texNormal = MY_ResourceManager::scenario->getTexture("BUTTON_NORMAL")->texture;
-	texOver = MY_ResourceManager::scenario->getTexture("BUTTON_OVER")->texture;
-	texDown = MY_ResourceManager::scenario->getTexture("BUTTON_DOWN")->texture;
+	std::stringstream ss;
+	ss << "BUTTON" << _size;
+	texNormal = MY_ResourceManager::scenario->getTexture(ss.str() + "_NORMAL")->texture;
+	texOver = MY_ResourceManager::scenario->getTexture(ss.str() + "_OVER")->texture;
+	texDown = MY_ResourceManager::scenario->getTexture(ss.str() + "_DOWN")->texture;
 
 	background->mesh->pushTexture2D(texNormal);
 
@@ -28,8 +36,8 @@ MY_Button::MY_Button(BulletWorld * _world, Font * _font, Shader * _textShader, f
 	vl->addChild(label);
 	vl->horizontalAlignment = kCENTER;
 	vl->verticalAlignment = kTOP;
-	vl->setWidth(1.f);
-	vl->setHeight(1.f);
+	vl->setRationalWidth(1.f);
+	vl->setRationalHeight(1.f);
 	addChild(vl);
 
 	eventManager.addEventListener("click", [](sweet::Event * _event){

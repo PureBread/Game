@@ -86,19 +86,51 @@
 
     
     {
-        "id": "BUTTON_NORMAL",
+        "id": "BUTTON1_NORMAL",
         "type": "texture",
         "src": "button/normal.png"
     },
     {
-        "id": "BUTTON_OVER",
+        "id": "BUTTON1_OVER",
         "type": "texture",
         "src": "button/over.png"
     },
     {
-        "id": "BUTTON_DOWN",
+        "id": "BUTTON1_DOWN",
         "type": "texture",
         "src": "button/down.png"
+    },
+    
+    {
+        "id": "BUTTON2_NORMAL",
+        "type": "texture",
+        "src": "button/med-normal.png"
+    },
+    {
+        "id": "BUTTON2_OVER",
+        "type": "texture",
+        "src": "button/med-over.png"
+    },
+    {
+        "id": "BUTTON2_DOWN",
+        "type": "texture",
+        "src": "button/med-down.png"
+    },
+    
+    {
+        "id": "BUTTON3_NORMAL",
+        "type": "texture",
+        "src": "button/large-normal.png"
+    },
+    {
+        "id": "BUTTON3_OVER",
+        "type": "texture",
+        "src": "button/large-over.png"
+    },
+    {
+        "id": "BUTTON3_DOWN",
+        "type": "texture",
+        "src": "button/large-down.png"
     },
 
     {
