@@ -8,41 +8,50 @@ UI_Event::UI_Event(BulletWorld * _world, Shader * _textShader) :
 	VerticalLinearLayout(_world),
 	image(new NodeUI(_world)),
 	text(new TextArea(_world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, _textShader, 1.f)),
-	nextButton(new NodeUI(_world, kENTITIES, true)),
-	optionOne(new MY_Button(_world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, _textShader, 202, 45)),
-	optionTwo(new MY_Button(_world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, _textShader, 202, 45)),
+	nextButton(new MY_Button(_world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, _textShader, 282, 45)),
+	optionOne(new MY_Button(_world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, _textShader, 282, 45)),
+	optionTwo(new MY_Button(_world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, _textShader, 282, 45)),
 	done(false),
+	optionsLayout(new HorizontalLinearLayout(_world)),
 	currentEvent(nullptr)
 {
 	setRenderMode(kTEXTURE);
 
 	//optionOne->renderMode = kTEXTURE;
+	
+	verticalAlignment = kTOP;
+	horizontalAlignment = kCENTER;
+
 	setBackgroundColour(1.f, 1.f, 1.f, 1.f);
 	background->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("SCROLL_EVENT")->texture);
 
+	
+	setMargin(0.05f);
+	setPadding(0.125f, 0.125f);
+	setRationalWidth(1.f);
+	setRationalHeight(1.f);
+
 	addChild(image);
 	addChild(text);
-	addChild(optionOne);
-	addChild(optionTwo);
+	addChild(optionsLayout);
+	optionsLayout->addChild(optionOne);
+	optionsLayout->addChild(optionTwo);
 
-	optionOne->setVisible(false);
-	optionTwo->setVisible(false);
+	optionsLayout->setVisible(false);
 
 	addChild(nextButton);
 
-
-	image->setWidth(1.0f);
-	image->setHeight(0.3f);
+	image->setRationalWidth(1.0f);
+	image->setRationalHeight(0.8f);
 	image->background->mesh->scaleModeMag = image->background->mesh->scaleModeMin = GL_NEAREST;
 
 	text->setWidth(1.f);
-	text->setPadding(32, 0);
-	text->setHeight(0.4f);
+	//text->setHeight(0.4f);
 	text->setText(L"Bacon ipsum dolor amet anim occaecat pork loin.");
+	text->verticalAlignment = kTOP;
+	text->setWrapMode(kWORD);
 
-	nextButton->setBackgroundColour(1,1,0);
-	nextButton->setWidth(100);
-	nextButton->setHeight(100);
+	nextButton->label->setText("NEXT");
 
 	nextButton->eventManager.addEventListener("click", [this](sweet::Event * _event){
 		done = !this->sayNext();
@@ -89,8 +98,7 @@ bool UI_Event::sayNext(){
 
 		if(waitingForInput){
 			nextButton->setVisible(false);
-			optionOne->setVisible(true);
-			optionTwo->setVisible(true);
+			optionsLayout->setVisible(true);
 			
 			nextButton->setMouseEnabled(false);
 			optionOne->setMouseEnabled(true);
@@ -100,8 +108,7 @@ bool UI_Event::sayNext(){
 			optionTwo->label->setText(currentConversation->options.at(1)->text);
 		}else{
 			nextButton->setVisible(true);
-			optionOne->setVisible(false);
-			optionTwo->setVisible(false);
+			optionsLayout->setVisible(false);
 			
 			nextButton->setMouseEnabled(true);
 			optionOne->setMouseEnabled(false);

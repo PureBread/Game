@@ -11,7 +11,8 @@ public:
 	TextArea * text;
 	MY_Button * optionOne;
 	MY_Button * optionTwo;
-	NodeUI * nextButton;
+	MY_Button * nextButton;
+	HorizontalLinearLayout * optionsLayout;
 
 	bool done;
 
