@@ -36,10 +36,21 @@ PlayerManager::PlayerManager(ShaderComponentReplace * _replaceComponent) :
 	}
 
 	// add listeners to global event manager
-	globalEventManager.addEventListener("statisticUpdate", [](sweet::Event * _event){
+	globalEventManager.addEventListener("statisticUpdate", [this](sweet::Event * _event){
 		std::stringstream ss;
 		ss << _event->tag << ": " << _event->getStringData("statistic") << " " << _event->getFloatData("amount");
 		Log::info(ss.str());
+
+		statistics[_event->getStringData("statistic")] += _event->getFloatData("amount");
+	});
+
+	
+	globalEventManager.addEventListener("destinationUpdate", [this](sweet::Event * _event){
+		Log::info(_event->tag);
+
+		statistics["food"] = statistics["food"]*2 + statistics["wool"];
+		statistics["wool"] = 0;
+		statistics["health"] = 100;
 	});
 }
 
