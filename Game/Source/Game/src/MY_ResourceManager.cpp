@@ -10,7 +10,7 @@ std::vector<Scenario *> MY_ResourceManager::destinationEvents;
 void MY_ResourceManager::init(){
 	Json::Value root;
 	Json::Reader reader;
-	std::string jsonLoaded = FileUtils::readFile("assets/scenarioListing.json");
+	std::string jsonLoaded = FileUtils::readFile("assets/events/scenarioListing.json");
 	bool parsingSuccessful = reader.parse( jsonLoaded, root );
 	if(!parsingSuccessful){
 		Log::error("JSON parse failed: " + reader.getFormattedErrorMessages()/* + "\n" + jsonLoaded*/);
