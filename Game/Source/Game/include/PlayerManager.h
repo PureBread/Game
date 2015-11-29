@@ -69,5 +69,5 @@ public:
 	// NOTE: this function does not delete events; it only consumes the reference
 	Event * consumeEvent();
 
-	void addLlama(Shader * _shader);
+	void addLlama(Shader * _shader, bool _isLeader = false);
 };

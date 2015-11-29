@@ -148,7 +148,7 @@ MY_Scene::MY_Scene(Game * _game) :
 	manager.levelPath->scaleVertices(layerLlamas->imageCount);
 	manager.levelPath->childTransform->translate(-1.5f, -0.5f, 0);
 	
-	manager.addLlama(replaceShader);
+	manager.addLlama(replaceShader, true);
 	
 	Sprite * moveThing = new Sprite(baseShader);
 	moveThing->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("LOGO")->texture);

@@ -17,6 +17,12 @@ private:
 	float angle1;
 	float angle2;
 
+	Sprite * llama;
+
+public:
+
+	Llama * leader;
+
 	bool isHopping;
 	float hopSpeed;
 	float hopDuration;
@@ -26,9 +32,6 @@ private:
 
 	float offset;
 
-	Sprite * llama;
-
-public:
 	std::vector<glm::vec2> targets;
 	Llama(Shader * _shader);
 	~Llama();
