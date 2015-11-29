@@ -17,6 +17,8 @@ UI_Event::UI_Event(BulletWorld * _world, Shader * _textShader) :
 	setRenderMode(kTEXTURE);
 
 	//optionOne->renderMode = kTEXTURE;
+	setBackgroundColour(1.f, 1.f, 1.f, 1.f);
+	background->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("SCROLL_EVENT")->texture);
 
 	addChild(image);
 	addChild(text);

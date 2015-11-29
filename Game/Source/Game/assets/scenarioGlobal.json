@@ -74,9 +74,14 @@
         "src": "menu_options.png"
     },
     {
-        "id": "SCROLL_SMALL",
+        "id": "SCROLL_MENU",
         "type": "texture",
-        "src": "scroll_small.png"
+        "src": "scroll_menu.png"
+    },
+    {
+        "id": "SCROLL_EVENT",
+        "type": "texture",
+        "src": "scroll_event.png"
     },
 
     

@@ -55,7 +55,7 @@ Scene_MenuOptions::Scene_MenuOptions(Game * _game) :
 	// buttons
 	VerticalLinearLayout * vl = new VerticalLinearLayout(uiLayer.world);
 	vl->setBackgroundColour(1.f, 1.f, 1.f, 1.f);
-	vl->background->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("SCROLL_SMALL")->texture);
+	vl->background->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("SCROLL_MENU")->texture);
 
 	TextLabel * optionsText = new TextLabel(uiLayer.world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, textShader);
 	optionsText->setRenderMode(kTEXTURE);
