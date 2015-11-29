@@ -100,11 +100,30 @@
         "id": "BGM",
         "type": "audio",
         "src": "Sound1.ogg"
-    },
-    {
+    },{
         "id": "ANDES",
         "type": "audio",
         "src": "Andes.wav"
+    },{
+        "id": "BUTTON1",
+        "type": "audio",
+        "src": "button1.ogg"
+    },{
+        "id": "BUTTON2",
+        "type": "audio",
+        "src": "button2.ogg"
+    },{
+        "id": "BUTTON3",
+        "type": "audio",
+        "src": "button3.ogg"
+    },{
+        "id": "BUTTON4",
+        "type": "audio",
+        "src": "button4.ogg"
+    },{
+        "id": "BUTTON5",
+        "type": "audio",
+        "src": "button5.ogg"
     },
 
 

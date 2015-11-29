@@ -6,6 +6,7 @@
 #include <MY_ResourceManager.h>
 #include <MeshFactory.h>
 #include <shader/ComponentShaderBase.h>
+#include <NumberUtils.h>
 
 MY_Button::MY_Button(BulletWorld * _world, Font * _font, Shader * _textShader, float _width, float _height) :
 	NodeUI(_world, kENTITIES, true),
@@ -30,6 +31,12 @@ MY_Button::MY_Button(BulletWorld * _world, Font * _font, Shader * _textShader, f
 	vl->setWidth(1.f);
 	vl->setHeight(1.f);
 	addChild(vl);
+
+	eventManager.addEventListener("click", [](sweet::Event * _event){
+		std::stringstream ss;
+		ss << "BUTTON" << sweet::NumberUtils::randomInt(1,5);
+		MY_ResourceManager::scenario->getAudio(ss.str())->sound->play();
+	});
 }
 
 void MY_Button::update(Step * _step){
