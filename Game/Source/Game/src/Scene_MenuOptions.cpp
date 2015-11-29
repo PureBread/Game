@@ -54,27 +54,39 @@ Scene_MenuOptions::Scene_MenuOptions(Game * _game) :
 {
 	// buttons
 	VerticalLinearLayout * vl = new VerticalLinearLayout(uiLayer.world);
+	vl->setRenderMode(kTEXTURE);
 	vl->setBackgroundColour(1.f, 1.f, 1.f, 1.f);
 	vl->background->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("SCROLL_MENU")->texture);
 
-	TextLabel * optionsText = new TextLabel(uiLayer.world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, textShader);
-	optionsText->setRenderMode(kTEXTURE);
+	TextLabel * titleText = new TextLabel(uiLayer.world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, textShader);
 
-	MY_Button * fullscreenToggle = new MY_Button(uiLayer.world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, textShader, 202, 45);
+	MY_Button * fullscreenToggle = new MY_Button(uiLayer.world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, textShader, 282, 45);
 	volumeText = new TextLabel(uiLayer.world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, textShader);
 	volume = new Slider(uiLayer.world, NodeOpenAL::getListenerGain(), 0, 2.f);
-	MY_Button * back = new MY_Button(uiLayer.world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, textShader, 202, 45);
+	MY_Button * back = new MY_Button(uiLayer.world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, textShader, 282, 45);
 	
-	optionsText->setText(L"OPTIONS");
+	titleText->setText(L"OPTIONS");
+	titleText->horizontalAlignment = kCENTER;
 	if(sweet::fullscreen){
 		fullscreenToggle->label->setText(L"WINDOWED");
 	}else{
 		fullscreenToggle->label->setText(L"FULLSCREEN");
 	}
 	volumeText->setText(L"VOLUME");
+	volumeText->horizontalAlignment = kCENTER;
+
+
 	volume->setWidth(0.5f);
 	volume->setHeight(40);
 	volume->setStepped(0.1);
+	volume->eventManager.addEventListener("change", [this](sweet::Event * _event){
+		std::wstringstream ss;
+		ss << L"VOLUME: " << (volume->getValue()/2.f);
+		volumeText->setText(ss.str());
+		NodeOpenAL::setListenerGain(volume->getValue());
+	});
+
+
 	back->label->setText(L"BACK");
 	
 	
@@ -90,7 +102,7 @@ Scene_MenuOptions::Scene_MenuOptions(Game * _game) :
 		game->switchScene("MENU_MAIN", false);
 	});
 	
-	vl->addChild(optionsText);
+	vl->addChild(titleText);
 	vl->addChild(fullscreenToggle);
 	vl->addChild(volumeText);
 	vl->addChild(volume);
@@ -112,9 +124,5 @@ Scene_MenuOptions::~Scene_MenuOptions(){
 
 
 void Scene_MenuOptions::update(Step * _step){
-	std::wstringstream ss;
-	ss << L"VOLUME: " << (volume->getValue()/2.f);
-	volumeText->setText(ss.str());
-	NodeOpenAL::setListenerGain(volume->getValue());
 	Scene_Menu::update(_step);
 }

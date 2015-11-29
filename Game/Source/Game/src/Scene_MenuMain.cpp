@@ -48,13 +48,11 @@
 #include <RenderOptions.h>
 
 #include <MY_Button.h>
-VerticalLinearLayout * vl;
-MY_Button * b2;
 Scene_MenuMain::Scene_MenuMain(Game * _game) :
 	Scene_Menu(_game)
 {
 	// buttons
-	vl = new VerticalLinearLayout(uiLayer.world);
+	VerticalLinearLayout * vl = new VerticalLinearLayout(uiLayer.world);
 	vl->setRenderMode(kTEXTURE);
 	vl->setBackgroundColour(1.f, 1.f, 1.f, 1.f);
 	vl->background->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("SCROLL_MENU")->texture);
@@ -73,7 +71,7 @@ Scene_MenuMain::Scene_MenuMain(Game * _game) :
 		game->switchScene("MAIN", false);
 	});
 	b2->eventManager.addEventListener("click", [this](sweet::Event *){
-		game->switchScene("MAIN", false);
+		game->switchScene("MENU_INSTRUCTIONS", false);
 	});
 	b3->eventManager.addEventListener("click", [this](sweet::Event *){
 		game->switchScene("MENU_OPTIONS", false);
@@ -95,7 +93,6 @@ Scene_MenuMain::Scene_MenuMain(Game * _game) :
 	vl->horizontalAlignment = kCENTER;
 	uiLayer.addChild(vl);
 	
-	//vl->setVisible(false);
 	vl->invalidateLayout();
 	uiLayer.addMouseIndicator();
 }
@@ -104,8 +101,5 @@ Scene_MenuMain::~Scene_MenuMain(){
 }
 
 void Scene_MenuMain::update(Step * _step){
-	//vl->renderMode = fmod(_step->time, 2) > 1 ? kENTITIES : kTEXTURE;
-	//vl->setVisible(true);
-	//vl->invalidateLayout();
 	Scene_Menu::update(_step);
 }
