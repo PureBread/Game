@@ -342,10 +342,9 @@ void MY_Scene::update(Step * _step){
 		Log::info(ss.str());*/
 
 		// once the event is finished, delete it and remove the reference in order to continue gameplay in the next update
-		if(uiEvent->done){
+		if(uiEvent->currentConversation == nullptr){
 			delete currentEvent;
 			currentEvent = nullptr;
-			uiEvent->setVisible(false);
 		}
 	}else{
 		// if there isn't an ongoing event, update the statistics and check for a new event

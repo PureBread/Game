@@ -12,9 +12,7 @@ public:
 	MY_Button * optionOne;
 	MY_Button * optionTwo;
 	MY_Button * nextButton;
-	HorizontalLinearLayout * optionsLayout;
-
-	bool done;
+	HorizontalLinearLayout * buttonsLayout;
 
 	UI_Event(BulletWorld * _world, Shader * _textShader);
 	~UI_Event();

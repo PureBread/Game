@@ -8,11 +8,10 @@ UI_Event::UI_Event(BulletWorld * _world, Shader * _textShader) :
 	VerticalLinearLayout(_world),
 	image(new NodeUI(_world)),
 	text(new TextArea(_world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, _textShader, 1.f)),
-	done(false),
-	optionsLayout(new HorizontalLinearLayout(_world)),
 	nextButton(new MY_Button(_world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, _textShader, 1)),
 	optionOne(new MY_Button(_world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, _textShader, 3)),
 	optionTwo(new MY_Button(_world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, _textShader, 3)),
+	buttonsLayout(new HorizontalLinearLayout(_world)),
 	currentEvent(nullptr)
 {
 	setRenderMode(kTEXTURE);
@@ -33,13 +32,10 @@ UI_Event::UI_Event(BulletWorld * _world, Shader * _textShader) :
 
 	addChild(image);
 	addChild(text);
-	addChild(optionsLayout);
-	optionsLayout->addChild(optionOne);
-	optionsLayout->addChild(optionTwo);
-
-	optionsLayout->setVisible(false);
-
-	addChild(nextButton);
+	addChild(buttonsLayout);
+	buttonsLayout->addChild(optionOne);
+	buttonsLayout->addChild(nextButton);
+	buttonsLayout->addChild(optionTwo);
 
 	image->setRationalWidth(1.0f);
 	image->setRationalHeight(0.8f);
@@ -54,13 +50,12 @@ UI_Event::UI_Event(BulletWorld * _world, Shader * _textShader) :
 	nextButton->label->setText("NEXT");
 
 	nextButton->eventManager.addEventListener("click", [this](sweet::Event * _event){
-		done = !this->sayNext();
-
-		// prevent the user from clicking buttons while they're not visible
-		if(done){
+		if(!this->sayNext()){
+			// prevent the user from clicking buttons while they're not visible
 			nextButton->setMouseEnabled(false);
 			optionOne->setMouseEnabled(false);
 			optionTwo->setMouseEnabled(false);
+			setVisible(false);
 		}
 	});
 	optionOne->eventManager.addEventListener("click", [this](sweet::Event * _event){
@@ -83,7 +78,6 @@ UI_Event::~UI_Event(){}
 
 void UI_Event::startEvent(Event * _event){
 	currentEvent = _event;
-	done = false;
 	setVisible(true);
 
 	currentConversation = _event->scenario->conversations["intro"];
@@ -110,7 +104,8 @@ bool UI_Event::sayNext(){
 
 		if(waitingForInput){
 			nextButton->setVisible(false);
-			optionsLayout->setVisible(true);
+			optionOne->setVisible(true);
+			optionTwo->setVisible(true);
 			
 			nextButton->setMouseEnabled(false);
 			optionOne->setMouseEnabled(true);
@@ -120,7 +115,8 @@ bool UI_Event::sayNext(){
 			optionTwo->label->setText(currentConversation->options.at(1)->text);
 		}else{
 			nextButton->setVisible(true);
-			optionsLayout->setVisible(false);
+			optionOne->setVisible(false);
+			optionTwo->setVisible(false);
 			
 			nextButton->setMouseEnabled(true);
 			optionOne->setMouseEnabled(false);
