@@ -126,7 +126,6 @@ void LevelPath::setProgress(float _x){
 			slope = vertices.at(idx) - vertices.at(idx - 1);
 			for (Llama * l : llamas){
 				// finalize llamas last target and create a new target
-				//llamas.at(i)->
 				if(l->targets.size() > 0){
 					l->targets.back() = vertices.at(idx-1);
 				}
@@ -160,12 +159,12 @@ void LevelPath::update(Step * _step){
 	}
 }
 
-void LevelPath::addLlama(Llama * _llama, bool _isLeader){
+void LevelPath::addLlama(Llama * _llama){
 	llamas.push_back(_llama);
 
-	
+	glm::vec2 startPos = glm::vec2(pos.x, pos.y); // make position of leader
 
-	_llama->childTransform->translate(glm::vec3(pos.x, pos.y, 0), false);
+	_llama->childTransform->translate(glm::vec3(startPos.x, startPos.y, 0), false);
 	childTransform->addChild(_llama);
 }
 
