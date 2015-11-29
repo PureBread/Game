@@ -55,6 +55,11 @@ UI_Event::UI_Event(BulletWorld * _world, Shader * _textShader) :
 
 	nextButton->eventManager.addEventListener("click", [this](sweet::Event * _event){
 		done = !this->sayNext();
+		if(done){
+			nextButton->setMouseEnabled(false);
+			optionOne->setMouseEnabled(false);
+			optionTwo->setMouseEnabled(false);
+		}
 	});
 	optionOne->eventManager.addEventListener("click", [this](sweet::Event * _event){
 		select(0);
@@ -63,6 +68,10 @@ UI_Event::UI_Event(BulletWorld * _world, Shader * _textShader) :
 		select(1);
 	});
 
+	
+	nextButton->setMouseEnabled(false);
+	optionOne->setMouseEnabled(false);
+	optionTwo->setMouseEnabled(false);
 	setVisible(false);
 }
 
