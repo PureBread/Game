@@ -55,6 +55,8 @@ UI_Event::UI_Event(BulletWorld * _world, Shader * _textShader) :
 
 	nextButton->eventManager.addEventListener("click", [this](sweet::Event * _event){
 		done = !this->sayNext();
+
+		// prevent the user from clicking buttons while they're not visible
 		if(done){
 			nextButton->setMouseEnabled(false);
 			optionOne->setMouseEnabled(false);
@@ -69,6 +71,7 @@ UI_Event::UI_Event(BulletWorld * _world, Shader * _textShader) :
 	});
 
 	
+	// prevent the user from clicking buttons while they're not visible
 	nextButton->setMouseEnabled(false);
 	optionOne->setMouseEnabled(false);
 	optionTwo->setMouseEnabled(false);
