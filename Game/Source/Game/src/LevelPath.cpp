@@ -153,27 +153,6 @@ void LevelPath::update(Step * _step){
 	if (moveThing != nullptr){
 		moveThing->childTransform->translate(pos.x, pos.y, 0, false);
 	}
-	/*
-	// Get new line segment slope and add target to llamas
-	if (vertices.size() > 0 && idx < vertices.size() && pos.x >= vertices.at(idx).x){
-		// first target will be idx = 1
-		++idx;
-		if (idx < vertices.size()){
-			pos = vertices.at(idx-1);
-			slope = glm::normalize(vertices.at(idx) - vertices.at(idx-1));
-			for (int i = 0; i < llamas.size(); ++i){
-				llamas.at(i)->addTarget(vertices.at(idx));
-			}
-		}
-	}
-	*/
-
-	// move position
-	/*
-	if (idx < vertices.size()){
-		pos += glm::vec2(slope.x * _step->deltaTime * speed, slope.y * _step->deltaTime * speed);
-		std::cout << "idx: " << idx << " posX: " << pos.x << " posY: " << pos.y << std::endl;
-	}*/
 
 	// move llamas
 	for (int i = 0; i < llamas.size(); ++i){
@@ -181,10 +160,14 @@ void LevelPath::update(Step * _step){
 	}
 }
 
-void LevelPath::addLlama(Llama * _llama){
+void LevelPath::addLlama(Llama * _llama, bool _isLeader){
 	llamas.push_back(_llama);
-	//_llama->childTransform->translate(glm::vec3(pos.x, pos.y, 0), false);
+	_llama->childTransform->translate(glm::vec3(pos.x, pos.y, 0), false);
 	childTransform->addChild(_llama);
+}
+
+void LevelPath::removeLlama(){
+	llamas.pop_back();
 }
 
 std::vector<glm::vec2> LevelPath::simplifyVertices(std::vector<glm::vec2> _vertices, float _threshold, float _spacing){
@@ -216,10 +199,15 @@ std::vector<glm::vec2> LevelPath::simplifyVertices(std::vector<glm::vec2> _verti
 }
 
 void LevelPath::scaleVertices(float _scale){
+	// scale vertices
 	for (int i = 0; i < vertices.size(); ++i){
 		vertices.at(i).x = vertices.at(i).x * _scale;
 		vertices.at(i).y = vertices.at(i).y * _scale;
 	}
+
+	// scale pos
+	pos.x = pos.x * _scale;
+	pos.y = pos.y * _scale;
 }
 
 MeshInterface * LevelPath::getMesh(){
