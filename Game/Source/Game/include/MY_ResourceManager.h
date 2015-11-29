@@ -2,6 +2,7 @@
 
 #include <ResourceManager.h>
 #include <scenario\Scenario.h>
+#include <EventManager.h>
 
 class MY_ResourceManager : public ResourceManager{
 public:
@@ -10,5 +11,6 @@ public:
 	static std::vector<Scenario *> destinationEvents;
 
 	static Scenario * scenario;
+	static sweet::EventManager globalEventManager;
 	static void init();
 };

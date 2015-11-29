@@ -183,7 +183,7 @@ void LevelPath::update(Step * _step){
 
 void LevelPath::addLlama(Llama * _llama){
 	llamas.push_back(_llama);
-	_llama->childTransform->translate(glm::vec3(pos.x, pos.y, 0), false);
+	//_llama->childTransform->translate(glm::vec3(pos.x, pos.y, 0), false);
 	childTransform->addChild(_llama);
 }
 

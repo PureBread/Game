@@ -14,6 +14,10 @@ UI_Event::UI_Event(BulletWorld * _world, Shader * _textShader) :
 	done(false),
 	currentEvent(nullptr)
 {
+	setRenderMode(kTEXTURE);
+
+	//optionOne->renderMode = kTEXTURE;
+
 	addChild(image);
 	addChild(text);
 	addChild(optionOne);
@@ -25,7 +29,7 @@ UI_Event::UI_Event(BulletWorld * _world, Shader * _textShader) :
 	addChild(nextButton);
 
 
-	image->setWidth(0.9f);
+	image->setWidth(1.0f);
 	image->setHeight(0.3f);
 	image->background->mesh->scaleModeMag = image->background->mesh->scaleModeMin = GL_NEAREST;
 
@@ -65,6 +69,7 @@ void UI_Event::startEvent(Event * _event){
 }
 
 bool UI_Event::sayNext(){
+	invalidateLayout();
 	if(ConversationIterator::sayNext()){
 		// remove existing images
 		while(image->background->mesh->textures.size() > 0){
