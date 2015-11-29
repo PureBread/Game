@@ -58,7 +58,8 @@ Scene_MenuOptions::Scene_MenuOptions(Game * _game) :
 	vl->background->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("SCROLL_SMALL")->texture);
 
 	TextLabel * optionsText = new TextLabel(uiLayer.world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, textShader);
-	
+	optionsText->setRenderMode(kTEXTURE);
+
 	MY_Button * fullscreenToggle = new MY_Button(uiLayer.world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, textShader, 202, 45);
 	volumeText = new TextLabel(uiLayer.world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, textShader);
 	volume = new Slider(uiLayer.world, NodeOpenAL::getListenerGain(), 0, 2.f);

@@ -21,6 +21,8 @@ MY_Button::MY_Button(BulletWorld * _world, Font * _font, Shader * _textShader, f
 
 	background->mesh->pushTexture2D(texNormal);
 
+	label->horizontalAlignment = kCENTER;
+
 	VerticalLinearLayout * vl = new VerticalLinearLayout(world);
 	vl->addChild(label);
 	vl->horizontalAlignment = kCENTER;
@@ -43,6 +45,7 @@ void MY_Button::update(Step * _step){
 		texNew = texNormal;
 	}
 	if(texNow != texNew){
+		invalidateRenderFrame();
 		background->mesh->removeTextureAt(0);
 		background->mesh->pushTexture2D(texNew);
 	}

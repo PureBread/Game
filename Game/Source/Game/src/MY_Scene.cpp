@@ -395,6 +395,8 @@ void MY_Scene::update(Step * _step){
 		cycleCamera();
 	}if (keyboard->keyJustDown(GLFW_KEY_2)){
 		Transform::drawTransforms = !Transform::drawTransforms;
+
+		uiLayer.bulletDebugDrawer->setDebugMode(BulletDebugDrawer::DBG_MAX_DEBUG_DRAW_MODE);
 	}
 
 	float camSpeed = 0.3f;
@@ -432,7 +434,7 @@ void MY_Scene::update(Step * _step){
 	Scene::update(_step);
 	glm::uvec2 sd = sweet::getScreenDimensions();
 	uiLayer.resize(0, sd.x, 0, sd.y);
-	uiLayer.layoutDirty = true;
+	//uiLayer.invalidateLayout();
 	uiLayer.update(_step);
 }
 

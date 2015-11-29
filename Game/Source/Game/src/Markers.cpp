@@ -38,7 +38,7 @@ Markers::Markers() :
 void Markers::update(Step * _step){
 	if(currentPosition > nextMarker){
 		// next marker triggered
-		sweet::Event * event = new sweet::Event("destination");
+		sweet::Event * event = new sweet::Event(std::string("destination"));
 		event->setStringData("scenario", markers.at(currentMarker).event);
 		eventManager.triggerEvent(event);
 
