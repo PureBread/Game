@@ -5,12 +5,14 @@
 
 #include <ContinuousArtScroller.h>
 #include <ShaderComponentReplace.h>
+#include <shader/ShaderComponentHsv.h>
 #include <shader/ShaderComponentMask.h>
 #include <Slider.h>
 
 #include <PlayerManager.h>
 #include <ArtLayer.h>
 #include <UI_Event.h>
+#include <Timeout.h>
 
 class PerspectiveCamera;
 class MousePerspectiveCamera;
@@ -38,6 +40,7 @@ public:
 	ComponentShaderBase * baseShader;
 	ComponentShaderBase * replaceShader;
 	ShaderComponentReplace * replaceShaderComponent;
+	ShaderComponentHsv * hsvShaderComponent;
 	ComponentShaderText * textShader;
 
 	//ComponentShaderBase * maskShader;
@@ -50,9 +53,11 @@ public:
 	PlayerManager manager;
 	Event * currentEvent;
 	UI_Event * uiEvent;
+	Timeout * fadeTimeout;
 
 	float speed;
 	float progress;
+	bool paused;
 	
 	std::vector<ContinuousArtScroller *> bgLayers;
 	

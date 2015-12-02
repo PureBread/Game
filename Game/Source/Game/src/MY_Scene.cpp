@@ -64,12 +64,14 @@ MY_Scene::MY_Scene(Game * _game) :
 	baseShader(new ComponentShaderBase(true)),
 	replaceShader(new ComponentShaderBase(true)),
 	replaceShaderComponent(new ShaderComponentReplace(replaceShader)),
+	hsvShaderComponent(new ShaderComponentHsv(replaceShader, 0, 1, 1)),
 	textShader(new ComponentShaderText(true)),
 	uiLayer(new UILayer(0,0,0,0)),
 	progress(0),
 	speed(0),
 	currentEvent(nullptr),
-	manager(replaceShaderComponent)
+	manager(replaceShaderComponent),
+	paused(true)
 {
 	baseShader->addComponent(new ShaderComponentMVP(baseShader));
 	baseShader->addComponent(new ShaderComponentTexture(baseShader));
@@ -78,6 +80,7 @@ MY_Scene::MY_Scene(Game * _game) :
 	replaceShader->addComponent(new ShaderComponentMVP(replaceShader));
 	replaceShader->addComponent(new ShaderComponentTexture(replaceShader));
 	replaceShader->addComponent(replaceShaderComponent);
+	replaceShader->addComponent(hsvShaderComponent);
 	replaceShader->compileShader();
 	replaceShader->load();
 
@@ -295,6 +298,37 @@ MY_Scene::MY_Scene(Game * _game) :
 	uiLayer->addChild(uiEvent);
 
 	uiLayer->addMouseIndicator();
+
+	fadeTimeout = new Timeout(5, [this](sweet::Event * _event){
+		paused = false;
+	});
+	fadeTimeout->eventManager->addEventListener("progress", [&](sweet::Event * _event){
+		hsvShaderComponent->setValue(_event->getFloatData("progress"));
+	});
+	fadeTimeout->start();
+	childTransform->addChild(fadeTimeout, false);
+
+
+
+	
+
+	// win listener
+	manager.globalEventManager.addEventListener("gameOver", [this](sweet::Event * _event){
+		childTransform->removeChild(fadeTimeout);
+		delete fadeTimeout;
+
+		paused = true;
+		fadeTimeout = new Timeout(2.5f, [this](sweet::Event * _event){
+			game->switchScene("MENU_MAIN", true);
+		});
+		fadeTimeout->eventManager->addEventListener("progress", [this](sweet::Event * _event){
+			hsvShaderComponent->setValue(1.f - _event->getFloatData("progress"));
+		});
+		fadeTimeout->start();
+		childTransform->addChild(fadeTimeout, false);
+	});
+	Step t;
+	manager.update(&t);
 }
 
 MY_Scene::~MY_Scene(){
@@ -315,6 +349,11 @@ void MY_Scene::update(Step * _step){
 		manager.addLlama(replaceShader);
 	}
 
+	if(keyboard->keyJustDown(GLFW_KEY_R)){
+		manager.globalEventManager.triggerEvent("gameOver");
+	}
+	manager.globalEventManager.update(_step);
+
 	// screen shader stuff
 	if(keyboard->keyJustDown(GLFW_KEY_L)){
 		screenSurfaceShader->unload();
@@ -322,40 +361,32 @@ void MY_Scene::update(Step * _step){
 		screenSurfaceShader->load();
 	}
 	
-		glUseProgram(screenSurfaceShader->getProgramId());
-		GLint test = glGetUniformLocation(screenSurfaceShader->getProgramId(), "time");
+	glUseProgram(screenSurfaceShader->getProgramId());
+	GLint test = glGetUniformLocation(screenSurfaceShader->getProgramId(), "time");
+	checkForGlError(0,__FILE__,__LINE__);
+	if(test != -1){
+		glUniform1f(test, (float)sweet::lastTimestamp);
 		checkForGlError(0,__FILE__,__LINE__);
-		if(test != -1){
-			glUniform1f(test, (float)sweet::lastTimestamp);
-			checkForGlError(0,__FILE__,__LINE__);
-		}
-
-
-	if(currentEvent != nullptr){
-		// if there is an ongoing event, progress it
-		/*std::stringstream ss;
-		ss << "Event: ";
-		switch (currentEvent->type){
-			case kLOSS: ss << "LOSS"; break;
-			case kDESTINATION: ss << "DESTINATION"; break;
-			case kRANDOM: ss << "RANDOM"; break;
-		}
-		ss << currentEvent->scenario->id << std::endl;
-		Log::info(ss.str());*/
-
-		// once the event is finished, delete it and remove the reference in order to continue gameplay in the next update
-		if(uiEvent->currentConversation == nullptr){
-	MY_ResourceManager::scenario->getAudio("EVENT_CLOSE")->sound->play();
-			delete currentEvent;
-			currentEvent = nullptr;
-		}
-	}else{
-		// if there isn't an ongoing event, update the statistics and check for a new event
-		manager.update(_step);
-		currentEvent = manager.consumeEvent();
+	}
+	
 	// main game update stuff
+	if(!paused){
 		if(currentEvent != nullptr){
-			uiEvent->startEvent(currentEvent);
+			// if there is an ongoing event, the UI_Event popup will handle it
+
+			// once the event is finished, delete it and remove the reference in order to continue gameplay in the next update
+			if(uiEvent->currentConversation == nullptr){
+			MY_ResourceManager::scenario->getAudio("EVENT_CLOSE")->sound->play();
+				delete currentEvent;
+				currentEvent = nullptr;
+			}
+		}else{
+			// if there isn't an ongoing event, update the statistics and check for a new event
+			manager.update(_step);
+			currentEvent = manager.consumeEvent();
+			if(currentEvent != nullptr){
+				uiEvent->startEvent(currentEvent);
+			}
 		}
 	}
 	

@@ -33,6 +33,7 @@ Markers::Markers() :
 			markers.push_back(Marker(markersJson[i]));
 		}
 	}
+	update(nullptr);
 }
 
 void Markers::update(Step * _step){
