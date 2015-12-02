@@ -48,6 +48,7 @@
 #include <RenderOptions.h>
 
 #include <MY_Button.h>
+#include <MY_Scene.h>
 Scene_MenuMain::Scene_MenuMain(Game * _game) :
 	Scene_Menu(_game)
 {
@@ -68,7 +69,10 @@ Scene_MenuMain::Scene_MenuMain(Game * _game) :
 	
 	b1->eventManager.addEventListener("click", [this](sweet::Event *){
 		// TODO: reset game before switching to scene
-		game->switchScene("MAIN", false);
+		if(game->scenes.find("MAIN") == game->scenes.end()){
+			game->scenes["MAIN"] = new MY_Scene(game);
+		}game->switchScene("MAIN", false);
+		
 	});
 	b2->eventManager.addEventListener("click", [this](sweet::Event *){
 		game->switchScene("MENU_INSTRUCTIONS", false);
