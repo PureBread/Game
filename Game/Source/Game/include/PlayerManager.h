@@ -26,8 +26,6 @@ public:
 
 class PlayerManager : public NodeUpdatable{
 private:
-	// container for all of the event managers on the event scenarios
-	sweet::EventManager globalEventManager;
 
 	Event * eventToTrigger;
 	float momentDelay;
@@ -40,12 +38,16 @@ private:
 	Event * triggerLossEvent();
 	Event * triggerRandomEvent();
 public:
+	// container for all of the event managers on the event scenarios
+	sweet::EventManager globalEventManager;
 	Markers markers;
 	LevelPath * levelPath;
 	std::map<std::string, float> statistics;
 
-	// global multiplier applied to speed, regardless of player input
-	float speedMultiplier;
+	// global multipliers applied regardless of player input
+	float speedMultiplier, woolMultiplier, rationsMultiplier, healthMultiplier;
+	// chance of event occurring in a single moment (0-100)
+	float randomEventBaseChance, lossEventBaseChance;
 
 
 	// saves resources to a json file at data/_path

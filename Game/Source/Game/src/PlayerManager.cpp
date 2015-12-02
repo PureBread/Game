@@ -15,9 +15,14 @@ Event::Event(EventType _type, Scenario * _scenario) :
 }
 
 PlayerManager::PlayerManager(ShaderComponentReplace * _replaceComponent) :
-	momentDelay(0.5f),
+	momentDelay(0.016f),
 	momentTimer(0),
-	speedMultiplier(0.1f),
+	speedMultiplier(0.001f),
+	woolMultiplier(0.0005f),
+	rationsMultiplier(0.0005f),
+	healthMultiplier(0.005f),
+	randomEventBaseChance(0.01f),
+	lossEventBaseChance(0.01f),
 	eventToTrigger(nullptr),
 	levelPath(new LevelPath("walkLayer.png", _replaceComponent))
 {
@@ -107,13 +112,13 @@ void PlayerManager::moment(){
 	// update statistics
 	statistics["progress"] += statistics["speed"]*speedMultiplier;
 	std::cout << "Progress: " << statistics["progress"] << std::endl;
-	statistics["wool"] += statistics["herdSize"];
-	if(statistics["food"] <= 0){
+	statistics["wool"] += statistics["herdSize"]*woolMultiplier;
+	if(statistics["food"] <= FLT_EPSILON){
 		statistics["rations"] = 0;
 	}else{
-		statistics["food"] -= statistics["rations"] * statistics["herdSize"];
+		statistics["food"] -= (statistics["rations"] * statistics["herdSize"])*rationsMultiplier;
 	}
-	statistics["health"] += (statistics["rations"]-1)*1.5f - (statistics["speed"] - 1);
+	statistics["health"] += ((statistics["rations"]-1)*1.5f - (statistics["speed"] - 1))*healthMultiplier;
 
 	// check for events
 	markers.currentPosition = statistics["progress"];
@@ -138,12 +143,12 @@ bool PlayerManager::shouldTriggerDestinationEvent(){
 
 bool PlayerManager::shouldTriggerLossEvent(){
 	// random check which is more likely to succeed when health is low
-	return sweet::NumberUtils::randomFloat(0, 100) < (5 * (100 - statistics["health"])/100);
+	return sweet::NumberUtils::randomFloat(0, 100) < (lossEventBaseChance * (100 - statistics["health"])/100);
 }
 
 bool PlayerManager::shouldTriggerRandomEvent(){
 	// completely random check
-	return sweet::NumberUtils::randomFloat(0, 100) < 5;
+	return sweet::NumberUtils::randomFloat(0, 100) < randomEventBaseChance;
 }
 
 Event * PlayerManager::triggerDestinationEvent(){
