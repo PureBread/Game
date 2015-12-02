@@ -42,6 +42,7 @@ UI_Event::UI_Event(BulletWorld * _world, Shader * _textShader) :
 	image->background->mesh->scaleModeMag = image->background->mesh->scaleModeMin = GL_NEAREST;
 
 	text->setWidth(1.f);
+	text->setHeight(MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font->getLineHeight()*2);
 	//text->setHeight(0.4f);
 	text->setText(L"Bacon ipsum dolor amet anim occaecat pork loin.");
 	text->verticalAlignment = kTOP;
