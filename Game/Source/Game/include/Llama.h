@@ -17,6 +17,7 @@ private:
 	float angle1;
 	float angle2;
 
+protected:
 	Sprite * llama;
 
 public:

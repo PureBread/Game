@@ -18,6 +18,8 @@
     <ClCompile Include="src\ShaderComponentReplace.cpp" />
     <ClCompile Include="src\VCam.cpp" />
     <ClCompile Include="src\UI_Event.cpp" />
+    <ClCompile Include="src\Scene_MenuInstructions.cpp" />
+    <ClCompile Include="src\LlamaLeader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ArtLayer.h" />
@@ -36,5 +38,7 @@
     <ClInclude Include="include\ShaderComponentReplace.h" />
     <ClInclude Include="include\VCam.h" />
     <ClInclude Include="include\UI_Event.h" />
+    <ClInclude Include="include\Scene_MenuInstructions.h" />
+    <ClInclude Include="include\LlamaLeader.h" />
   </ItemGroup>
 </Project>

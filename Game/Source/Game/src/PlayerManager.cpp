@@ -1,6 +1,7 @@
 #pragma once
 
 #include <PlayerManager.h>
+#include <LlamaLeader.h>
 #include <json\json.h>
 #include <FileUtils.h>
 #include <Log.h>
@@ -200,22 +201,27 @@ Event * PlayerManager::consumeEvent(){
 }
 
 void PlayerManager::addLlama(Shader * _shader, bool _isLeader){
-	Llama * llama = new Llama(_shader);
-	llama->childTransform->scale(0.1f);
-	llama->childTransform->translate(glm::vec3(levelPath->vertices.at(0).x, levelPath->vertices.at(0).y, 0));
+	Llama * llama;
 
-
-	if (!_isLeader){
-
+	if (_isLeader){
+		llama = new LlamaLeader(_shader);
+	}else {
+		llama = new Llama(_shader);
 		llama->leader = levelPath->llamas.front();
 		// move llama slightly back
 		// we can't have an offset really without going thorugh all the vertices to calculate a posotion, maybe we could?
 		// I don't know, place llama at position of leader?
-		llama->offset = sweet::NumberUtils::randomFloat(0.001, 0.008);
+		llama->offset = (float)sweet::NumberUtils::randomInt(1, 200) / 300;
 
 		// adjust llama attributes
-
+		llama->hopSpeed = (float)sweet::NumberUtils::randomInt(10, 45) / 100.f;
+		llama->hopDuration = (float)sweet::NumberUtils::randomInt(20, 60) / 100.f;
+		llama->hopLength = (float)sweet::NumberUtils::randomInt(30, 70) / 100.f;
+		llama->hopHeight = (float)sweet::NumberUtils::randomInt(30, 70) / 100.f;
 	}
+
+	llama->childTransform->scale(0.1f);
+	llama->childTransform->translate(glm::vec3(levelPath->vertices.at(0).x, levelPath->vertices.at(0).y, 0));
 
 	levelPath->addLlama(llama);
 }

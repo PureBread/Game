@@ -344,9 +344,11 @@ MY_Scene::~MY_Scene(){
 
 
 void MY_Scene::update(Step * _step){
-	if(_step->time > 1 && manager.statistics["herdSize"] < 2){
-		manager.statistics["herdSize"] += 1;
+	while (_step->time > 1 && manager.levelPath->llamas.size()-1 < manager.statistics["herdSize"]){
 		manager.addLlama(replaceShader);
+	}
+	while (_step->time > 1 && manager.levelPath->llamas.size()-1 > manager.statistics["herdSize"]){
+		manager.levelPath->removeLlama();
 	}
 
 	if(keyboard->keyJustDown(GLFW_KEY_R)){
