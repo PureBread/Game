@@ -27,7 +27,6 @@ public:
 	bool isHopping;
 	float hopSpeed;
 	float hopDuration;
-	float hopLength;
 	float hopHeight;
 	float currHopTime;
 

@@ -14,7 +14,6 @@ Llama::Llama(Shader * _shader) :
 	isHopping(false),
 	hopSpeed(0.1f),
 	hopDuration(0.4f),
-	hopLength(5.f),
 	hopHeight(0.5f),
 	currHopTime(0.f),
 	angle1(0),
@@ -54,7 +53,7 @@ void Llama::update(Step * _step){
 		childTransform->translate(v.x * _step->deltaTime * hopSpeed, v.y * _step->deltaTime * hopSpeed, 0);
 		
 		// jumping
-		float ly = currHopTime / hopDuration <= 0.5 ? Easing::easeOutCubic(currHopTime, 0, hopHeight, hopDuration/2) : Easing::easeOutBounce(currHopTime - hopDuration/2, hopHeight, -hopHeight, hopDuration/2);
+		float ly = currHopTime / hopDuration <= 0.5 ? Easing::easeOutCubic(currHopTime, 0, hopHeight, hopDuration / 2) : Easing::easeOutBounce(currHopTime - hopDuration / 2, hopHeight, -hopHeight, hopDuration / 2);
 		llama->childTransform->translate(0, ly, 0, false);
 
 		if (currHopTime >= hopDuration){
@@ -99,8 +98,8 @@ void Llama::hop(){
 		glm::vec2 v1 = glm::vec2(childTransform->getTranslationVector().x, childTransform->getTranslationVector().y);
 		float d = 0;
 		for(auto v : targets){
-			if (leader != nullptr && v.x > leader->childTransform->getTranslationVector().x){
-				d += glm::distance(glm::vec2(leader->childTransform->getTranslationVector().x, leader->childTransform->getTranslationVector().y), v1);
+			if (leader != nullptr && v.x > leader->childTransform->getTranslationVector().x - offset){
+				d += glm::distance(glm::vec2(leader->childTransform->getTranslationVector().x - offset, leader->childTransform->getTranslationVector().y), v1);
 				break;
 			} else{
 				d += glm::distance(v, v1);
@@ -111,14 +110,3 @@ void Llama::hop(){
 		hopSpeed = hopHeight = d;
 	}
 }
-
-glm::vec2 Llama::getPointOnPath(float _distance){
-	// get vector
-	glm::vec2 v = glm::vec2(pathP2.x - pathP1.x, pathP2.y - pathP1.y);
-	v = glm::normalize(v);
-
-	glm::vec2 p = pathP1 + v * hopLength;
-
-	return p;
-}
-
