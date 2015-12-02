@@ -344,6 +344,13 @@ MY_Scene::~MY_Scene(){
 
 
 void MY_Scene::update(Step * _step){
+	
+	// loss state check
+	if(manager.statistics["herdSize"] == 0){
+		manager.globalEventManager.triggerEvent("gameOver");
+	}
+
+	// herd size checks
 	while (_step->time > 1 && manager.levelPath->llamas.size()-1 < manager.statistics["herdSize"]){
 		manager.addLlama(replaceShader);
 	}
