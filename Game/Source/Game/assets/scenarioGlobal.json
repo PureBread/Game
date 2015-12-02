@@ -134,33 +134,41 @@
     },
 
     {
-        "id": "BGM",
-        "type": "audio",
-        "src": "Sound1.ogg"
-    },{
         "id": "ANDES",
         "type": "audio",
-        "src": "Andes.wav"
+        "src": "Andes.ogg"
     },{
         "id": "BUTTON1",
         "type": "audio",
-        "src": "button1.ogg"
+        "src": "Button SFX1.ogg"
     },{
         "id": "BUTTON2",
         "type": "audio",
-        "src": "button2.ogg"
+        "src": "Button SFX2.ogg"
     },{
         "id": "BUTTON3",
         "type": "audio",
-        "src": "button3.ogg"
+        "src": "Button SFX3.ogg"
     },{
         "id": "BUTTON4",
         "type": "audio",
-        "src": "button4.ogg"
+        "src": "Button SFX4.ogg"
     },{
         "id": "BUTTON5",
         "type": "audio",
-        "src": "button5.ogg"
+        "src": "Button SFX5.ogg"
+    },{
+        "id": "EVENT1",
+        "type": "audio",
+        "src": "Event SFX1.ogg"
+    },{
+        "id": "EVENT2",
+        "type": "audio",
+        "src": "Event SFX2.ogg"
+    },{
+        "id": "EVENT3",
+        "type": "audio",
+        "src": "Event SFX3.ogg"
     },
 
 
