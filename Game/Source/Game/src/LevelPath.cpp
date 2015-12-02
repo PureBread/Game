@@ -143,7 +143,9 @@ void LevelPath::setProgress(float _x){
 		}
 	}
 	for (Llama * l : llamas){
-		l->targets.back() = pos;
+		if(l->targets.size() > 0){
+			l->targets.back() = pos;
+		}
 	}
 }
 
