@@ -12,6 +12,7 @@
 #include <PlayerManager.h>
 #include <ArtLayer.h>
 #include <UI_Event.h>
+#include <UI_Controls.h>
 #include <Timeout.h>
 
 class PerspectiveCamera;

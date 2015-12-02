@@ -83,6 +83,8 @@ MY_Scene::MY_Scene(Game * _game) :
 	replaceShader->addComponent(hsvShaderComponent);
 	replaceShader->compileShader();
 	replaceShader->load();
+	
+	textShader->setColor(178.f/255.f, 178.f/255.f, 178.f/255.f);
 
 	screenSurface->uvEdgeMode = GL_CLAMP_TO_EDGE;
 	screenSurface->load();
@@ -196,101 +198,8 @@ MY_Scene::MY_Scene(Game * _game) :
 	manager.loadDefaults();
 
 	
-	NodeUI * ui = new NodeUI(uiLayer->world);
-
-	SliderControlled * food = new SliderControlled(uiLayer->world, &manager.statistics["food"], 0, 100, false);
-	SliderControlled * wool = new SliderControlled(uiLayer->world, &manager.statistics["wool"], 0, 100, false);
-	SliderControlled * health = new SliderControlled(uiLayer->world, &manager.statistics["health"], 0, 100);
-
-	//food->background->setShader(maskShader);
-	food->fill->background->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("SADDLEBAG-R-MASK")->texture);
-	wool->fill->background->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("SADDLEBAG-L-MASK")->texture);
-	ui->background->setVisible(false);
-	//ui->background->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("BACK")->texture);
-
-	//MeshInterface * p = MeshFactory::getPlaneMesh();
-	//for(unsigned long int i = 0; i < p->getVertCount(); ++i){
-	//	p->vertices.at(i).x += 0.5f;
-	//	p->vertices.at(i).y += 0.5f;
-	//}
-	//p->dirty = true;
-	//food->fill->background->meshTransform->addChild(new MeshEntity(p, maskShader), false);
-	//maskComponent->setMaskTex(MY_ResourceManager::scenario->getTexture("SADDLEBAG2-MASK")->texture);
-
-	TextLabel * herdSize = new TextLabel(uiLayer->world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, textShader);
-	herdSize->setText(L"99");
-	textShader->setColor(178.f/255.f, 178.f/255.f, 178.f/255.f);
-	herdSize->horizontalAlignment = kCENTER;
-
-	SliderController * speed = new SliderController(uiLayer->world, &manager.statistics["speed"], 1, 0, 2, false);
-	SliderController * rations = new SliderController(uiLayer->world, &manager.statistics["rations"], 1, 0, 2, false);
-	
-	speed->setStepped(1);
-	rations->setStepped(1);
-	
-	wool->setBackgroundColour(1,1,1);
-	wool->fill->setBackgroundColour(1,1,1);
-	food->setBackgroundColour(1,1,1);
-	food->fill->setBackgroundColour(215.f/255.f, 198.f/255.f, 151.f/255.f);
-	health->setBackgroundColour(1,1,1);
-	health->fill->setBackgroundColour(129.f/255.f, 208.f/255.f, 217.f/255.f);
-
-	speed->setBackgroundColour(178.f/255.f, 178.f/255.f, 178.f/255.f);
-	rations->setBackgroundColour(178.f/255.f, 178.f/255.f, 178.f/255.f);
-	
-	speed->fill->background->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("DIAL-L")->texture);
-	rations->fill->background->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("DIAL-R")->texture);
-	
-	wool->background->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("SADDLEBAG-L")->texture);
-	food->background->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("SADDLEBAG-R")->texture);
-	
-
-	food->setRationalWidth(0.33f);
-	wool->setRationalWidth(0.33f);
-	
-	food->setMarginTop(0.1f);
-	wool->setMarginTop(0.1f);
-	
-	speed->setRationalWidth(0.1f);
-	rations->setRationalWidth(0.1f);
-	
-	speed->setMarginBottom(0.1f);
-	rations->setMarginBottom(0.1f);
-	
-	speed->setMarginTop(0.2f);
-	rations->setMarginTop(0.2f);
-	
-	health->setMargin(0.25f, 0);
-	health->setRationalHeight(0.1f);
-	health->setRationalWidth(1.f);
-
-	herdSize->setMargin(0.4f, 0.4f);
-	herdSize->setRationalHeight(1.f);
-	herdSize->setRationalWidth(1.f);
-	
-
-	HorizontalLinearLayout * hlayout = new HorizontalLinearLayout(uiLayer->world);
-	
-	hlayout->addChild(wool);
-	hlayout->addChild(speed);
-	hlayout->addChild(rations);
-	hlayout->addChild(food);
-
-	ui->addChild(hlayout);
-	ui->addChild(herdSize);
-	ui->addChild(health);
-
-
-	
-	hlayout->setRationalWidth(1.f);
-	hlayout->setRationalHeight(1.f);
-	hlayout->horizontalAlignment = kCENTER;
-	
-	ui->setMargin(0.33f, 0);
-	ui->setRationalWidth(1.f);
-	ui->setRationalHeight(0.25f);
-	ui->setMarginBottom(0.01f);
-	uiLayer->addChild(ui);
+	UI_Controls * uiControls = new UI_Controls(&manager, uiLayer->world, textShader);
+	uiLayer->addChild(uiControls);
 
 
 	uiEvent = new UI_Event(uiLayer->world, textShader);
