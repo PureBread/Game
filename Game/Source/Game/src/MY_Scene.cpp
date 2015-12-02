@@ -84,6 +84,7 @@ MY_Scene::MY_Scene(Game * _game) :
 	screenSurface->uvEdgeMode = GL_CLAMP_TO_EDGE;
 	screenSurface->load();
 
+
 	//maskShader = new ComponentShaderBase(true);
 	//maskShader->addComponent(new ShaderComponentMVP(maskShader));
 	//maskShader->addComponent(new ShaderComponentTexture(maskShader));
@@ -111,8 +112,6 @@ MY_Scene::MY_Scene(Game * _game) :
 	debugCam->pitch = -10.0f;
 	debugCam->speed = 1;
 
-	activeCamera = debugCam;
-
 	//
 	glm::uvec2 sd = sweet::getScreenDimensions();
 	uiLayer->resize(0, sd.x, 0, sd.y);
@@ -128,6 +127,8 @@ MY_Scene::MY_Scene(Game * _game) :
 	playerCam->pitch = 0.520833313f;
 	playerCam->parents.at(0)->translate(0, -13.8184452f, 57.8584137f);
 	playerCam->fieldOfView = 64.3750000;
+	playerCam->interpolation = 1;
+	activeCamera = playerCam;
 
 	// art layers
 	layerSky = new ArtLayer(replaceShaderComponent);
@@ -309,12 +310,12 @@ MY_Scene::~MY_Scene(){
 
 
 void MY_Scene::update(Step * _step){
-	
 	if(_step->time > 1 && manager.statistics["herdSize"] < 2){
 		manager.statistics["herdSize"] += 1;
 		manager.addLlama(replaceShader);
 	}
 
+	// screen shader stuff
 	if(keyboard->keyJustDown(GLFW_KEY_L)){
 		screenSurfaceShader->unload();
 		screenSurfaceShader->loadFromFile(screenSurfaceShader->vertSource, screenSurfaceShader->fragSource);
@@ -352,11 +353,14 @@ void MY_Scene::update(Step * _step){
 		// if there isn't an ongoing event, update the statistics and check for a new event
 		manager.update(_step);
 		currentEvent = manager.consumeEvent();
+	// main game update stuff
 		if(currentEvent != nullptr){
 			uiEvent->startEvent(currentEvent);
 		}
 	}
 	
+
+	// visual update stuff
 	float x = manager.statistics["progress"];//activeCamera->parents.at(0)->getTranslationVector().x;
 	glm::vec3 v = playerCam->firstParent()->getTranslationVector();
 	playerCam->firstParent()->translate((x-1)*50.f, v.y, v.z, false);
@@ -419,13 +423,7 @@ void MY_Scene::update(Step * _step){
 		activeCamera->parents.at(0)->translate((activeCamera->rightVectorRotated) * camSpeed);
 	}
 
-	
 
-	if (keyboard->keyJustDown(GLFW_KEY_A)){
-		speed += 0.1f;
-	}if (keyboard->keyJustDown(GLFW_KEY_D)){
-		speed -= 0.1f;
-	}
 	if (keyboard->keyJustDown(GLFW_KEY_ESCAPE)){
 		game->switchScene("MENU_MAIN", false);
 	}
