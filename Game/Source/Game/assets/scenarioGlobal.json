@@ -59,7 +59,14 @@
     {
         "id": "LLAMA",
         "type": "texture",
-        "src": "llama!!!!!/smolllama1.png"
+        "src": "llama!!!!!/smolllama1_white.png"
+    },
+
+
+    {
+        "id": "LLAMA_LEADER",
+        "type": "texture",
+        "src": "llama!!!!!/smolllama1_black.png"
     },
 
     
