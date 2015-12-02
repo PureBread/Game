@@ -140,33 +140,17 @@
     },{
         "id": "BUTTON1",
         "type": "audio",
-        "src": "Button SFX1.ogg"
+        "src": "Button SFX2.ogg"
     },{
         "id": "BUTTON2",
         "type": "audio",
-        "src": "Button SFX2.ogg"
-    },{
-        "id": "BUTTON3",
-        "type": "audio",
-        "src": "Button SFX3.ogg"
-    },{
-        "id": "BUTTON4",
-        "type": "audio",
-        "src": "Button SFX4.ogg"
-    },{
-        "id": "BUTTON5",
-        "type": "audio",
         "src": "Button SFX5.ogg"
     },{
-        "id": "EVENT1",
+        "id": "EVENT_OPEN",
         "type": "audio",
-        "src": "Event SFX1.ogg"
+        "src": "Button SFX1.ogg"
     },{
-        "id": "EVENT2",
-        "type": "audio",
-        "src": "Event SFX2.ogg"
-    },{
-        "id": "EVENT3",
+        "id": "EVENT_CLOSE",
         "type": "audio",
         "src": "Event SFX3.ogg"
     },

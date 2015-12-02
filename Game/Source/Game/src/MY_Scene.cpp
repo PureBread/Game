@@ -344,6 +344,7 @@ void MY_Scene::update(Step * _step){
 
 		// once the event is finished, delete it and remove the reference in order to continue gameplay in the next update
 		if(uiEvent->currentConversation == nullptr){
+	MY_ResourceManager::scenario->getAudio("EVENT_CLOSE")->sound->play();
 			delete currentEvent;
 			currentEvent = nullptr;
 		}

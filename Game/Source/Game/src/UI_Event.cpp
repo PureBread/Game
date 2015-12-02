@@ -78,6 +78,7 @@ UI_Event::~UI_Event(){}
 
 
 void UI_Event::startEvent(Event * _event){
+	MY_ResourceManager::scenario->getAudio("EVENT_OPEN")->sound->play();
 	currentEvent = _event;
 	setVisible(true);
 

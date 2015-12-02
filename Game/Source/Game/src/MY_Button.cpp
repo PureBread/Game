@@ -42,7 +42,7 @@ MY_Button::MY_Button(BulletWorld * _world, Font * _font, Shader * _textShader, u
 
 	eventManager.addEventListener("click", [](sweet::Event * _event){
 		std::stringstream ss;
-		ss << "BUTTON" << sweet::NumberUtils::randomInt(1,5);
+		ss << "BUTTON" << sweet::NumberUtils::randomInt(1,2);
 		MY_ResourceManager::scenario->getAudio(ss.str())->sound->play();
 	});
 }
