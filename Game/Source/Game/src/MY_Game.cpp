@@ -13,8 +13,7 @@ MY_Game::MY_Game() :
 	scenes["MENU_OPTIONS"] = new Scene_MenuOptions(this);
 	scenes["MENU_INSTRUCTIONS"] = new Scene_MenuInstructions(this);
 
-
-	MY_ResourceManager::scenario->getAudio("ANDES")->sound->play(true);
+	//MY_ResourceManager::scenario->getAudio("ANDES")->sound->play(true);
 }
 
 MY_Game::~MY_Game(){

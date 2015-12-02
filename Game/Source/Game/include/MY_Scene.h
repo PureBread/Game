@@ -70,7 +70,7 @@ public:
 	virtual void load() override;
 	virtual void unload() override;
 
-	UILayer uiLayer;
+	UILayer * uiLayer;
 
 	MY_Scene(Game * _game);
 	~MY_Scene();

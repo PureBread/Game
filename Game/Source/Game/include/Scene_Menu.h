@@ -52,7 +52,7 @@ public:
 	virtual void load() override;
 	virtual void unload() override;
 
-	UILayer uiLayer;
+	UILayer * uiLayer;
 
 	Scene_Menu(Game * _game);
 	~Scene_Menu();

@@ -65,7 +65,7 @@ MY_Scene::MY_Scene(Game * _game) :
 	replaceShader(new ComponentShaderBase(true)),
 	replaceShaderComponent(new ShaderComponentReplace(replaceShader)),
 	textShader(new ComponentShaderText(true)),
-	uiLayer(0,0,0,0),
+	uiLayer(new UILayer(0,0,0,0)),
 	progress(0),
 	speed(0),
 	currentEvent(nullptr),
@@ -115,7 +115,7 @@ MY_Scene::MY_Scene(Game * _game) :
 
 	//
 	glm::uvec2 sd = sweet::getScreenDimensions();
-	uiLayer.resize(0, sd.x, 0, sd.y);
+	uiLayer->resize(0, sd.x, 0, sd.y);
 
 
 	/** GAME STUFF **/
@@ -192,11 +192,11 @@ MY_Scene::MY_Scene(Game * _game) :
 	manager.loadDefaults();
 
 	
-	NodeUI * ui = new NodeUI(uiLayer.world);
+	NodeUI * ui = new NodeUI(uiLayer->world);
 
-	SliderControlled * food = new SliderControlled(uiLayer.world, &manager.statistics["food"], 0, 100, false);
-	SliderControlled * wool = new SliderControlled(uiLayer.world, &manager.statistics["wool"], 0, 100, false);
-	SliderControlled * health = new SliderControlled(uiLayer.world, &manager.statistics["health"], 0, 100);
+	SliderControlled * food = new SliderControlled(uiLayer->world, &manager.statistics["food"], 0, 100, false);
+	SliderControlled * wool = new SliderControlled(uiLayer->world, &manager.statistics["wool"], 0, 100, false);
+	SliderControlled * health = new SliderControlled(uiLayer->world, &manager.statistics["health"], 0, 100);
 
 	//food->background->setShader(maskShader);
 	food->fill->background->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("SADDLEBAG-R-MASK")->texture);
@@ -213,13 +213,13 @@ MY_Scene::MY_Scene(Game * _game) :
 	//food->fill->background->meshTransform->addChild(new MeshEntity(p, maskShader), false);
 	//maskComponent->setMaskTex(MY_ResourceManager::scenario->getTexture("SADDLEBAG2-MASK")->texture);
 
-	TextLabel * herdSize = new TextLabel(uiLayer.world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, textShader);
+	TextLabel * herdSize = new TextLabel(uiLayer->world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, textShader);
 	herdSize->setText(L"99");
 	textShader->setColor(178.f/255.f, 178.f/255.f, 178.f/255.f);
 	herdSize->horizontalAlignment = kCENTER;
 
-	SliderController * speed = new SliderController(uiLayer.world, &manager.statistics["speed"], 1, 0, 2, false);
-	SliderController * rations = new SliderController(uiLayer.world, &manager.statistics["rations"], 1, 0, 2, false);
+	SliderController * speed = new SliderController(uiLayer->world, &manager.statistics["speed"], 1, 0, 2, false);
+	SliderController * rations = new SliderController(uiLayer->world, &manager.statistics["rations"], 1, 0, 2, false);
 	
 	speed->setStepped(1);
 	rations->setStepped(1);
@@ -265,7 +265,7 @@ MY_Scene::MY_Scene(Game * _game) :
 	herdSize->setRationalWidth(1.f);
 	
 
-	HorizontalLinearLayout * hlayout = new HorizontalLinearLayout(uiLayer.world);
+	HorizontalLinearLayout * hlayout = new HorizontalLinearLayout(uiLayer->world);
 	
 	hlayout->addChild(wool);
 	hlayout->addChild(speed);
@@ -286,17 +286,18 @@ MY_Scene::MY_Scene(Game * _game) :
 	ui->setRationalWidth(1.f);
 	ui->setRationalHeight(0.25f);
 	ui->setMarginBottom(0.01f);
-	uiLayer.addChild(ui);
+	uiLayer->addChild(ui);
 
 
-	uiEvent = new UI_Event(uiLayer.world, textShader);
+	uiEvent = new UI_Event(uiLayer->world, textShader);
 
-	uiLayer.addChild(uiEvent);
+	uiLayer->addChild(uiEvent);
 
-	uiLayer.addMouseIndicator();
+	uiLayer->addMouseIndicator();
 }
 
 MY_Scene::~MY_Scene(){
+	delete uiLayer;
 	deleteChildTransform();
 	baseShader->safeDelete();
 	textShader->safeDelete();
@@ -395,7 +396,7 @@ void MY_Scene::update(Step * _step){
 	}if (keyboard->keyJustDown(GLFW_KEY_2)){
 		Transform::drawTransforms = !Transform::drawTransforms;
 
-		uiLayer.bulletDebugDrawer->setDebugMode(BulletDebugDrawer::DBG_MAX_DEBUG_DRAW_MODE);
+		uiLayer->bulletDebugDrawer->setDebugMode(BulletDebugDrawer::DBG_MAX_DEBUG_DRAW_MODE);
 	}
 
 	float camSpeed = 0.3f;
@@ -432,9 +433,9 @@ void MY_Scene::update(Step * _step){
 
 	Scene::update(_step);
 	glm::uvec2 sd = sweet::getScreenDimensions();
-	uiLayer.resize(0, sd.x, 0, sd.y);
-	//uiLayer.invalidateLayout();
-	uiLayer.update(_step);
+	uiLayer->resize(0, sd.x, 0, sd.y);
+	//uiLayer->invalidateLayout();
+	uiLayer->update(_step);
 }
 
 void MY_Scene::render(sweet::MatrixStack * _matrixStack, RenderOptions * _renderOptions){
@@ -455,7 +456,7 @@ void MY_Scene::render(sweet::MatrixStack * _matrixStack, RenderOptions * _render
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_POLYGON);
 	screenSurface->render(screenFBO->getTextureId());
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
-	uiLayer.render(_matrixStack, _renderOptions);
+	uiLayer->render(_matrixStack, _renderOptions);
 }
 
 void MY_Scene::load(){
@@ -463,11 +464,11 @@ void MY_Scene::load(){
 
 	screenSurface->load();
 	screenFBO->load();
-	uiLayer.load();
+	uiLayer->load();
 }
 
 void MY_Scene::unload(){
-	uiLayer.unload();
+	uiLayer->unload();
 	screenFBO->unload();
 	screenSurface->unload();
 

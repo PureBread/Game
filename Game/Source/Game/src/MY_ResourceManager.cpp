@@ -19,16 +19,19 @@ void MY_ResourceManager::init(){
 		 for(Json::Value::ArrayIndex i = 0; i < randomEventsJson.size(); ++i) {
 			 Scenario * s = new Scenario("assets/events/random/" + randomEventsJson[i].asString() + ".json");
 			 randomEvents.push_back(s);
+			 resources.push_back(s);
 		 }
 		 Json::Value lossEventsJson = root["lossEvents"];
 		 for(Json::Value::ArrayIndex i = 0; i < lossEventsJson.size(); ++i) {
 			 Scenario * s = new Scenario("assets/events/loss/" + lossEventsJson[i].asString() + ".json");
 			 lossEvents.push_back(s);
+			 resources.push_back(s);
 		 }
 		 Json::Value destinationEventsJson = root["destinationEvents"];
 		 for(Json::Value::ArrayIndex i = 0; i < destinationEventsJson.size(); ++i) {
 			 Scenario * s = new Scenario("assets/events/destination/" + destinationEventsJson[i].asString() + ".json");
 			 destinationEvents.push_back(s);
+			 resources.push_back(s);
 		 }
 	}
 

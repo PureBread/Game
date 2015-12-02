@@ -53,15 +53,15 @@ Scene_MenuInstructions::Scene_MenuInstructions(Game * _game) :
 	Scene_Menu(_game)
 {
 	// buttons
-	VerticalLinearLayout * vl = new VerticalLinearLayout(uiLayer.world);
+	VerticalLinearLayout * vl = new VerticalLinearLayout(uiLayer->world);
 	vl->setRenderMode(kTEXTURE);
 	vl->setBackgroundColour(1.f, 1.f, 1.f, 1.f);
 	vl->background->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("SCROLL_MENU")->texture);
 	
-	TextLabel * titleText = new TextLabel(uiLayer.world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, textShader);
-	TextArea * instructionsText = new TextArea(uiLayer.world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, textShader, 1.f);
+	TextLabel * titleText = new TextLabel(uiLayer->world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, textShader);
+	TextArea * instructionsText = new TextArea(uiLayer->world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, textShader, 1.f);
 
-	MY_Button * back = new MY_Button(uiLayer.world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, textShader, 3);
+	MY_Button * back = new MY_Button(uiLayer->world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, textShader, 3);
 	
 	titleText->setText(L"INSTRUCTIONS");
 	titleText->horizontalAlignment = kCENTER;
@@ -86,9 +86,9 @@ Scene_MenuInstructions::Scene_MenuInstructions(Game * _game) :
 	vl->setRationalHeight(1.f);
 	vl->verticalAlignment = kMIDDLE;
 	vl->horizontalAlignment = kCENTER;
-	uiLayer.addChild(vl);
+	uiLayer->addChild(vl);
 
-	uiLayer.addMouseIndicator();
+	uiLayer->addMouseIndicator();
 }
 
 Scene_MenuInstructions::~Scene_MenuInstructions(){

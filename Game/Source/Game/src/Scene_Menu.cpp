@@ -56,7 +56,7 @@ Scene_Menu::Scene_Menu(Game * _game) :
 	screenFBO(new StandardFrameBuffer(true)),
 	baseShader(new ComponentShaderBase(true)),
 	textShader(new ComponentShaderText(true)),
-	uiLayer(0,0,0,0)
+	uiLayer(new UILayer(0,0,0,0))
 {
 	baseShader->addComponent(new ShaderComponentMVP(baseShader));
 	baseShader->addComponent(new ShaderComponentTexture(baseShader));
@@ -65,28 +65,28 @@ Scene_Menu::Scene_Menu(Game * _game) :
 	textShader->textComponent->setColor(glm::vec3(1.f));
 
 	glm::uvec2 sd = sweet::getScreenDimensions();
-	uiLayer.resize(0, sd.x, 0, sd.y);
+	uiLayer->resize(0, sd.x, 0, sd.y);
 
 	// texture
-	/*NodeUI * bg = new NodeUI(uiLayer.world, this);
+	/*NodeUI * bg = new NodeUI(uiLayer->world, this);
 	bg->background->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("MENU_MAIN")->texture);
 	bg->setRationalWidth(1.f);
 	bg->setRationalHeight(1.f);
-	uiLayer.addChild(bg);*/
+	uiLayer->addChild(bg);*/
 	
-	bg1 = new Sprite(uiLayer.shader);
-	bg2 = new Sprite(uiLayer.shader);
-	bg3 = new Sprite(uiLayer.shader);
-	bg4 = new Sprite(uiLayer.shader);
-	bg5 = new Sprite(uiLayer.shader);
+	bg1 = new Sprite(uiLayer->shader);
+	bg2 = new Sprite(uiLayer->shader);
+	bg3 = new Sprite(uiLayer->shader);
+	bg4 = new Sprite(uiLayer->shader);
+	bg5 = new Sprite(uiLayer->shader);
 	bg1->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("MENU_BG1")->texture);
 	bg2->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("MENU_BG2")->texture);
 	bg3->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("MENU_BG3")->texture);
 	bg4->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("MENU_BG4")->texture);
 	bg5->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("MENU_BG5")->texture);
 	
-	NodeUI * bgNode = new NodeUI(uiLayer.world);
-	uiLayer.addChild(bgNode);
+	NodeUI * bgNode = new NodeUI(uiLayer->world);
+	uiLayer->addChild(bgNode);
 	bgNode->childTransform->addChild(bg5);
 	bgNode->childTransform->addChild(bg4);
 	bgNode->childTransform->addChild(bg3);
@@ -95,15 +95,16 @@ Scene_Menu::Scene_Menu(Game * _game) :
 
 
 	// title text
-	TextLabel * title = new TextLabel(uiLayer.world, MY_ResourceManager::scenario->getFont("HURLY-BURLY_BIG")->font, textShader);
+	TextLabel * title = new TextLabel(uiLayer->world, MY_ResourceManager::scenario->getFont("HURLY-BURLY_BIG")->font, textShader);
 	title->setText(L"LLAMMIGRATION");
 	title->setRationalWidth(1.f);
 	title->setMarginBottom(0.9f);
 	title->horizontalAlignment = kCENTER;
-	uiLayer.addChild(title);
+	uiLayer->addChild(title);
 }
 
 Scene_Menu::~Scene_Menu(){
+	delete uiLayer;
 	deleteChildTransform();
 	baseShader->safeDelete();
 	textShader->safeDelete();
@@ -116,7 +117,7 @@ Scene_Menu::~Scene_Menu(){
 
 void Scene_Menu::update(Step * _step){
 	glm::uvec2 sd = sweet::getScreenDimensions();
-	uiLayer.resize(0, sd.x, 0, sd.y);
+	uiLayer->resize(0, sd.x, 0, sd.y);
 	
 	bg5->firstParent()->scale(sd.x*1.02f, sd.y*1.02f, 1, false);
 	bg4->firstParent()->scale(sd.x*1.04f, sd.y*1.04f, 1, false);
@@ -141,7 +142,7 @@ void Scene_Menu::update(Step * _step){
 		Transform::drawTransforms = !Transform::drawTransforms;
 	}
 	
-	uiLayer.update(_step);
+	uiLayer->update(_step);
 	Scene::update(_step);
 }
 
@@ -162,7 +163,7 @@ void Scene_Menu::render(sweet::MatrixStack * _matrixStack, RenderOptions * _rend
 	//Render the buffer to the render surface
 	screenSurface->render(screenFBO->getTextureId());
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
-	uiLayer.render(_matrixStack, _renderOptions);
+	uiLayer->render(_matrixStack, _renderOptions);
 }
 
 void Scene_Menu::load(){
@@ -170,11 +171,11 @@ void Scene_Menu::load(){
 
 	screenSurface->load();
 	screenFBO->load();
-	uiLayer.load();
+	uiLayer->load();
 }
 
 void Scene_Menu::unload(){
-	uiLayer.unload();
+	uiLayer->unload();
 	screenFBO->unload();
 	screenSurface->unload();
 
