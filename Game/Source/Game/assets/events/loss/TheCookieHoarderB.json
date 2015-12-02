@@ -57,7 +57,7 @@
             {
               "type": "statisticUpdate",
               "args": {
-                "statistic": "HerdSize",
+                "statistic": "herdSize",
                 "amount": -1
               }
             }

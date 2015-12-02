@@ -253,7 +253,7 @@ MY_Scene::~MY_Scene(){
 void MY_Scene::update(Step * _step){
 	
 	// loss state check
-	if(manager.statistics["herdSize"] == 0){
+	if(manager.statistics["herdSize"] == 0 && !paused){
 		manager.globalEventManager.triggerEvent("gameOver");
 	}
 
