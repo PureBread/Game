@@ -18,10 +18,10 @@ private:
 	float angle2;
 
 protected:
-	Sprite * llama;
+	
 
 public:
-
+Sprite * llama;
 	Llama * leader;
 
 	bool isHopping;

@@ -8,6 +8,7 @@
 #include <Step.h>
 #include <NumberUtils.h>
 #include <MY_ResourceManager.h>
+#include <Sprite.h>
 
 Event::Event(EventType _type, Scenario * _scenario) :
 	type(_type),
@@ -22,8 +23,8 @@ PlayerManager::PlayerManager(ShaderComponentReplace * _replaceComponent) :
 	woolMultiplier(0.0005f),
 	rationsMultiplier(0.0005f),
 	healthMultiplier(0.005f),
-	randomEventBaseChance(0.01f),
-	lossEventBaseChance(0.01f),
+	randomEventBaseChance(0.05f),
+	lossEventBaseChance(0.05f),
 	eventToTrigger(nullptr),
 	levelPath(new LevelPath("walkLayer.png", _replaceComponent))
 {
@@ -218,6 +219,13 @@ void PlayerManager::addLlama(Shader * _shader, bool _isLeader){
 		llama->hopDuration = (float)sweet::NumberUtils::randomInt(20, 60) / 100.f;
 		llama->hopLength = (float)sweet::NumberUtils::randomInt(30, 70) / 100.f;
 		llama->hopHeight = (float)sweet::NumberUtils::randomInt(30, 70) / 100.f;
+
+		// randomize llama's size a bit
+		for(unsigned long int i = 0; i < llama->llama->mesh->vertices.size(); ++i){
+			llama->llama->mesh->vertices.at(i).x *= sweet::NumberUtils::randomInt(50, 125)/100.f;
+			llama->llama->mesh->vertices.at(i).y *= sweet::NumberUtils::randomInt(50, 125)/100.f;
+		}
+
 	}
 
 	llama->childTransform->scale(0.1f);
