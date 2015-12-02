@@ -1,0 +1,96 @@
+{
+  "assets": [
+  ],
+  "characters": [
+    {
+
+    },{
+        
+    }
+  ],
+  "conversations": [
+    {
+      "id": "intro",
+      "dialogue": [
+        {
+          "speaker": "Speaker 1",
+          "text": [
+              "You open your packs to have a second breakfast, only to find that it is nowhere in sight.",
+              "Someone accuses a young llama sneaking around last night.",
+              "Reflecting back, he was known for his mischievous nature.",
+              "Do you:"
+"
+          ]
+        }
+      ],
+      "options": [
+          {
+            "text": "Exile the llama",
+            "link": "outcome1"
+          },
+          {
+            "text": "Challenge accusation",
+            "link": "outcome2"
+          }
+      ]
+    },
+    {
+      "id": "outcome1",
+      "dialogue": [
+        {
+          "speaker": "Speaker 1",
+          "text": [
+              "Your party continues at the loss of that llama, yet the next day some more food goes missing.",
+              "You backtrack to where you left the llama and recruit him back into the party.",
+              "Fortunately for you, no food goes missing the next day.",
+              "The culprit must have learned their lesson after fearing expulsion from the herd.",
+              "Lose some food".
+          ],
+          "triggers": [
+            {
+              "type": "statisticUpdate",
+              "args": {
+                "statistic": "food",
+                "amount": -5
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "outcome2",
+      "dialogue": [
+        {
+          "speaker": "Speaker 1",
+          "text": [
+              "You investigate the matter and challenge the accusation until concrete proof is found.",
+              "You find out it was actually him.",
+              "You discipline the llama by abstaining him of second breakfast for five days.",
+              "That’ll teach him!",
+              "That night, the llama steals some more food and runs away from the herd.",
+              "Good riddance.",
+              "Lose 1 llama and food.""
+"
+          ],
+          "triggers": [
+            {
+              "type": "statisticUpdate",
+              "args": {
+                "statistic": "food",
+                "amount": -10
+              }
+            },
+            {
+              "type": "statisticUpdate",
+              "args": {
+                "statistic": "herdSize",
+                "amount": -1
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

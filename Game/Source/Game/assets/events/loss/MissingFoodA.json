@@ -1,0 +1,99 @@
+{
+  "assets": [
+  ],
+  "characters": [
+    {
+
+    },{
+        
+    }
+  ],
+  "conversations": [
+    {
+      "id": "intro",
+      "dialogue": [
+        {
+          "speaker": "Speaker 1",
+          "text": [
+              "You open your packs to have a second breakfast, only to find that it is nowhere in sight.",
+              "Someone accuses a young llama sneaking around last night.",
+              "Reflecting back, he was known for his mischievous nature.",
+              "Do you:"
+"
+          ]
+        }
+      ],
+      "options": [
+          {
+            "text": "Exile the llama",
+            "link": "outcome1"
+          },
+          {
+            "text": "Challenge accusation",
+            "link": "outcome2"
+          }
+      ]
+    },
+    {
+      "id": "outcome1",
+      "dialogue": [
+        {
+          "speaker": "Speaker 1",
+          "text": [
+              "Your party continues at the loss of that llama, but you never find out what happened to the food.",
+              "But hey, now you have more food to go around.",
+              "Lose 1 llama and gain food."
+          ],
+          "triggers": [
+            {
+              "type": "statisticUpdate",
+              "args": {
+                "statistic": "food",
+                "amount": 5
+              }
+            },
+            {
+              "type": "statisticUpdate",
+              "args": {
+                "statistic": "herdSize",
+                "amount": 1
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "outcome2",
+      "dialogue": [
+        {
+          "speaker": "Speaker 1",
+          "text": [
+              "You eventually find out that the missing hay was indeed eaten by him.",
+              "But throughout the day he had been complaining of stomach aches.",
+              "His sickness turned out to be caused by wet hay which had turned rotten.",
+              "You dump out the remaining contents of that pack and thank the llama for testing your food.",
+              "The herd cheerfully continues on their journey at the expense of that llama's stomach pain.",
+              "Gain some health, lose some food."
+          ],
+          "triggers": [
+            {
+              "type": "statisticUpdate",
+              "args": {
+                "statistic": "food",
+                "amount": -5
+              }
+            },
+            {
+              "type": "statisticUpdate",
+              "args": {
+                "statistic": "health",
+                "amount": 5
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

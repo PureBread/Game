@@ -1,0 +1,99 @@
+{
+  "assets": [
+  ],
+  "characters": [
+    {
+
+    },{
+        
+    }
+  ],
+  "conversations": [
+    {
+      "id": "intro",
+      "dialogue": [
+        {
+          "speaker": "Speaker 1",
+          "text": [
+              "You come across a big apple tree.",
+              "The herd could use a nice treat with all the walking they’ve done today.",
+              "You shake one of the low-hanging branches.",
+              "A few fruits fall to the ground and everyone enjoys a tasty apple.",
+              "You hear a cry of help from the tree.",
+              "A greedy llama, wanting more apples had tried to climb the tree.",
+              "But unlike humans, he only has four feet and no arms.",
+              "His hind leg gets caught in some foliage and he loses his balance.",
+              "He tumbles down the tree and you close your eyes as you hear a big thud."
+"
+          ]
+        }
+      ],
+      "options": [
+          {
+            "text": "Scold the llama",
+            "link": "outcome1"
+          },
+          {
+            "text": "Tend to wound",
+            "link": "outcome2"
+          }
+      ]
+    },
+    {
+      "id": "outcome1",
+      "dialogue": [
+        {
+          "speaker": "Speaker 1",
+          "text": [
+              "You scold the llama for being impatient and irresponsible.",
+              "He does not take kindly to you tone lashes out against you, \"You’re not my dad!",
+              "You don’t tell me what to do.",
+              "Go away\".",
+              "Despite your best efforts, you’re not able to convince him.",
+              "To avoid further argument, you grant his wish and continue along on your journey with the herd.",
+              "Lose 1 llama, gain food."
+          ],
+          "triggers": [
+            {
+              "type": "statisticUpdate",
+              "args": {
+                "statistic": "food",
+                "amount": 10
+              }
+            },
+            {
+              "type": "statisticUpdate",
+              "args": {
+                "statistic": "herdSize",
+                "amount": -1
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "outcome2",
+      "dialogue": [
+        {
+          "speaker": "Speaker 1",
+          "text": [
+              "You calmly tell him that he should not have done what he did and help him up.",
+              "The rest of the herd can barely contain their laughter.",
+              "You tell them to keep it down while you try to keep your voice straight.",
+              "Gain food."
+          ],
+          "triggers": [
+            {
+              "type": "statisticUpdate",
+              "args": {
+                "statistic": "food",
+                "amount": 10
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
