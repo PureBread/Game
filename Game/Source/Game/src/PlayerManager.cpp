@@ -221,7 +221,7 @@ void PlayerManager::addLlama(Shader * _shader, bool _isLeader){
 		// move llama slightly back
 		// we can't have an offset really without going thorugh all the vertices to calculate a posotion, maybe we could?
 		// I don't know, place llama at position of leader?
-		llama->offset = (float)sweet::NumberUtils::randomInt(1, 200) / 300;
+		llama->offset = (float)sweet::NumberUtils::randomInt(1, 50) / 100.f;
 
 		// adjust llama attributes
 		llama->hopSpeed = (float)sweet::NumberUtils::randomInt(10, 30) / 100.f;

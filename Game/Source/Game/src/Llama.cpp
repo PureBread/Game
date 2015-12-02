@@ -63,7 +63,7 @@ void Llama::update(Step * _step){
 	
 	// rotate llama to align it with the tangent of the path, interpolated linearly between the two points making up the segment on which it currently stands
 	float stepProgress = (childTransform->getTranslationVector().x - pathP1.x) / deltaX;
-	llama->childTransform->setOrientation(glm::angleAxis(angle1 + (angle2-angle1) * stepProgress, glm::vec3(0, 0, 1)));
+	llama->childTransform->setOrientation(glm::angleAxis(angle1 + (angle2-angle1) * std::min(stepProgress, 1.f), glm::vec3(0, 0, 1)));
 }
 
 void Llama::addTarget(glm::vec2 _target){
