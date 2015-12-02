@@ -30,6 +30,7 @@ private:
 	Event * eventToTrigger;
 	float momentDelay;
 	float momentTimer;
+	std::string destinationEvent;
 
 	bool shouldTriggerDestinationEvent();
 	bool shouldTriggerLossEvent();

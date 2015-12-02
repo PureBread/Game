@@ -24,15 +24,15 @@
               "Suddenly, you see something glittering brightly up ahead.",              
               "As the herd approaches, you begin to make out a small hill in the distance.",
               "The herd picks up the pace in hopes of finding some fragment of civilization in the barren wasteland."
-          ],
-
-          "options": [
-          {
-            "text": "",
-            "link": "scene1"
-          }
           ]
         }
+      ],
+
+      "options": [
+      {
+        "text": "",
+        "link": "scene1"
+      }
       ]
     },
     {
@@ -48,6 +48,14 @@
               "Hopefully it will be enough to sustain your herd for the long journey ahead.",
               "Do you want to stay and enjoy the sights?"
           ],
+          "triggers": [
+            {
+              "type": "destinationUpdate",
+              "args": {}
+            }
+          ]
+        }
+      ],
           "options": [
           {
             "text": "Yes",
@@ -57,15 +65,7 @@
             "text": "No",
             "link": "leave"
           }
-        ],
-          "triggers": [
-            {
-              "type": "destinationUpdate",
-              "args": {}
-            }
-          ]
-        }
-      ]
+        ]
     },
     {
       "id": "facts",

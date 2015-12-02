@@ -14,6 +14,8 @@ public:
 	MY_Button * nextButton;
 	HorizontalLinearLayout * buttonsLayout;*/
 
+	TextLabel * herdSize;
+
 	UI_Controls(PlayerManager * _manager, BulletWorld * _world, Shader * _textShader);
 	~UI_Controls();
 };

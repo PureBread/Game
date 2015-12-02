@@ -1,0 +1,17 @@
+{
+  "assets": [],
+  "characters": [],
+  "conversations": [
+    {
+      "id": "intro",
+      "dialogue": [
+        {
+          "speaker": "Speaker 1",
+          "text": [
+              "instructions or whatever"
+          ]
+        }
+      ]
+    }
+  ]
+}

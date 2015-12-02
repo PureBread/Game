@@ -54,6 +54,7 @@ public:
 	PlayerManager manager;
 	Event * currentEvent;
 	UI_Event * uiEvent;
+	UI_Controls * uiControls;
 	Timeout * fadeTimeout;
 
 	float speed;

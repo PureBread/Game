@@ -198,7 +198,7 @@ MY_Scene::MY_Scene(Game * _game) :
 	manager.loadDefaults();
 
 	
-	UI_Controls * uiControls = new UI_Controls(&manager, uiLayer->world, textShader);
+	uiControls = new UI_Controls(&manager, uiLayer->world, textShader);
 	uiLayer->addChild(uiControls);
 
 
@@ -236,8 +236,6 @@ MY_Scene::MY_Scene(Game * _game) :
 		fadeTimeout->start();
 		childTransform->addChild(fadeTimeout, false);
 	});
-	Step t;
-	manager.update(&t);
 }
 
 MY_Scene::~MY_Scene(){
@@ -266,6 +264,11 @@ void MY_Scene::update(Step * _step){
 	while (_step->time > 1 && manager.levelPath->llamas.size()-1 > manager.statistics["herdSize"]){
 		manager.levelPath->removeLlama();
 	}
+	std::wstringstream ss;
+	ss << manager.statistics["herdSize"];
+	uiControls->herdSize->setText(ss.str());
+
+
 
 	if(keyboard->keyJustDown(GLFW_KEY_R)){
 		manager.globalEventManager.triggerEvent("gameOver");

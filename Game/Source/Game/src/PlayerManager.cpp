@@ -26,11 +26,14 @@ PlayerManager::PlayerManager(ShaderComponentReplace * _replaceComponent) :
 	randomEventBaseChance(0.05f),
 	lossEventBaseChance(0.05f),
 	eventToTrigger(nullptr),
+	destinationEvent(""),
 	levelPath(new LevelPath("walkLayer.png", _replaceComponent))
 {
 	loadDefaults();
 	
-	markers.eventManager.listeners["destination"].push_back([this](sweet::Event * _e){std::cout << _e->getStringData("scenario");});
+	markers.eventManager.listeners["destination"].push_back([this](sweet::Event * _e){
+		destinationEvent = "assets/events/destination/" + _e->getStringData("scenario") + ".json";
+	});
 
 
 	// add all of the scenario event managers as children of the global event manager
@@ -113,7 +116,6 @@ void PlayerManager::update(Step * _step){
 void PlayerManager::moment(){
 	// update statistics
 	statistics["progress"] += statistics["speed"]*speedMultiplier;
-	std::cout << "Progress: " << statistics["progress"] << std::endl;
 	statistics["wool"] += statistics["herdSize"]*woolMultiplier;
 	if(statistics["food"] <= FLT_EPSILON){
 		statistics["rations"] = 0;
@@ -140,7 +142,7 @@ void PlayerManager::moment(){
 
 bool PlayerManager::shouldTriggerDestinationEvent(){
 	// check progress against markers
-	return false;
+	return destinationEvent != "";
 }
 
 bool PlayerManager::shouldTriggerLossEvent(){
@@ -154,7 +156,14 @@ bool PlayerManager::shouldTriggerRandomEvent(){
 }
 
 Event * PlayerManager::triggerDestinationEvent(){
-	return new Event(kDESTINATION, MY_ResourceManager::scenario);
+	for(unsigned long int i = 0; i < MY_ResourceManager::destinationEvents.size(); ++i){
+		if(MY_ResourceManager::destinationEvents.at(i)->id == destinationEvent){
+			Event * e = new Event(kDESTINATION, MY_ResourceManager::destinationEvents.at(i));
+			destinationEvent = "";
+			return e;
+		}
+	}
+	return nullptr;
 }
 
 Event * PlayerManager::triggerLossEvent(){

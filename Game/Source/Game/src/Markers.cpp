@@ -62,7 +62,6 @@ void Markers::update(Step * _step){
 	}
 	unsigned long int pm = currentMarker <= 0 ? currentMarker : (currentMarker - 1);
 	float d = (pm == currentMarker) ? 0 : ((nextMarker - currentPosition) / (nextMarker - markers.at(currentMarker-1).position));
-	std::cout << d << std::endl;
 	for(unsigned long int i = 0; i < NUM_LAYERS; ++i){
 		coloursReplaceBlack[i] = markers.at(currentMarker).coloursReplaceBlack[i] + (markers.at(pm).coloursReplaceBlack[i] - markers.at(currentMarker).coloursReplaceBlack[i]) * d;
 		coloursReplaceWhite[i] = markers.at(currentMarker).coloursReplaceWhite[i] + (markers.at(pm).coloursReplaceWhite[i] - markers.at(currentMarker).coloursReplaceWhite[i]) * d;

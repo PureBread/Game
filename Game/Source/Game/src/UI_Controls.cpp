@@ -24,7 +24,7 @@ UI_Controls::UI_Controls(PlayerManager * _manager, BulletWorld * _world, Shader 
 	SliderControlled * health = new SliderControlled(_world, &_manager->statistics["health"], 0, 100);
 	SliderController * speed = new SliderController(_world, &_manager->statistics["speed"], 1, 0, 2, false);
 	SliderController * rations = new SliderController(_world, &_manager->statistics["rations"], 1, 0, 2, false);
-	TextLabel * herdSize = new TextLabel(_world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, _textShader);
+	herdSize = new TextLabel(_world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, _textShader);
 
 	food->fill->background->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("SADDLEBAG-R-MASK")->texture);
 	wool->fill->background->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("SADDLEBAG-L-MASK")->texture);
