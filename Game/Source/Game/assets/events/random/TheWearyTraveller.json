@@ -41,7 +41,7 @@
           "text": [
               "The llama explains that they've been separated from their herd and has been on the road for nearly two weeks without any contact.",
               "You offer to take them with you, and the weary traveller gratefully accepts.",
-              "Feeding their empty belly costs you some precious food, but sharing the road with companions is even more precious."
+              "Feeding their empty belly costs you some precious food, but sharing the road with companions is even more precious. (Food - 5, Herd Size + 1)"
           ],
           "triggers": [
             {
