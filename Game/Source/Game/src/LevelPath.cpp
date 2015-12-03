@@ -171,7 +171,12 @@ void LevelPath::addLlama(Llama * _llama){
 }
 
 void LevelPath::removeLlama(){
-	llamas.pop_back();
+	if (llamas.size() > 1){
+		Llama * llama = llamas.back();
+		llamas.pop_back();
+		childTransform->removeChild(llama->firstParent());
+		delete llama->firstParent();
+	}
 }
 
 std::vector<glm::vec2> LevelPath::simplifyVertices(std::vector<glm::vec2> _vertices, float _threshold, float _spacing){
