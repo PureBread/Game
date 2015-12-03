@@ -307,7 +307,7 @@ void MY_Scene::update(Step * _step){
 			currentEvent = manager.consumeEvent();
 			if(currentEvent != nullptr){
 				uiEvent->startEvent(currentEvent);
-			uiControls->disable();
+				uiControls->disable();
 			}
 		}
 	}
