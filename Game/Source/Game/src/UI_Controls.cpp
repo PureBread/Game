@@ -267,7 +267,7 @@ void UI_Controls::update(Step * _step){
 		float posY = Easing::easeInCubic(currSlideTime, -ui->getHeight(true, true), -ui->getHeight(true, true)*0.4, slideDuration);
 		ui->childTransform->translate(glm::vec3(0, posY, 0), false);
 
-		currSlideTime += _step->deltaTime;
+		currSlideTime += _step->deltaTime * 0.5;
 	}
 	
 	VerticalLinearLayout::update(_step);
