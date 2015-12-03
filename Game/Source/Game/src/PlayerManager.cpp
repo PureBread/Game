@@ -225,7 +225,7 @@ void PlayerManager::addLlama(Shader * _shader, bool _isLeader){
 
 		// adjust llama attributes
 		llama->hopSpeed = (float)sweet::NumberUtils::randomInt(10, 30) / 100.f;
-		llama->hopDuration = (float)sweet::NumberUtils::randomInt(10, 40) / 100.f;
+		llama->hopDuration = (float)sweet::NumberUtils::randomInt(30, 50) / 100.f;
 		llama->hopHeight = (float)sweet::NumberUtils::randomInt(20, 50) / 100.f;
 
 		// randomize llama's size a bit

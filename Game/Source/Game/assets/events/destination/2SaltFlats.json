@@ -36,7 +36,7 @@
               "The herd finds itself in front of Isla Incahuasi, a small rest stop on a rocky outcropping in the middle of the salt flats.",
               "A few stone buildings lay scattered across the island; you spot a tourist center among them, and the herd strolls in.",
               "While everyone else enjoys themselves for a bit, you decide to try and stock up on supplies.",
-              "You take all of the wool accumulated from your trip down the mountains and, together with the leftover food, trade it in for oilcake. (Food = 100, Health = 100, Wool = 0)",
+              "You take all of the wool accumulated from your trip down the mountains and, together with the leftover food, trade it in for oilcake. (Food and Health refilled, Wool emptied)",
               "Hopefully it will be enough to sustain your herd for the long journey ahead.",
               "Do you want to stay and enjoy the sights?"
           ],
@@ -73,7 +73,13 @@
               "As the tour comes to an end, the herd picks up some souvenirs at the gift shop and babble about all of the cool salt facts they've learned."
           ]
         }
-      ]
+      ],
+          "options": [
+          {
+            "text": "",
+            "link": "leave"
+          }
+        ]
     },
     {
       "id": "leave",

@@ -15,6 +15,7 @@ Llama::Llama(Shader * _shader) :
 	hopSpeed(0.1f),
 	hopDuration(0.4f),
 	hopHeight(0.5f),
+	hopHeightMultiplier(2.f),
 	currHopTime(0.f),
 	angle1(0),
 	angle2(0),
@@ -108,5 +109,6 @@ void Llama::hop(){
 			v1 = v;
 		}
 		hopSpeed = hopHeight = d;
+		hopHeight *= hopHeightMultiplier;
 	}
 }

@@ -74,6 +74,7 @@ Scene_MenuInstructions::Scene_MenuInstructions(Game * _game) :
 	//image->background->mesh->scaleModeMag = image->background->mesh->scaleModeMin = GL_NEAREST;
 
 	back->label->setText(L"BACK");
+	back->setMarginTop(20);
 	
 	back->eventManager.addEventListener("click", [this](sweet::Event *){
 		game->switchScene("MENU_MAIN", false);

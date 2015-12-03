@@ -28,6 +28,7 @@ Sprite * llama;
 	float hopSpeed;
 	float hopDuration;
 	float hopHeight;
+	float hopHeightMultiplier;
 	float currHopTime;
 
 	float offset;
