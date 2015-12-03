@@ -60,10 +60,10 @@ Scene_MenuOptions::Scene_MenuOptions(Game * _game) :
 
 	TextLabel * titleText = new TextLabel(uiLayer->world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, textShader);
 
-	MY_Button * fullscreenToggle = new MY_Button(uiLayer->world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, textShader, 3);
+	MY_Button * fullscreenToggle = new MY_Button(uiLayer->world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, 3);
 	volumeText = new TextLabel(uiLayer->world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, textShader);
 	volume = new Slider(uiLayer->world, NodeOpenAL::getListenerGain(), 0, 2.f);
-	MY_Button * back = new MY_Button(uiLayer->world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, textShader, 3);
+	MY_Button * back = new MY_Button(uiLayer->world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, 3);
 	
 	titleText->setText(L"OPTIONS");
 	titleText->horizontalAlignment = kCENTER;

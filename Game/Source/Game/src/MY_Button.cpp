@@ -6,12 +6,22 @@
 #include <MY_ResourceManager.h>
 #include <MeshFactory.h>
 #include <shader/ComponentShaderBase.h>
+#include <shader/ComponentShaderText.h>
 #include <NumberUtils.h>
 
-MY_Button::MY_Button(BulletWorld * _world, Font * _font, Shader * _textShader, unsigned long int _size) :
+ComponentShaderText * MY_Button::btnTextShader = nullptr;
+
+MY_Button::MY_Button(BulletWorld * _world, Font * _font, unsigned long int _size) :
 	NodeUI(_world, kENTITIES, true),
-	label(new TextLabel(_world, _font, _textShader))
+	label(nullptr)
 {
+	if (btnTextShader == nullptr){
+		btnTextShader = new ComponentShaderText(true);
+		btnTextShader->setColor(1.f, 1.f, 1.f);
+	}
+
+	label = new TextLabel(_world, _font, btnTextShader);
+
 	if(_size == 1){
 		setWidth(202);
 	}else if(_size == 2){

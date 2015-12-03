@@ -8,9 +8,9 @@ UI_Event::UI_Event(BulletWorld * _world, Shader * _textShader) :
 	VerticalLinearLayout(_world),
 	image(new NodeUI(_world)),
 	text(new TextArea(_world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, _textShader, 1.f)),
-	nextButton(new MY_Button(_world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, _textShader, 1)),
-	optionOne(new MY_Button(_world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, _textShader, 3)),
-	optionTwo(new MY_Button(_world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, _textShader, 3)),
+	nextButton(new MY_Button(_world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, 1)),
+	optionOne(new MY_Button(_world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, 3)),
+	optionTwo(new MY_Button(_world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, 3)),
 	buttonsLayout(new HorizontalLinearLayout(_world)),
 	currentEvent(nullptr)
 {

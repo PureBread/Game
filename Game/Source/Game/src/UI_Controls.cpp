@@ -28,6 +28,18 @@ UI_Controls::UI_Controls(PlayerManager * _manager, BulletWorld * _world, Shader 
 	NodeUI * dialL1 = new NodeUI(_world);
 	NodeUI * dialL2 = new NodeUI(_world);
 	NodeUI * dialL3 = new NodeUI(_world);
+
+	dialR1->background->mesh->scaleModeMag = dialR1->background->mesh->scaleModeMin
+		= dialR2->background->mesh->scaleModeMag = dialR2->background->mesh->scaleModeMin
+		= dialR3->background->mesh->scaleModeMag = dialR3->background->mesh->scaleModeMin
+		= dialL1->background->mesh->scaleModeMag = dialL1->background->mesh->scaleModeMin
+		= dialL2->background->mesh->scaleModeMag = dialL2->background->mesh->scaleModeMin
+		= dialL3->background->mesh->scaleModeMag = dialL3->background->mesh->scaleModeMin
+		= food->fill->background->mesh->scaleModeMag = food->fill->background->mesh->scaleModeMin
+		= wool->fill->background->mesh->scaleModeMag = wool->fill->background->mesh->scaleModeMin
+		= health->background->mesh->scaleModeMag = health->background->mesh->scaleModeMin
+		= ui->background->mesh->scaleModeMag = ui->background->mesh->scaleModeMin
+		= GL_NEAREST;
 	
 	dialR1->background->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("UI_DIAL-R-1")->texture);
 	dialR2->background->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("UI_DIAL-R-2")->texture);

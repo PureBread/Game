@@ -100,6 +100,11 @@
         "type": "texture",
         "src": "scroll_event.png"
     },
+    {
+        "id": "INSTRUCTIONS",
+        "type": "texture",
+        "src": "../events/destination/1Andes.json_instructions.png"
+    },
 
     
     {

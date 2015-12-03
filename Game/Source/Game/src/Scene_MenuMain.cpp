@@ -58,10 +58,10 @@ Scene_MenuMain::Scene_MenuMain(Game * _game) :
 	vl->setBackgroundColour(1.f, 1.f, 1.f, 1.f);
 	vl->background->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("SCROLL_MENU")->texture);
 
-	MY_Button * b1 = new MY_Button(uiLayer->world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, textShader, 3);
-	MY_Button * b2 = new MY_Button(uiLayer->world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, textShader, 3);
-	MY_Button * b3 = new MY_Button(uiLayer->world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, textShader, 3);
-	MY_Button * b4 = new MY_Button(uiLayer->world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, textShader, 3);
+	MY_Button * b1 = new MY_Button(uiLayer->world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, 3);
+	MY_Button * b2 = new MY_Button(uiLayer->world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, 3);
+	MY_Button * b3 = new MY_Button(uiLayer->world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, 3);
+	MY_Button * b4 = new MY_Button(uiLayer->world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, 3);
 	b1->label->setText(L"PLAY GAME");
 	b2->label->setText(L"INSTRUCTIONS");
 	b3->label->setText(L"OPTIONS");

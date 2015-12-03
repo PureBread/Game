@@ -57,31 +57,52 @@ Scene_MenuInstructions::Scene_MenuInstructions(Game * _game) :
 	vl->setRenderMode(kTEXTURE);
 	vl->setBackgroundColour(1.f, 1.f, 1.f, 1.f);
 	vl->background->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("SCROLL_MENU")->texture);
-	
-	TextLabel * titleText = new TextLabel(uiLayer->world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, textShader);
-	TextArea * instructionsText = new TextArea(uiLayer->world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, textShader, 1.f);
 
-	MY_Button * back = new MY_Button(uiLayer->world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, textShader, 3);
+	TextLabel * titleText = new TextLabel(uiLayer->world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, textShader);
+
+	NodeUI * image = new NodeUI(uiLayer->world);
+	MY_Button * back = new MY_Button(uiLayer->world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, 3);
 	
 	titleText->setText(L"INSTRUCTIONS");
 	titleText->horizontalAlignment = kCENTER;
 
-	instructionsText->setText(L"Bacon ipsum dolor amet anim occaecat pork loin.");
-	instructionsText->horizontalAlignment = kCENTER;
-	instructionsText->setHeight(0.5f);
+
+	image->setMarginTop(25);
+	image->background->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("INSTRUCTIONS")->texture);
+	image->setRationalHeight(0.32f);
+	image->setRationalWidth(0.7f);
+	//image->background->mesh->scaleModeMag = image->background->mesh->scaleModeMin = GL_NEAREST;
+
 	back->label->setText(L"BACK");
-	
 	
 	back->eventManager.addEventListener("click", [this](sweet::Event *){
 		game->switchScene("MENU_MAIN", false);
 	});
 	
 	vl->addChild(titleText);
-	vl->addChild(instructionsText);
+	vl->addChild(image);
+
+	std::vector<TextLabel * > instructions;
+	std::vector<std::string> instructionText;
+	instructionText.push_back("Keep your herd healthy by balancing your rations and speed.");
+	instructionText.push_back("Move your cursor to the bottom of the screen to bring up the Llama herd's resource manager.");
+	instructionText.push_back("Control the food consumption using the right half of the pie menu.");
+	instructionText.push_back("Control the travel speed using the left half of the pie menu.");
+	instructionText.push_back("Events will appear at random and may effect the herd's statistics.");
+
+	for (std::string i : instructionText){
+		TextLabel * l = new TextLabel(uiLayer->world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, textShader);
+		instructions.push_back(l);
+		l->horizontalAlignment = kCENTER;
+		l->setText(i);
+		vl->addChild(l);
+		l->setRationalWidth(1.f, vl);
+	}
+
 	vl->addChild(back);
 	
 	vl->boxSizing = BoxSizing::kBORDER_BOX;
-	vl->setMargin(0.33f);
+	vl->setMargin(0.2f);
 	vl->setRationalWidth(1.f);
 	vl->setRationalHeight(1.f);
 	vl->verticalAlignment = kMIDDLE;

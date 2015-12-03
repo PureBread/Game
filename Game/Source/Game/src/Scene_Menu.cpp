@@ -62,7 +62,7 @@ Scene_Menu::Scene_Menu(Game * _game) :
 	baseShader->addComponent(new ShaderComponentTexture(baseShader));
 	baseShader->compileShader();
 
-	textShader->textComponent->setColor(glm::vec3(1.f));
+	textShader->setColor(0,0,0);
 
 	glm::uvec2 sd = sweet::getScreenDimensions();
 	uiLayer->resize(0, sd.x, 0, sd.y);

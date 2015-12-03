@@ -84,7 +84,7 @@ MY_Scene::MY_Scene(Game * _game) :
 	replaceShader->compileShader();
 	replaceShader->load();
 	
-	textShader->setColor(178.f/255.f, 178.f/255.f, 178.f/255.f);
+	textShader->setColor(0,0,0);
 
 	screenSurface->uvEdgeMode = GL_CLAMP_TO_EDGE;
 	screenSurface->load();
