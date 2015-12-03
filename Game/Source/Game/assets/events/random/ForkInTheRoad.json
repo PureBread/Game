@@ -1,0 +1,87 @@
+{
+  "assets": [
+  ],
+  "characters": [
+    {
+
+    },{
+        
+    }
+  ],
+  "conversations": [
+    {
+      "id": "intro",
+      "dialogue": [
+        {
+          "speaker": "Speaker 1",
+          "text": [
+              "The dirt road you'd been following lately breaks into two.",
+              "You know not which direction will lead you to the Place of Divination.",
+              "You're conscious of the herd's curious eyes on you."
+          ]
+        }
+      ],
+      "options": [
+          {
+            "text": "Head left",
+            "link": "outcome1"
+          },
+          {
+            "text": "Head right",
+            "link": "outcome2"
+          }
+      ]
+    },
+    {
+      "id": "outcome",
+      "dialogue": [
+        {
+          "speaker": "Speaker 1",
+          "text": [
+              "As they say, 'Left is Best'.",
+              "What's that, no one says that?",
+              "Well llamas say it all the time.",
+              "But this time, left wasn't the right choice."
+              "You head into a bear's cave and are chased out, dropping some food packs a hurry",
+              "..Does this mean left isn't best, but only better than the rest?",
+              "Lose food."
+          ],
+          "triggers": [
+            {
+              "type": "statisticUpdate",
+              "args": {
+                "statistic": "food",
+                "amount": -10
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "outcome2",
+      "dialogue": [
+        {
+          "speaker": "Speaker 1",
+          "text": [
+              "You know as they say, 'Right is Always Right'.",
+              "You encounter a llama and he joins you on your journey.",
+              "But what if you left something important in the left road?",
+              "What if what you left was right?",
+              "Would that make the right road left, and not right?",
+              "Gain 1 llama."
+          ],
+          "triggers": [
+            {
+              "type": "statisticUpdate",
+              "args": {
+                "statistic": "herdSize",
+                "amount": 1
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

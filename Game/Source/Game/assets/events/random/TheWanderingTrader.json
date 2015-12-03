@@ -1,0 +1,76 @@
+{
+  "assets": [
+  ],
+  "characters": [
+    {
+
+    },{
+        
+    }
+  ],
+  "conversations": [
+    {
+      "id": "intro",
+      "dialogue": [
+        {
+          "speaker": "Speaker 1",
+          "text": [
+              "You encounter a lone human trader wandering around.",
+              "He notices the packs of wool you are carrying and points to that and points to some carrots inside his pack.",
+              "You guess he means to trade some of your wool for carrots."
+          ]
+        }
+      ],
+      "options": [
+          {
+            "text": "Trade",
+            "link": "outcome1"
+          },
+          {
+            "text": "Walk away",
+            "link": "outcome2"
+          }
+      ]
+    },
+    {
+      "id": "outcome",
+      "dialogue": [
+        {
+          "speaker": "Speaker 1",
+          "text": [
+              "You look at him and nod. You trade some wool for some tasty carrots, your fourth favourite food item (after apples, peaches and sweet potatoes).",
+              "Gain some food, lose some wool."
+          ],
+          "triggers": [
+            {
+              "type": "statisticUpdate",
+              "args": {
+                "statistic": "food",
+                "amount": +5
+              }
+            },
+            {
+              "type": "statisticUpdate",
+              "args": {
+                "statistic": "wool",
+                "amount": -5
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "outcome2",
+      "dialogue": [
+        {
+          "speaker": "Speaker 1",
+          "text": [
+              "You look him square in the eyes and shake your head from side to side.",
+              "Having given him a clear indication of your choice you hop past him, leaving him as you found him, alone in the wilderness."
+          ]
+        }
+      ]
+    }
+  ]
+}

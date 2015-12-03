@@ -1,0 +1,94 @@
+{
+  "assets": [
+  ],
+  "characters": [
+    {
+
+    },{
+        
+    }
+  ],
+  "conversations": [
+    {
+      "id": "intro",
+      "dialogue": [
+        {
+          "speaker": "Speaker 1",
+          "text": [
+              "A young llama from the herd approaches you and tell you that the Incan gods talked to her last night.",
+              "She says that she was told to lead the herd towards a small waterfall."
+          ]
+        }
+      ],
+      "options": [
+          {
+            "text": "Ignore her",
+            "link": "outcome1"
+          },
+          {
+            "text": "Let her lead",
+            "link": "outcome2"
+          }
+      ]
+    },
+    {
+      "id": "outcome",
+      "dialogue": [
+        {
+          "speaker": "Speaker 1",
+          "text": [
+              "Clearly she is a lunatic.",
+              "The Incan gods wouldn't stoop so low as to talk to anyone other than the herd leader.",
+              "You ignore her advice and continue the journey nonchalantly.",
+              "Later in the day, a few of the llamas in the herd complain about being dehydrated.",
+              "Maybe you should have listened to the young llama's advice.",
+              "Lose some health."
+          ],
+          "triggers": [
+            {
+              "type": "statisticUpdate",
+              "args": {
+                "statistic": "health",
+                "amount": -5
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "outcome2",
+      "dialogue": [
+        {
+          "speaker": "Speaker 1",
+          "text": [
+              "You let her lead the herd on a detour.",
+              "Maybe she's on to something.",
+              "Maybe the Incan gods weren't able to call you last night due to a connection problem and instead talked to this young llama.",
+              "Half a day passes and you start to hear the sound of rushing water.",
+              "You trot past a thicket and notice a calm waterfall alongside a small pond.",
+              "The herd enjoys a refreshing drink and splashes around in the pond.",
+              "It also turns out that this waterfall was a shortcut to your destination.",
+              "Gain some health and wool."
+          ],
+          "triggers": [
+            {
+              "type": "statisticUpdate",
+              "args": {
+                "statistic": "health",
+                "amount": 10
+              }
+            },
+            {
+              "type": "statisticUpdate",
+              "args": {
+                "statistic": "wool",
+                "amount": 10
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

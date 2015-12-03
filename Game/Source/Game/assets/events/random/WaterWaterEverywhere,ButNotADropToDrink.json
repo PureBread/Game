@@ -1,0 +1,91 @@
+{
+  "assets": [
+  ],
+  "characters": [
+    {
+
+    },{
+        
+    }
+  ],
+  "conversations": [
+    {
+      "id": "intro",
+      "dialogue": [
+        {
+          "speaker": "Speaker 1",
+          "text": [
+              "Water is essential for survival.",
+              "Especially for a llama as important as you.",
+              "Without you, the herd would be lost and wouldn't know the Andes mountains from the Pacific Ocean.",
+              "But you haven't found a source of water in days.",
+              "Even the foliage you've encountered has been devoid of the moisture."
+          ]
+        }
+      ],
+      "options": [
+          {
+            "text": "Pray for rain",
+            "link": "outcome1"
+          },
+          {
+            "text": "Take your chances",
+            "link": "outcome2"
+          }
+      ]
+    },
+    {
+      "id": "outcome",
+      "dialogue": [
+        {
+          "speaker": "Speaker 1",
+          "text": [
+              "You pray to the Incan gods for rain to come your way.",
+              "But nothing happens.",
+              "Having given up on your futile effort, you continue forward with a low morale.",
+              "All of a sudden you hear a thunderclap in the sky.",
+              "Clouds start forming out of thin air.",
+              "The gods have answered your prayers.",
+              "Rain starts to fall from the skies and you quench your thirst.",
+              "Gain some health."
+          ],
+          "triggers": [
+            {
+              "type": "statisticUpdate",
+              "args": {
+                "statistic": "health",
+                "amount": 5
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "outcome2",
+      "dialogue": [
+        {
+          "speaker": "Speaker 1",
+          "text": [
+              "You continue forward with a low morale, your excessive thirst a constant reminder.",
+              "A day passes.",
+              "Eventually you find a meandering river in your path.",
+              "You quench your thirst there.",
+              "But not fast enough.",
+              "The absence of water on the travelling herd takes its toll.",
+              "Lose some health."
+          ],
+          "triggers": [
+            {
+              "type": "statisticUpdate",
+              "args": {
+                "statistic": "health",
+                "amount": -5
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "assets": [
+  ],
+  "characters": [
+    {
+
+    },{
+        
+    }
+  ],
+  "conversations": [
+    {
+      "id": "intro",
+      "dialogue": [
+        {
+          "speaker": "Speaker 1",
+          "text": [
+              "You come across a sign with some writing on it.",
+              "It reads: \"Are you a single, male llama?",
+              "Are you looking for a soul mate?",
+              "I am female llama waiting for my llama prince to sweep me off my feet.",
+              "P.S. I'm totally not a leopard trying to prey on young llamas.",
+              "Find me in the shack by the hill.\""
+          ]
+        }
+      ],
+      "options": [
+          {
+            "text": "Follow the sign",
+            "link": "outcome1"
+          },
+          {
+            "text": "Ignore sign",
+            "link": "outcome2"
+          }
+      ]
+    },
+    {
+      "id": "outcome",
+      "dialogue": [
+        {
+          "speaker": "Speaker 1",
+          "text": [
+              "You curiosity gets the better of you.",
+              "You go to the shack and find a female llama.",
+              "Having encountered your handsome looks and dashing personality, the llama agrees to join your party.",
+              "You ask her why the sign mentioned leopards, to which she responds:",
+              "\"I had to add the last bit because all the other single, male llamas that went past this way kept ignoring the sign.",
+              "You're the first one to have made it here\".",
+              "Gain a llama."
+          ],
+          "triggers": [
+            {
+              "type": "statisticUpdate",
+              "args": {
+                "statistic": "herdSize",
+                "amount": 1
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "outcome2",
+      "dialogue": [
+        {
+          "speaker": "Speaker 1",
+          "text": [
+              "How stupid do those leopards think you are.",
+              "You ignore the sign and keep moving."
+          ]
+        }
+      ]
+    }
+  ]
+}

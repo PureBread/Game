@@ -1,0 +1,93 @@
+{
+  "assets": [
+  ],
+  "characters": [
+    {
+
+    },{
+        
+    }
+  ],
+  "conversations": [
+    {
+      "id": "intro",
+      "dialogue": [
+        {
+          "speaker": "Speaker 1",
+          "text": [
+              "Due to the recent rainfall, a mudslide has obstructed your path along the cliffs.",
+              "Do you wait for the path to clear up or do you make a detour around the other side of the mountain?"
+          ]
+        }
+      ],
+      "options": [
+          {
+            "text": "Wait",
+            "link": "outcome1"
+          },
+          {
+            "text": "Go around cliff",
+            "link": "outcome2"
+          }
+      ]
+    },
+    {
+      "id": "outcome",
+      "dialogue": [
+        {
+          "speaker": "Speaker 1",
+          "text": [
+              "The rubble cleared up faster than you anticipated but you were still delayed.",
+              "Gain food, lose wool."
+          ],
+          "triggers": [
+            {
+              "type": "statisticUpdate",
+              "args": {
+                "statistic": "food",
+                "amount": -5
+              }
+            },
+            {
+              "type": "statisticUpdate",
+              "args": {
+                "statistic": "wool",
+                "amount": 5
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "outcome2",
+      "dialogue": [
+        {
+          "speaker": "Speaker 1",
+          "text": [
+              "You go around the cliff hoping for a clearer path.",
+              "Unfortunately it not only took longer, but this way was also blocked from a mudslide.",
+              "Now you have to double back and hope that the first path is cleared up.",
+              "Lose food, gain wool."
+          ],
+          "triggers": [
+            {
+              "type": "statisticUpdate",
+              "args": {
+                "statistic": "food",
+                "amount": -10
+              }
+            },
+            {
+              "type": "statisticUpdate",
+              "args": {
+                "statistic": "wool",
+                "amount": 10
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

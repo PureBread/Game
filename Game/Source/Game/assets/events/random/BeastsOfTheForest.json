@@ -1,0 +1,85 @@
+{
+  "assets": [
+  ],
+  "characters": [
+    {
+
+    },{
+        
+    }
+  ],
+  "conversations": [
+    {
+      "id": "intro",
+      "dialogue": [
+        {
+          "speaker": "Speaker 1",
+          "text": [
+              "As you get deeper into the lower forest regions, you start hearing distant growls in the night.",
+              "One night you spot two golden eyes staring at you in the dark of night.",
+              "You can't be sure about it, but you fear a jaguar is on your trail.",
+              "Your mother warned you about these large, black cats when you were young.",
+              "You don't want to risk the herd's safety, but it has been long day of walking and hopping."
+          ]
+        }
+      ],
+      "options": [
+          {
+            "text": "Wake up herd",
+            "link": "outcome1"
+          },
+          {
+            "text": "Keep resting",
+            "link": "outcome2"
+          }
+      ]
+    },
+    {
+      "id": "outcome",
+      "dialogue": [
+        {
+          "speaker": "Speaker 1",
+          "text": [
+              "You silently get the herd on their feet and move out immediately.",
+              "You lose sleep that night, but make for higher ground.",
+              "Whatever beasts were chasing you are long gone after having lost your tracks on the rocky outcrop.",
+              "You don't see or hear them again.",
+              "Without proper rest, you really felt more fatigued the next day.",
+              "Lose health."
+          ],
+          "triggers": [
+            {
+              "type": "statisticUpdate",
+              "args": {
+                "statistic": "health",
+                "amount": -10
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "outcome2",
+      "dialogue": [
+        {
+          "speaker": "Speaker 1",
+          "text": [
+              "You recall that jaguars were eradicated out of the mountains long ago by indigenous people and dismiss the beast as a figment of your imagination.",
+              "The next day the herd proceeds cautiously, and the rest helped your aching knees.",
+              "Gain health."
+          ],
+          "triggers": [
+            {
+              "type": "statisticUpdate",
+              "args": {
+                "statistic": "health",
+                "amount": 10
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
