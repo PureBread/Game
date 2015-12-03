@@ -8,7 +8,87 @@
         {
           "speaker": "Speaker 1",
           "text": [
-              "instructions or whatever"
+              "South America, Andes, 2015",
+              "It began with a vision.",
+              "Everything was just fine up to that point.",
+              "Your llama herd used to pass the time spending hours upon hours grazing the fresh grass atop the Andes.",
+              "But then it just had to happen, didn't it?",
+              "The Incan gods called down to you, declaring that the herd was in danger.",              
+              "In their brief moment of revelation, they didn't say how exactly, but that's not what matters at this point.",
+              "They urged that the only way to save the herd was to find the Place of Divination.",
+              "This is where your story begins.",
+              "You head East, though you don't know where that will lead.",
+              "East just seems right for some reason.",
+              "...",
+              "Would you like to see the instructions?"
+          ]
+        }
+      ],
+
+      "options": [
+      {
+        "text": "yes",
+        "link": "instructions"
+      },
+      {
+        "text": "no",
+        "link": "continue"
+      }
+      ]
+    },
+    {
+      "id": "instructions",
+      "dialogue": [
+        {
+          "speaker": "Speaker 1",
+          "text": [
+              "HOW TO PLAY",
+              "Keep your herd healthy by balancing your rations and speed.",
+              "Move your cursor to the bottom of the screen to bring up the Llama herd's resource manager.",
+              "Control the food consumption using the right half of the pie menu.",
+              "Control the travel speed using the left half of the pie menu.",
+              "Events will appear at random and may effect the herd's statistics.",
+              "...",
+              "Would you like to see hints?"
+          ],          
+        }
+      ],
+      "options": [
+      {
+        "text": "yes",
+        "link": "hints"
+      },
+      {
+        "text": "no",
+        "link": "continue"
+      }
+      ]
+    },
+    {
+      "id": "hints",
+      "dialogue": [
+        {
+          "speaker": "Speaker 1",
+          "text": [
+              "Rations: eat enough to keep your health up but don't eat so fast that you run out of food before you reach each destination.",
+              "Speed: moving too fast will cause your health to drop faster but moving too slow will slow down your progress.",
+              "Remember, food is more import to your health than speed!"
+          ]
+        }
+      ],"options": [
+      {
+        "text": "",
+        "link": "continue"
+      }
+      ]
+    },
+    {
+      "id": "continue",
+      "dialogue": [
+        {
+          "speaker": "Speaker 1",
+          "text": [
+              "The journey begins!"
           ]
         }
       ]
