@@ -17,41 +17,51 @@
         "src": "Hurly-Burly.ttf",
         "size": 64
     },
+
+
+
     {
-        "id": "SADDLEBAG-L",
-        "type": "texture",
-        "src": "UI/saddlebag-l.png"
-    },
-    {
-        "id": "SADDLEBAG-R",
-        "type": "texture",
-        "src": "UI/saddlebag-r.png"
-    },
-    {
-        "id": "SADDLEBAG-L-MASK",
-        "type": "texture",
-        "src": "UI/saddlebag-l-mask.png"
-    },
-    {
-        "id": "SADDLEBAG-R-MASK",
-        "type": "texture",
-        "src": "UI/saddlebag-r-mask.png"
-    },
-    {
-        "id": "DIAL-R",
-        "type": "texture",
-        "src": "UI/dial-r.png"
-    },
-    {
-        "id": "DIAL-L",
-        "type": "texture",
-        "src": "UI/dial-l.png"
-    },
-    {
-        "id": "BACK",
+        "id": "UI_BACK",
         "type": "texture",
         "src": "UI/back.png"
+    },{
+        "id": "UI_FOOD",
+        "type": "texture",
+        "src": "UI/food.png"
+    },{
+        "id": "UI_WOOL",
+        "type": "texture",
+        "src": "UI/wool.png"
+    },{
+        "id": "UI_HEALTH",
+        "type": "texture",
+        "src": "UI/health.png"
+    },{
+        "id": "UI_DIAL-R-1",
+        "type": "texture",
+        "src": "UI/dial-r-1.png"
+    },{
+        "id": "UI_DIAL-R-2",
+        "type": "texture",
+        "src": "UI/dial-r-2.png"
+    },{
+        "id": "UI_DIAL-R-3",
+        "type": "texture",
+        "src": "UI/dial-r-3.png"
+    },{
+        "id": "UI_DIAL-L-1",
+        "type": "texture",
+        "src": "UI/dial-l-1.png"
+    },{
+        "id": "UI_DIAL-L-2",
+        "type": "texture",
+        "src": "UI/dial-l-2.png"
+    },{
+        "id": "UI_DIAL-L-3",
+        "type": "texture",
+        "src": "UI/dial-l-3.png"
     },
+
 
 
 

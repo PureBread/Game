@@ -5,7 +5,7 @@
 #include <scenario/Conversation.h>
 #include <MY_Button.h>
 
-class UI_Controls : public NodeUI{
+class UI_Controls : public VerticalLinearLayout{
 public:
 	/*NodeUI * image;
 	TextArea * text;
@@ -16,6 +16,13 @@ public:
 
 	TextLabel * herdSize;
 
+	//NodeUI * dialR1, * dialR2, * dialR3, * dialL1, * dialL2, * dialL3;
+
+	std::vector<NodeUI *> btns;
+
 	UI_Controls(PlayerManager * _manager, BulletWorld * _world, Shader * _textShader);
 	~UI_Controls();
+
+	void disable();
+	void enable();
 };

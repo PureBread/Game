@@ -294,12 +294,12 @@ void MY_Scene::update(Step * _step){
 	if(!paused){
 		if(currentEvent != nullptr){
 			// if there is an ongoing event, the UI_Event popup will handle it
-
 			// once the event is finished, delete it and remove the reference in order to continue gameplay in the next update
 			if(uiEvent->currentConversation == nullptr){
-			MY_ResourceManager::scenario->getAudio("EVENT_CLOSE")->sound->play();
+				MY_ResourceManager::scenario->getAudio("EVENT_CLOSE")->sound->play();
 				delete currentEvent;
 				currentEvent = nullptr;
+				uiControls->enable();
 			}
 		}else{
 			// if there isn't an ongoing event, update the statistics and check for a new event
@@ -307,6 +307,7 @@ void MY_Scene::update(Step * _step){
 			currentEvent = manager.consumeEvent();
 			if(currentEvent != nullptr){
 				uiEvent->startEvent(currentEvent);
+			uiControls->disable();
 			}
 		}
 	}
