@@ -17,15 +17,17 @@
 	#include <crtdbg.h>
 #endif
 
-int main(void){
 #ifdef _DEBUG
+int main(void){
 	_CrtMemState s1;
 	_CrtMemCheckpoint( &s1 );
+#else
+int WinMain(HINSTANCE inst, HINSTANCE prev, LPSTR cmd, int show){	
 #endif
 
 	Log::THROW_ON_ERROR = true;
 
-	sweet::initialize("Game");
+	sweet::initialize("Llammigration");
 	MY_ResourceManager::init();
 	MY_ResourceManager::load();
 	MY_Game * game = new MY_Game();

@@ -6,7 +6,6 @@
 UI_Controls::UI_Controls(PlayerManager * _manager, BulletWorld * _world, Shader * _textShader) :
 	VerticalLinearLayout(_world)
 {
-	setRenderMode(kTEXTURE);
 
 	setRationalHeight(1.f);
 	setRationalHeight(1.f);
