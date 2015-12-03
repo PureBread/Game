@@ -130,7 +130,7 @@ MY_Scene::MY_Scene(Game * _game) :
 	childTransform->addChild(playerCam);
 	playerCam->yaw = 90;
 	playerCam->pitch = 0.520833313f;
-	playerCam->parents.at(0)->translate(0, -13.8184452f, 57.8584137f);
+	playerCam->firstParent()->translate((manager.statistics["progress"]-1)*50.f, -13.8184452f, 57.8584137f);
 	playerCam->fieldOfView = 64.3750000;
 	playerCam->interpolation = 1;
 	activeCamera = playerCam;
