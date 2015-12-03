@@ -8,15 +8,18 @@
 #include <glm/gtx/rotate_vector.hpp>
 #include <glm/gtx/vector_angle.hpp>
 #include <MY_ResourceManager.h>
+#include <NumberUtils.h>
 
 Llama::Llama(Shader * _shader) :
 	llama(new Sprite(_shader)),
 	isHopping(false),
 	hopSpeed(0.1f),
-	hopDuration(0.4f),
+	hopSpeedMultiplier(1.f),
+	hopDuration(0.2f),
 	hopHeight(0.5f),
-	hopHeightMultiplier(2.f),
+	hopHeightMultiplier(1.3f),
 	currHopTime(0.f),
+	standDuration(0.2f),
 	angle1(0),
 	angle2(0),
 	offset(0),
@@ -41,23 +44,26 @@ void Llama::update(Step * _step){
 	if (isHopping){
 		currHopTime += _step->deltaTime;
 
-		if (targets.size() > 0 && childTransform->getTranslationVector().x >= targets.at(0).x){
-			targets.erase(targets.begin());
+		if (currHopTime <= hopDuration){
+			if (targets.size() > 0 && childTransform->getTranslationVector().x >= targets.at(0).x){
+				targets.erase(targets.begin());
 
-			if (targets.size() > 0){
-				setPath(glm::vec2(childTransform->getTranslationVector().x, childTransform->getTranslationVector().y), targets.at(0));
+				if (targets.size() > 0){
+					setPath(glm::vec2(childTransform->getTranslationVector().x, childTransform->getTranslationVector().y), targets.at(0));
+				}
 			}
+		
+			// moving
+			glm::vec2 v(deltaX, deltaY);
+			v = glm::normalize(v);
+			childTransform->translate(v.x * _step->deltaTime * hopSpeed, v.y * _step->deltaTime * hopSpeed, 0);
+		
+			// jumping
+			float ly = currHopTime / hopDuration <= 0.5 ? Easing::easeOutCubic(currHopTime, 0, hopHeight, hopDuration / 2) : Easing::easeInCubic(currHopTime - hopDuration / 2, hopHeight, -hopHeight, hopDuration / 2);
+			llama->childTransform->translate(0, ly, 0, false);
 		}
-		
-		glm::vec2 v(deltaX, deltaY);
-		v = glm::normalize(v);
-		childTransform->translate(v.x * _step->deltaTime * hopSpeed, v.y * _step->deltaTime * hopSpeed, 0);
-		
-		// jumping
-		float ly = currHopTime / hopDuration <= 0.5 ? Easing::easeOutCubic(currHopTime, 0, hopHeight, hopDuration / 2) : Easing::easeOutBounce(currHopTime - hopDuration / 2, hopHeight, -hopHeight, hopDuration / 2);
-		llama->childTransform->translate(0, ly, 0, false);
 
-		if (currHopTime >= hopDuration){
+		if (currHopTime >= hopDuration + standDuration){
 			isHopping = false;
 		}
 	}
@@ -109,6 +115,10 @@ void Llama::hop(){
 			v1 = v;
 		}
 		hopSpeed = hopHeight = d;
+
+		//hopSpeed *= hopSpeedMultiplier;
 		hopHeight *= hopHeightMultiplier;
+
+		standDuration = (float)sweet::NumberUtils::randomInt(0, 100) / 100.f;
 	}
 }

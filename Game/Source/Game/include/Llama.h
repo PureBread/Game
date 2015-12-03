@@ -26,10 +26,13 @@ Sprite * llama;
 
 	bool isHopping;
 	float hopSpeed;
+	float hopSpeedMultiplier;
 	float hopDuration;
 	float hopHeight;
 	float hopHeightMultiplier;
 	float currHopTime;
+
+	float standDuration;
 
 	float offset;
 

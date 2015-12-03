@@ -23,8 +23,8 @@ PlayerManager::PlayerManager(ShaderComponentReplace * _replaceComponent) :
 	woolMultiplier(0.0005f),
 	rationsMultiplier(0.0005f),
 	healthMultiplier(0.005f),
-	randomEventBaseChance(0.05f),
-	lossEventBaseChance(0.05f),
+	randomEventBaseChance(0.2f),
+	lossEventBaseChance(0.2f),
 	eventToTrigger(nullptr),
 	destinationEvent(""),
 	levelPath(new LevelPath("walkLayer.png", _replaceComponent))
@@ -225,8 +225,9 @@ void PlayerManager::addLlama(Shader * _shader, bool _isLeader){
 
 		// adjust llama attributes
 		llama->hopSpeed = (float)sweet::NumberUtils::randomInt(10, 30) / 100.f;
-		llama->hopDuration = (float)sweet::NumberUtils::randomInt(30, 50) / 100.f;
-		llama->hopHeight = (float)sweet::NumberUtils::randomInt(20, 50) / 100.f;
+		llama->hopSpeedMultiplier = (float)sweet::NumberUtils::randomInt(70, 100) / 100.f;
+
+		llama->hopHeightMultiplier = (float)sweet::NumberUtils::randomInt(80, 130) / 100.f;
 
 		// randomize llama's size a bit
 		for(unsigned long int i = 0; i < llama->llama->mesh->vertices.size(); ++i){
