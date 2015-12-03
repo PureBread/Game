@@ -33,7 +33,7 @@ UI_Controls::UI_Controls(PlayerManager * _manager, BulletWorld * _world, Shader 
 	SliderControlled * food = new SliderControlled(_world, &_manager->statistics["food"], 0, 100, false);
 	SliderControlled * wool = new SliderControlled(_world, &_manager->statistics["wool"], 0, 100, false);
 	SliderControlled * health = new SliderControlled(_world, &_manager->statistics["health"], 0, 100);
-	herdSize = new TextLabel(_world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, _textShader);
+	herdSize = new TextLabel(_world, MY_ResourceManager::scenario->getFont("HURLY-BURLY_BIG")->font, _textShader);
 	
 	NodeUI * dialR1 = new NodeUI(_world);
 	NodeUI * dialR2 = new NodeUI(_world);
@@ -49,25 +49,25 @@ UI_Controls::UI_Controls(PlayerManager * _manager, BulletWorld * _world, Shader 
 	dialL2->background->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("UI_DIAL-L-2")->texture);
 	dialL3->background->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("UI_DIAL-L-3")->texture);
 	
-	dialR1->setRationalHeight(1.f);
-	dialR2->setRationalHeight(1.f);
-	dialR3->setRationalHeight(1.f);
-	dialL1->setRationalHeight(1.f);
-	dialL2->setRationalHeight(1.f);
-	dialL3->setRationalHeight(1.f);
-	dialR1->setRationalWidth(1.f);
-	dialR2->setRationalWidth(1.f);
-	dialR3->setRationalWidth(1.f);
-	dialL1->setRationalWidth(1.f);
-	dialL2->setRationalWidth(1.f);
-	dialL3->setRationalWidth(1.f);
+	dialR1->setRationalHeight(1.f, ui);
+	dialR2->setRationalHeight(1.f, ui);
+	dialR3->setRationalHeight(1.f, ui);
+	dialL1->setRationalHeight(1.f, ui);
+	dialL2->setRationalHeight(1.f, ui);
+	dialL3->setRationalHeight(1.f, ui);
+	dialR1->setRationalWidth(1.f, ui);
+	dialR2->setRationalWidth(1.f, ui);
+	dialR3->setRationalWidth(1.f, ui);
+	dialL1->setRationalWidth(1.f, ui);
+	dialL2->setRationalWidth(1.f, ui);
+	dialL3->setRationalWidth(1.f, ui);
 
-	food->setRationalHeight(1.f);
-	food->setRationalWidth(1.f);
-	wool->setRationalHeight(1.f);
-	wool->setRationalWidth(1.f);
-	health->setRationalHeight(1.f);
-	health->setRationalWidth(1.f);
+	food->setRationalHeight(1.f, ui);
+	food->setRationalWidth(1.f, ui);
+	wool->setRationalHeight(1.f, ui);
+	wool->setRationalWidth(1.f, ui);
+	health->setRationalHeight(1.f, ui);
+	health->setRationalWidth(1.f, ui);
 	
 	food->setMarginTop(0.793f);
 	wool->setMarginTop(0.793f);
@@ -94,7 +94,7 @@ UI_Controls::UI_Controls(PlayerManager * _manager, BulletWorld * _world, Shader 
 	
 	herdSize->setText(L"99");
 	
-	herdSize->setMarginBottom(0.10f);
+	herdSize->setMarginBottom(0.0855f);
 	herdSize->setRationalWidth(1.f);
 	herdSize->horizontalAlignment = kCENTER;
 	herdSize->verticalAlignment = kMIDDLE;
@@ -119,33 +119,39 @@ UI_Controls::UI_Controls(PlayerManager * _manager, BulletWorld * _world, Shader 
 	NodeUI * dialL1_btn = new NodeUI(_world, kENTITIES, true);
 	NodeUI * dialL2_btn = new NodeUI(_world, kENTITIES, true);
 	NodeUI * dialL3_btn = new NodeUI(_world, kENTITIES, true);
-	
-	dialR1_btn->background->setVisible(false);
-	dialR2_btn->background->setVisible(false);
-	dialR3_btn->background->setVisible(false);
-	dialL1_btn->background->setVisible(false);
-	dialL2_btn->background->setVisible(false);
-	dialL3_btn->background->setVisible(false);
 
-	dialR1_btn->setRationalHeight(1.f);
-	dialR2_btn->setRationalHeight(1.f);
-	dialR3_btn->setRationalHeight(1.f);
-	dialL1_btn->setRationalHeight(1.f);
-	dialL2_btn->setRationalHeight(1.f);
-	dialL3_btn->setRationalHeight(1.f);
-	dialR1_btn->setRationalWidth(1.f);
-	dialR2_btn->setRationalWidth(1.f);
-	dialR3_btn->setRationalWidth(1.f);
-	dialL1_btn->setRationalWidth(1.f);
-	dialL2_btn->setRationalWidth(1.f);
-	dialL3_btn->setRationalWidth(1.f);
+	btns.push_back(dialR1_btn);
+	btns.push_back(dialR2_btn);
+	btns.push_back(dialR3_btn);
+	btns.push_back(dialL1_btn);
+	btns.push_back(dialL2_btn);
+	btns.push_back(dialL3_btn);
 
-	dialR1_btn->setMargin(0.50f,0.45f,0.05f,0.90f);
-	dialR2_btn->setMargin(0.50f,0.45f,0.10f,0.85f);
-	dialR3_btn->setMargin(0.50f,0.45f,0.15f,0.80f);
-	dialL1_btn->setMargin(0.45f,0.50f,0.05f,0.90f);
-	dialL2_btn->setMargin(0.45f,0.50f,0.10f,0.85f);
-	dialL3_btn->setMargin(0.45f,0.50f,0.15f,0.80f);
+	dialR1_btn->setVisible(false);
+	dialR2_btn->setVisible(false);
+	dialR3_btn->setVisible(false);
+	dialL1_btn->setVisible(false);
+	dialL2_btn->setVisible(false);
+	dialL3_btn->setVisible(false);
+
+	dialR1_btn->setMargin(0.50f, 0.45f, 0.05f, 0.90f);
+	dialR2_btn->setMargin(0.50f, 0.45f, 0.10f, 0.85f);
+	dialR3_btn->setMargin(0.50f, 0.45f, 0.15f, 0.80f);
+	dialL1_btn->setMargin(0.45f, 0.50f, 0.05f, 0.90f);
+	dialL2_btn->setMargin(0.45f, 0.50f, 0.10f, 0.85f);
+	dialL3_btn->setMargin(0.45f, 0.50f, 0.15f, 0.80f);
+	dialR1_btn->setRationalHeight(1.f, ui);
+	dialR2_btn->setRationalHeight(1.f, ui);
+	dialR3_btn->setRationalHeight(1.f, ui);
+	dialL1_btn->setRationalHeight(1.f, ui);
+	dialL2_btn->setRationalHeight(1.f, ui);
+	dialL3_btn->setRationalHeight(1.f, ui);
+	dialR1_btn->setRationalWidth(1.f, ui);
+	dialR2_btn->setRationalWidth(1.f, ui);
+	dialR3_btn->setRationalWidth(1.f, ui);
+	dialL1_btn->setRationalWidth(1.f, ui);
+	dialL2_btn->setRationalWidth(1.f, ui);
+	dialL3_btn->setRationalWidth(1.f, ui);
 	
 
 	dialR1_btn->eventManager.addEventListener("click", [this, _manager, dialR1, dialR2, dialR3](sweet::Event * _event){
@@ -192,17 +198,31 @@ UI_Controls::UI_Controls(PlayerManager * _manager, BulletWorld * _world, Shader 
 		_manager->statistics["speed"] = 2;
 	});
 
-	
 	ui->addChild(dialR1_btn);
 	ui->addChild(dialR2_btn);
 	ui->addChild(dialR3_btn);
 	ui->addChild(dialL1_btn);
 	ui->addChild(dialL2_btn);
 	ui->addChild(dialL3_btn);
-
 	addChild(ui);
 
 	invalidateLayout();
+
+
+	// initialize dials by triggering a false click on the current setting
+	if (_manager->statistics["rations"] == 0){
+		dialR1_btn->eventManager.triggerEvent("click");
+	}if (_manager->statistics["rations"] == 1){
+		dialR2_btn->eventManager.triggerEvent("click");
+	}if (_manager->statistics["rations"] == 2){
+		dialR3_btn->eventManager.triggerEvent("click");
+	}if (_manager->statistics["speed"] == 0){
+		dialL1_btn->eventManager.triggerEvent("click");
+	}if (_manager->statistics["speed"] == 1){
+		dialL2_btn->eventManager.triggerEvent("click");
+	}if (_manager->statistics["speed"] == 2){
+		dialL3_btn->eventManager.triggerEvent("click");
+	}
 }
 
 UI_Controls::~UI_Controls(){}

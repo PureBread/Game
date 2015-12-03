@@ -9,13 +9,13 @@
         "id": "HURLY-BURLY",
         "type": "font",
         "src": "Hurly-Burly.ttf",
-        "size": 32
+        "size": 24
     },
     {
         "id": "HURLY-BURLY_BIG",
         "type": "font",
         "src": "Hurly-Burly.ttf",
-        "size": 64
+        "size": 48
     },
 
 

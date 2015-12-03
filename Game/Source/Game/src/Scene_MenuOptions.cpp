@@ -74,15 +74,16 @@ Scene_MenuOptions::Scene_MenuOptions(Game * _game) :
 	}
 	volumeText->setText(L"VOLUME");
 	volumeText->horizontalAlignment = kCENTER;
+	volumeText->setRationalWidth(1.f);
 
-
-	volume->setWidth(0.5f);
-	volume->setHeight(40);
+	volume->setRationalWidth(0.5f);
+	volume->setHeight(MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font->getLineHeight());
 	volume->setStepped(0.1);
 	volume->eventManager.addEventListener("change", [this](sweet::Event * _event){
 		std::wstringstream ss;
 		ss << L"VOLUME: " << (volume->getValue()/2.f);
 		volumeText->setText(ss.str());
+		volumeText->invalidateLayout();
 		NodeOpenAL::setListenerGain(volume->getValue());
 	});
 

@@ -30,7 +30,7 @@ public:
 	ContinuousArtScroller(std::string _fileDir, ComponentShaderBase * _shader);
 	~ContinuousArtScroller();
 
-	void loadTexOntoPlane(unsigned long int _texId, MeshEntity * _plane);
+	void loadTexOntoPlane(signed long int _texId, MeshEntity * _plane);
 	void cycle(signed long int _delta);
 
 	virtual void update(Step * _step) override;

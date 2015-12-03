@@ -92,8 +92,6 @@ LevelPath::LevelPath(std::string _texDir, ShaderComponentReplace * _replaceCompo
 	if (vertices.size() > 0){
 		pos = vertices.at(0);
 	}
-	
-	int blah = 0;
 }
 
 LevelPath::~LevelPath(){

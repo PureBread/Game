@@ -130,7 +130,7 @@ MY_Scene::MY_Scene(Game * _game) :
 	childTransform->addChild(playerCam);
 	playerCam->yaw = 90;
 	playerCam->pitch = 0.520833313f;
-	playerCam->parents.at(0)->translate(0, -13.8184452f, 57.8584137f);
+	playerCam->firstParent()->translate((manager.statistics["progress"]-1)*50.f, -13.8184452f, 57.8584137f);
 	playerCam->fieldOfView = 64.3750000;
 	playerCam->interpolation = 1;
 	activeCamera = playerCam;
@@ -144,26 +144,26 @@ MY_Scene::MY_Scene(Game * _game) :
 	layerFgDetail = new ContinuousArtScroller("BG1", replaceShader);
 
 	// level path
-	MeshEntity * meshLines = new MeshEntity(manager.levelPath->getMesh(), baseShader);
+	/*MeshEntity * meshLines = new MeshEntity(manager.levelPath->getMesh(), baseShader);
 	meshLines->meshTransform->scale(layerLlamas->imageCount, true);
 	meshLines->meshTransform->translate(glm::vec3(-1.5f, -0.5f, 0));
 	MeshEntity * meshPoints = new MeshEntity(manager.levelPath->getMesh(), baseShader);
 	meshPoints->meshTransform->scale(layerLlamas->imageCount, true);
 	meshPoints->meshTransform->translate(glm::vec3(-1.5f, -0.5f, 0));
-	meshPoints->mesh->polygonalDrawMode = GL_POINTS;
+	meshPoints->mesh->polygonalDrawMode = GL_POINTS;*/
 	manager.levelPath->scaleVertices(layerLlamas->imageCount);
 	manager.levelPath->childTransform->translate(-1.5f, -0.5f, 0);
 	
 	manager.addLlama(replaceShader, true);
 	
-	Sprite * moveThing = new Sprite(baseShader);
+	/*Sprite * moveThing = new Sprite(baseShader);
 	moveThing->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("LOGO")->texture);
 	for (unsigned long int i = 0; i < moveThing->mesh->vertices.size(); ++i){
 		moveThing->mesh->vertices.at(i).y += 0.5f;
 	}
 	manager.levelPath->moveThing = moveThing;
 	manager.levelPath->moveThing->childTransform->scale(0.01f, 0.5f, 1.f);
-	//manager.levelPath->childTransform->addChild(moveThing);
+	manager.levelPath->childTransform->addChild(moveThing);*/
 	
 	
 	bgLayers.push_back(layerBgDetail);
@@ -307,7 +307,7 @@ void MY_Scene::update(Step * _step){
 			currentEvent = manager.consumeEvent();
 			if(currentEvent != nullptr){
 				uiEvent->startEvent(currentEvent);
-			uiControls->disable();
+				uiControls->disable();
 			}
 		}
 	}
@@ -316,7 +316,7 @@ void MY_Scene::update(Step * _step){
 	// visual update stuff
 	float x = manager.statistics["progress"];//activeCamera->parents.at(0)->getTranslationVector().x;
 	glm::vec3 v = playerCam->firstParent()->getTranslationVector();
-	playerCam->firstParent()->translate((x-1)*50.f, v.y, v.z, false);
+	playerCam->firstParent()->translate(v.x + ((x-1)*50.f - v.x)*_step->deltaTimeCorrection*0.05f, v.y, v.z, false);
 
 	
 	{
