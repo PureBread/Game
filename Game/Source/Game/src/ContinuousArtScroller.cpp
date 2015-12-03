@@ -93,16 +93,18 @@ void ContinuousArtScroller::cycle(signed long int _delta){
 	}
 }
 
-void ContinuousArtScroller::loadTexOntoPlane(unsigned long int _texId, MeshEntity * _plane){
+void ContinuousArtScroller::loadTexOntoPlane(signed long int _texId, MeshEntity * _plane){
 	while(_plane->mesh->textures.size() > 0){
 		_plane->mesh->textures.at(0)->unload();
 		_plane->mesh->removeTextureAt(0);
 	}
-	if (_texId < images.size()){
-		_plane->mesh->pushTexture2D(images.at(_texId));
-	}else{
-		_plane->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("DEFAULT")->texture);
+	while (_texId < 0){
+		_texId += images.size();
 	}
+	while (_texId >= images.size()){
+		_texId -= images.size();
+	}
+	_plane->mesh->pushTexture2D(images.at(_texId));
 	_plane->mesh->textures.at(0)->load();
 }
 
