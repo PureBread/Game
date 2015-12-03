@@ -1,17 +1,26 @@
 {
 	"randomEvents": [
 		"TheWearyTraveller",
-		"2",
-		"3"
+		"ASmallDetour",
+		"ATemptingOffer",
+		"BeastsOfTheForest",
+		"ChangeOfCourse",
+		"ForkInTheRoad",
+		"TheWanderingTrader",
+		"WaterWaterEverywhere,ButNotADropToDrink"
 	],
 	"lossEvents": [
 		"TheCookieHoarderA",
 		"TheCookieHoarderB",
-		"3"
+		"ALlama’sDayOutA",
+		"ALlama’sDayOutB",
+		"MissingFoodA",
+		"MissingFoodB",
+		"TreatsForAllA",
+		"TreatsForAllB",
 	],
 	"destinationEvents": [
 		"1Andes",
-		"2SaltFlats",
-		"3"
+		"2SaltFlats"
 	]
 }

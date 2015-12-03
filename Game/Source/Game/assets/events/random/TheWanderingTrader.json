@@ -33,7 +33,7 @@
       ]
     },
     {
-      "id": "outcome",
+      "id": "outcome1",
       "dialogue": [
         {
           "speaker": "Speaker 1",
@@ -46,7 +46,7 @@
               "type": "statisticUpdate",
               "args": {
                 "statistic": "food",
-                "amount": +5
+                "amount": 5
               }
             },
             {
