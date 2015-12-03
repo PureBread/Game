@@ -20,7 +20,7 @@ UI_Controls::UI_Controls(PlayerManager * _manager, BulletWorld * _world, Shader 
 	SliderControlled * food = new SliderControlled(_world, &_manager->statistics["food"], 0, 100, false);
 	SliderControlled * wool = new SliderControlled(_world, &_manager->statistics["wool"], 0, 100, false);
 	SliderControlled * health = new SliderControlled(_world, &_manager->statistics["health"], 0, 100);
-	herdSize = new TextLabel(_world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, _textShader);
+	herdSize = new TextLabel(_world, MY_ResourceManager::scenario->getFont("HURLY-BURLY_BIG")->font, _textShader);
 	
 	NodeUI * dialR1 = new NodeUI(_world);
 	NodeUI * dialR2 = new NodeUI(_world);
@@ -81,7 +81,7 @@ UI_Controls::UI_Controls(PlayerManager * _manager, BulletWorld * _world, Shader 
 	
 	herdSize->setText(L"99");
 	
-	herdSize->setMarginBottom(0.10f);
+	herdSize->setMarginBottom(0.0855f);
 	herdSize->setRationalWidth(1.f);
 	herdSize->horizontalAlignment = kCENTER;
 	herdSize->verticalAlignment = kMIDDLE;
