@@ -93,7 +93,7 @@ void Llama::setPath(glm::vec2 _startPos, glm::vec2 _targetPos){
 void Llama::hop(){
 	if (!isHopping && targets.size() > 0 && (leader == nullptr || (childTransform->getTranslationVector().x < leader->childTransform->getTranslationVector().x - offset))){
 		isHopping = true;
-		currHopTime -= hopDuration;
+		currHopTime = 0;
 	
 		glm::vec2 v1 = glm::vec2(childTransform->getTranslationVector().x, childTransform->getTranslationVector().y);
 		float d = 0;

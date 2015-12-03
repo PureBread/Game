@@ -24,7 +24,7 @@ PlayerManager::PlayerManager(ShaderComponentReplace * _replaceComponent) :
 	rationsMultiplier(0.0005f),
 	healthMultiplier(0.005f),
 	randomEventBaseChance(0.05f),
-	lossEventBaseChance(0.05f),
+	lossEventBaseChance(100.f),
 	eventToTrigger(nullptr),
 	destinationEvent(""),
 	levelPath(new LevelPath("walkLayer.png", _replaceComponent))

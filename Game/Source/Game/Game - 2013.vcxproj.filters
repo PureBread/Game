@@ -20,6 +20,7 @@
     <ClCompile Include="src\UI_Event.cpp" />
     <ClCompile Include="src\Scene_MenuInstructions.cpp" />
     <ClCompile Include="src\LlamaLeader.cpp" />
+    <ClCompile Include="src\UI_Controls.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ArtLayer.h" />
@@ -40,5 +41,6 @@
     <ClInclude Include="include\UI_Event.h" />
     <ClInclude Include="include\Scene_MenuInstructions.h" />
     <ClInclude Include="include\LlamaLeader.h" />
+    <ClInclude Include="include\UI_Controls.h" />
   </ItemGroup>
 </Project>
