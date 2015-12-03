@@ -316,7 +316,7 @@ void MY_Scene::update(Step * _step){
 	// visual update stuff
 	float x = manager.statistics["progress"];//activeCamera->parents.at(0)->getTranslationVector().x;
 	glm::vec3 v = playerCam->firstParent()->getTranslationVector();
-	playerCam->firstParent()->translate((x-1)*50.f, v.y, v.z, false);
+	playerCam->firstParent()->translate(v.x + ((x-1)*50.f - v.x)*_step->deltaTimeCorrection*0.05f, v.y, v.z, false);
 
 	
 	{
