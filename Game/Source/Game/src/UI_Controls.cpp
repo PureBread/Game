@@ -24,11 +24,11 @@ UI_Controls::UI_Controls(PlayerManager * _manager, BulletWorld * _world, Shader 
 	uiHit->setVisible(false);
 	
 	uiHit->eventManager.addEventListener("mousein", [this](sweet::Event * _event){
-		test(true);
+		setSlide(true);
 	});
 
 	uiHit->eventManager.addEventListener("mouseout", [this](sweet::Event * _event){
-		test(false);
+		setSlide(false);
 	});
 
 	//NodeUI * ui = new NodeUI(_world);
@@ -273,7 +273,7 @@ void UI_Controls::update(Step * _step){
 	VerticalLinearLayout::update(_step);
 }
 
-void UI_Controls::test(bool _slideUp){
+void UI_Controls::setSlide(bool _slideUp){
 	slideUp = _slideUp;
 	currSlideTime = std::max(0.f, slideDuration - currSlideTime);
 }

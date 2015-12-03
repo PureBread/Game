@@ -34,5 +34,5 @@ public:
 	void disable();
 	void enable();
 
-	void test(bool _slideUp);
+	void setSlide(bool _slideUp);
 };
