@@ -17,6 +17,7 @@ public:
 	MY_Button * optionTwo;
 	MY_Button * nextButton;
 	HorizontalLinearLayout * buttonsLayout;*/
+	NodeUI * uiHit;
 	NodeUI * ui;
 
 	TextLabel * herdSize;
@@ -33,5 +34,5 @@ public:
 	void disable();
 	void enable();
 
-	void test();
+	void test(bool _slideUp);
 };

@@ -6,6 +6,7 @@
 
 UI_Controls::UI_Controls(PlayerManager * _manager, BulletWorld * _world, Shader * _textShader) :
 	VerticalLinearLayout(_world),
+	uiHit(new NodeUI(_world)),
 	ui(new NodeUI(_world)),
 	slideDuration(1.f),
 	currSlideTime(0.f),
@@ -14,19 +15,25 @@ UI_Controls::UI_Controls(PlayerManager * _manager, BulletWorld * _world, Shader 
 
 	setRationalHeight(1.f);
 	setRationalHeight(1.f);
-
-	eventManager.addEventListener("mousein", [this](sweet::Event * _event){
-		test();
+	
+	uiHit->setRationalWidth(1.f);
+	uiHit->setRationalHeight(1.f);
+	uiHit->setMarginTop(0.75f);
+	
+	uiHit->setMouseEnabled(true);
+	uiHit->setVisible(false);
+	
+	uiHit->eventManager.addEventListener("mousein", [this](sweet::Event * _event){
+		test(true);
 	});
 
-	eventManager.addEventListener("mouseout", [this](sweet::Event * _event){
-		test();
+	uiHit->eventManager.addEventListener("mouseout", [this](sweet::Event * _event){
+		test(false);
 	});
 
 	//NodeUI * ui = new NodeUI(_world);
 	ui->setRationalWidth(1.f);
 	ui->setRationalHeight(1.f);
-
 	ui->background->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("UI_BACK")->texture);
 
 
@@ -217,7 +224,7 @@ UI_Controls::UI_Controls(PlayerManager * _manager, BulletWorld * _world, Shader 
 	ui->addChild(dialL2_btn);
 	ui->addChild(dialL3_btn);
 	addChild(ui);
-
+	addChild(uiHit);
 	invalidateLayout();
 
 
@@ -240,29 +247,38 @@ UI_Controls::UI_Controls(PlayerManager * _manager, BulletWorld * _world, Shader 
 UI_Controls::~UI_Controls(){}
 
 void UI_Controls::update(Step * _step){
-	std::cout << "isHovered: " << isHovered << " slideUp: " << slideUp << "slideDuration: " << slideDuration << " cSlideTime: " << currSlideTime << std::endl;
-	/*
-	if ((isHovered && !slideUp) || (!isHovered && slideUp)){
-		slideUp = !slideUp;
-		currSlideTime = std::min(0.f, slideDuration - currSlideTime);
-	}*/
-
-	/*
+	//std::cout << "isHovered: " << uiHit->isHovered << " slideUp: " << slideUp << "slideDuration: " << slideDuration << " cSlideTime: " << currSlideTime << std::endl;
+	std::cout << "slideUp: " << slideUp;
+	
 	if (slideUp && currSlideTime <= slideDuration){
-		float posY = Easing::easeInOutCubic(currSlideTime, -ui->height.getSize(), ui->height.getSize(), slideDuration);
+		std::cout << " slideUp" << std::endl;
+		// slide up
+		/*
+		float posY = Easing::easeInOutCubic(currSlideTime, -1.f, 1.f, slideDuration);
+		ui->setMarginTop(posY);
+		*/
+		float posY = Easing::easeOutCubic(currSlideTime, -ui->getHeight(true, true) * 1.3, ui->getHeight(true, true)*0.3, slideDuration);
+		
 		ui->childTransform->translate(glm::vec3(0, posY, 0), false);
 		currSlideTime += _step->deltaTime;
-	} else if(!slideUp && currSlideTime <= slideDuration){
-		float posY = Easing::easeInOutCubic(currSlideTime, 0, -ui->height.getSize(), slideDuration);
+	} else if (!slideUp && currSlideTime <= slideDuration){
+		std::cout << " slideDown" << std::endl;
+		// slide down
+		/*
+		float posY = Easing::easeInOutCubic(currSlideTime, 0.f, -1.f, slideDuration);
+		ui->setMarginTop(posY);
+		*/
+		float posY = Easing::easeInCubic(currSlideTime, -ui->getHeight(true, true), -ui->getHeight(true, true)*0.3, slideDuration);
 		ui->childTransform->translate(glm::vec3(0, posY, 0), false);
+		
 		currSlideTime += _step->deltaTime;
 	}
-	*/
+	
 	VerticalLinearLayout::update(_step);
 }
 
-void UI_Controls::test(){
-	slideUp = !slideUp;
+void UI_Controls::test(bool _slideUp){
+	slideUp = _slideUp;
 	currSlideTime = std::min(0.f, slideDuration - currSlideTime);
 }
 
