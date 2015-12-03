@@ -280,6 +280,7 @@ void UI_Controls::setSlide(bool _slideUp){
 
 void UI_Controls::disable(){
 	uiHit->setMouseEnabled(false);
+	setSlide(false);
 	for(NodeUI * n : btns){
 		n->setMouseEnabled(false);
 	}
@@ -287,6 +288,9 @@ void UI_Controls::disable(){
 
 void UI_Controls::enable(){
 	uiHit->setMouseEnabled(true);
+	if (uiHit->isHovered){
+		setSlide(true);
+	}
 	for(NodeUI * n : btns){
 		n->setMouseEnabled(true);
 	}
