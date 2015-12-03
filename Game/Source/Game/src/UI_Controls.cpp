@@ -2,15 +2,28 @@
 
 #include <UI_Controls.h>
 #include <MY_ResourceManager.h>
+#include <Easing.h>
 
 UI_Controls::UI_Controls(PlayerManager * _manager, BulletWorld * _world, Shader * _textShader) :
-	VerticalLinearLayout(_world)
+	VerticalLinearLayout(_world),
+	ui(new NodeUI(_world)),
+	slideDuration(1.f),
+	currSlideTime(0.f),
+	slideUp(false)
 {
 
 	setRationalHeight(1.f);
 	setRationalHeight(1.f);
 
-	NodeUI * ui = new NodeUI(_world);
+	eventManager.addEventListener("mousein", [this](sweet::Event * _event){
+		test();
+	});
+
+	eventManager.addEventListener("mouseout", [this](sweet::Event * _event){
+		test();
+	});
+
+	//NodeUI * ui = new NodeUI(_world);
 	ui->setRationalWidth(1.f);
 	ui->setRationalHeight(1.f);
 
@@ -193,6 +206,33 @@ UI_Controls::UI_Controls(PlayerManager * _manager, BulletWorld * _world, Shader 
 }
 
 UI_Controls::~UI_Controls(){}
+
+void UI_Controls::update(Step * _step){
+	std::cout << "isHovered: " << isHovered << " slideUp: " << slideUp << "slideDuration: " << slideDuration << " cSlideTime: " << currSlideTime << std::endl;
+	/*
+	if ((isHovered && !slideUp) || (!isHovered && slideUp)){
+		slideUp = !slideUp;
+		currSlideTime = std::min(0.f, slideDuration - currSlideTime);
+	}*/
+
+	/*
+	if (slideUp && currSlideTime <= slideDuration){
+		float posY = Easing::easeInOutCubic(currSlideTime, -ui->height.getSize(), ui->height.getSize(), slideDuration);
+		ui->childTransform->translate(glm::vec3(0, posY, 0), false);
+		currSlideTime += _step->deltaTime;
+	} else if(!slideUp && currSlideTime <= slideDuration){
+		float posY = Easing::easeInOutCubic(currSlideTime, 0, -ui->height.getSize(), slideDuration);
+		ui->childTransform->translate(glm::vec3(0, posY, 0), false);
+		currSlideTime += _step->deltaTime;
+	}
+	*/
+	VerticalLinearLayout::update(_step);
+}
+
+void UI_Controls::test(){
+	slideUp = !slideUp;
+	currSlideTime = std::min(0.f, slideDuration - currSlideTime);
+}
 
 void UI_Controls::disable(){
 	for(NodeUI * n : btns){

@@ -163,7 +163,7 @@ MY_Scene::MY_Scene(Game * _game) :
 	}
 	manager.levelPath->moveThing = moveThing;
 	manager.levelPath->moveThing->childTransform->scale(0.01f, 0.5f, 1.f);
-	manager.levelPath->childTransform->addChild(moveThing);
+	//manager.levelPath->childTransform->addChild(moveThing);
 	
 	
 	bgLayers.push_back(layerBgDetail);
@@ -177,8 +177,8 @@ MY_Scene::MY_Scene(Game * _game) :
 		childTransform->addChild(bgLayers.at(i))->translate(0, 0, i * 10);
 		if(i == 2){
 			bgLayers.at(i)->childTransform->addChild(manager.levelPath);
-			bgLayers.at(i)->childTransform->addChild(meshLines);
-			bgLayers.at(i)->childTransform->addChild(meshPoints);
+			//bgLayers.at(i)->childTransform->addChild(meshLines);
+			//bgLayers.at(i)->childTransform->addChild(meshPoints);
 		}
 		bgLayers.at(i)->firstParent()->scale(50);
 	}

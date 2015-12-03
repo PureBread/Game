@@ -7,12 +7,17 @@
 
 class UI_Controls : public VerticalLinearLayout{
 public:
+	float slideDuration;
+	float currSlideTime;
+	bool slideUp;
+
 	/*NodeUI * image;
 	TextArea * text;
 	MY_Button * optionOne;
 	MY_Button * optionTwo;
 	MY_Button * nextButton;
 	HorizontalLinearLayout * buttonsLayout;*/
+	NodeUI * ui;
 
 	TextLabel * herdSize;
 
@@ -23,6 +28,10 @@ public:
 	UI_Controls(PlayerManager * _manager, BulletWorld * _world, Shader * _textShader);
 	~UI_Controls();
 
+	virtual void update(Step * _step) override;
+
 	void disable();
 	void enable();
+
+	void test();
 };
