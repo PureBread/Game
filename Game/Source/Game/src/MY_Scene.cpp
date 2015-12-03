@@ -144,26 +144,26 @@ MY_Scene::MY_Scene(Game * _game) :
 	layerFgDetail = new ContinuousArtScroller("BG1", replaceShader);
 
 	// level path
-	MeshEntity * meshLines = new MeshEntity(manager.levelPath->getMesh(), baseShader);
+	/*MeshEntity * meshLines = new MeshEntity(manager.levelPath->getMesh(), baseShader);
 	meshLines->meshTransform->scale(layerLlamas->imageCount, true);
 	meshLines->meshTransform->translate(glm::vec3(-1.5f, -0.5f, 0));
 	MeshEntity * meshPoints = new MeshEntity(manager.levelPath->getMesh(), baseShader);
 	meshPoints->meshTransform->scale(layerLlamas->imageCount, true);
 	meshPoints->meshTransform->translate(glm::vec3(-1.5f, -0.5f, 0));
-	meshPoints->mesh->polygonalDrawMode = GL_POINTS;
+	meshPoints->mesh->polygonalDrawMode = GL_POINTS;*/
 	manager.levelPath->scaleVertices(layerLlamas->imageCount);
 	manager.levelPath->childTransform->translate(-1.5f, -0.5f, 0);
 	
 	manager.addLlama(replaceShader, true);
 	
-	Sprite * moveThing = new Sprite(baseShader);
+	/*Sprite * moveThing = new Sprite(baseShader);
 	moveThing->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("LOGO")->texture);
 	for (unsigned long int i = 0; i < moveThing->mesh->vertices.size(); ++i){
 		moveThing->mesh->vertices.at(i).y += 0.5f;
 	}
 	manager.levelPath->moveThing = moveThing;
 	manager.levelPath->moveThing->childTransform->scale(0.01f, 0.5f, 1.f);
-	manager.levelPath->childTransform->addChild(moveThing);
+	manager.levelPath->childTransform->addChild(moveThing);*/
 	
 	
 	bgLayers.push_back(layerBgDetail);
@@ -177,8 +177,8 @@ MY_Scene::MY_Scene(Game * _game) :
 		childTransform->addChild(bgLayers.at(i))->translate(0, 0, i * 10);
 		if(i == 2){
 			bgLayers.at(i)->childTransform->addChild(manager.levelPath);
-			bgLayers.at(i)->childTransform->addChild(meshLines);
-			bgLayers.at(i)->childTransform->addChild(meshPoints);
+			//bgLayers.at(i)->childTransform->addChild(meshLines);
+			//bgLayers.at(i)->childTransform->addChild(meshPoints);
 		}
 		bgLayers.at(i)->firstParent()->scale(50);
 	}
