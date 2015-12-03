@@ -15,7 +15,23 @@
               "But then it just had to happen, didn't it?",
               "The Incan gods called down to you, declaring that the herd was in danger.",              
               "In their brief moment of revelation, they didn't say how exactly, but that's not what matters at this point.",
-              "They urged that the only way to save the herd was to find the Place of Divination.",
+              "They urged that the only way to save the herd was to find the Place of Divination."
+          ]
+        }
+      ],
+      "options": [
+      {
+        "text": "",
+        "link": "scene1"
+      }
+      ]
+    },
+    {
+      "id": "scene1",
+      "dialogue": [
+        {
+          "speaker": "Speaker 1",
+          "text": [
               "This is where your story begins.",
               "You head East, though you don't know where that will lead.",
               "East just seems right for some reason.",
@@ -24,7 +40,6 @@
           ]
         }
       ],
-
       "options": [
       {
         "text": "yes",
