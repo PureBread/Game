@@ -8,7 +8,7 @@ UI_Controls::UI_Controls(PlayerManager * _manager, BulletWorld * _world, Shader 
 	VerticalLinearLayout(_world),
 	uiHit(new NodeUI(_world)),
 	ui(new NodeUI(_world)),
-	slideDuration(1.f),
+	slideDuration(0.3f),
 	currSlideTime(0.f),
 	slideUp(false)
 {
@@ -50,16 +50,27 @@ UI_Controls::UI_Controls(PlayerManager * _manager, BulletWorld * _world, Shader 
 	NodeUI * dialL3 = new NodeUI(_world);
 
 	/*dialR1->background->mesh->scaleModeMag = dialR1->background->mesh->scaleModeMin
-		= dialR2->background->mesh->scaleModeMag = dialR2->background->mesh->scaleModeMin
-		= dialR3->background->mesh->scaleModeMag = dialR3->background->mesh->scaleModeMin
-		= dialL1->background->mesh->scaleModeMag = dialL1->background->mesh->scaleModeMin
-		= dialL2->background->mesh->scaleModeMag = dialL2->background->mesh->scaleModeMin
-		= dialL3->background->mesh->scaleModeMag = dialL3->background->mesh->scaleModeMin
-		= food->fill->background->mesh->scaleModeMag = food->fill->background->mesh->scaleModeMin
-		= wool->fill->background->mesh->scaleModeMag = wool->fill->background->mesh->scaleModeMin
-		= health->background->mesh->scaleModeMag = health->background->mesh->scaleModeMin
-		= ui->background->mesh->scaleModeMag = ui->background->mesh->scaleModeMin
-		= GL_NEAREST;*/
+	= dialR2->background->mesh->scaleModeMag = dialR2->background->mesh->scaleModeMin
+	= dialR3->background->mesh->scaleModeMag = dialR3->background->mesh->scaleModeMin
+	= dialL1->background->mesh->scaleModeMag = dialL1->background->mesh->scaleModeMin
+	= dialL2->background->mesh->scaleModeMag = dialL2->background->mesh->scaleModeMin
+	= dialL3->background->mesh->scaleModeMag = dialL3->background->mesh->scaleModeMin
+	= food->fill->background->mesh->scaleModeMag = food->fill->background->mesh->scaleModeMin
+	= wool->fill->background->mesh->scaleModeMag = wool->fill->background->mesh->scaleModeMin
+	= health->background->mesh->scaleModeMag = health->background->mesh->scaleModeMin
+	= ui->background->mesh->scaleModeMag = ui->background->mesh->scaleModeMin
+	= GL_NEAREST;*/
+	dialR1->background->mesh->uvEdgeMode
+		= dialR2->background->mesh->uvEdgeMode
+		= dialR3->background->mesh->uvEdgeMode
+		= dialL1->background->mesh->uvEdgeMode
+		= dialL2->background->mesh->uvEdgeMode
+		= dialL3->background->mesh->uvEdgeMode
+		= food->fill->background->mesh->uvEdgeMode
+		= wool->fill->background->mesh->uvEdgeMode
+		= health->background->mesh->uvEdgeMode
+		= ui->background->mesh->uvEdgeMode
+		= GL_CLAMP;
 	
 	dialR1->background->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("UI_DIAL-R-1")->texture);
 	dialR2->background->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("UI_DIAL-R-2")->texture);
@@ -113,10 +124,10 @@ UI_Controls::UI_Controls(PlayerManager * _manager, BulletWorld * _world, Shader 
 	
 	herdSize->setText(L"99");
 	
-	herdSize->setMarginBottom(0.0855f);
+	herdSize->setMarginBottom(0.1055f);
 	herdSize->setRationalWidth(1.f);
 	herdSize->horizontalAlignment = kCENTER;
-	herdSize->verticalAlignment = kMIDDLE;
+	herdSize->verticalAlignment = kBOTTOM;
 
 	ui->addChild(food);
 	ui->addChild(wool);
@@ -247,30 +258,15 @@ UI_Controls::UI_Controls(PlayerManager * _manager, BulletWorld * _world, Shader 
 UI_Controls::~UI_Controls(){}
 
 void UI_Controls::update(Step * _step){
-	//std::cout << "isHovered: " << uiHit->isHovered << " slideUp: " << slideUp << "slideDuration: " << slideDuration << " cSlideTime: " << currSlideTime << std::endl;
-	std::cout << "slideUp: " << slideUp;
-	
 	if (slideUp && currSlideTime <= slideDuration){
-		std::cout << " slideUp" << std::endl;
-		// slide up
-		/*
-		float posY = Easing::easeInOutCubic(currSlideTime, -1.f, 1.f, slideDuration);
-		ui->setMarginTop(posY);
-		*/
-		float posY = Easing::easeOutCubic(currSlideTime, -ui->getHeight(true, true) * 1.3, ui->getHeight(true, true)*0.3, slideDuration);
-		
+		float posY = Easing::easeOutCubic(currSlideTime, -ui->getHeight(true, true) * 1.4, ui->getHeight(true, true)*0.4, slideDuration);
 		ui->childTransform->translate(glm::vec3(0, posY, 0), false);
+
 		currSlideTime += _step->deltaTime;
 	} else if (!slideUp && currSlideTime <= slideDuration){
-		std::cout << " slideDown" << std::endl;
-		// slide down
-		/*
-		float posY = Easing::easeInOutCubic(currSlideTime, 0.f, -1.f, slideDuration);
-		ui->setMarginTop(posY);
-		*/
-		float posY = Easing::easeInCubic(currSlideTime, -ui->getHeight(true, true), -ui->getHeight(true, true)*0.3, slideDuration);
+		float posY = Easing::easeInCubic(currSlideTime, -ui->getHeight(true, true), -ui->getHeight(true, true)*0.4, slideDuration);
 		ui->childTransform->translate(glm::vec3(0, posY, 0), false);
-		
+
 		currSlideTime += _step->deltaTime;
 	}
 	
@@ -279,16 +275,18 @@ void UI_Controls::update(Step * _step){
 
 void UI_Controls::test(bool _slideUp){
 	slideUp = _slideUp;
-	currSlideTime = std::min(0.f, slideDuration - currSlideTime);
+	currSlideTime = std::max(0.f, slideDuration - currSlideTime);
 }
 
 void UI_Controls::disable(){
+	uiHit->setMouseEnabled(false);
 	for(NodeUI * n : btns){
 		n->setMouseEnabled(false);
 	}
 }
 
 void UI_Controls::enable(){
+	uiHit->setMouseEnabled(true);
 	for(NodeUI * n : btns){
 		n->setMouseEnabled(true);
 	}
