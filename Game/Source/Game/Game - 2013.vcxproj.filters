@@ -42,5 +42,9 @@
     <ClInclude Include="include\Scene_MenuInstructions.h" />
     <ClInclude Include="include\LlamaLeader.h" />
     <ClInclude Include="include\UI_Controls.h" />
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Game - 2013.rc" />
   </ItemGroup>
 </Project>

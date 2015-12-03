@@ -52,6 +52,10 @@
     <ClInclude Include="include\UI_Controls.h" />
     <ClInclude Include="include\UI_Event.h" />
     <ClInclude Include="include\VCam.h" />
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Game - 2013.rc" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{B6AFC105-EAF0-41B3-BD41-75D4570CD35A}</ProjectGuid>
