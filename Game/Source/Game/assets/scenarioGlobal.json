@@ -103,7 +103,7 @@
     {
         "id": "INSTRUCTIONS",
         "type": "texture",
-        "src": "../events/destination/1Andes.json_instructions.png"
+        "src": "instructions.png"
     },
 
     
