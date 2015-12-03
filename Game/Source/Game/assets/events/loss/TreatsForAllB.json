@@ -71,7 +71,7 @@
               "You calmly tell him that he should not have done what he did and help him up.",
               "The rest of the herd can barely contain their laughter.",
               "You tell them to keep it down while you try to keep your voice straight.",
-              "Gain food."
+              "Gain food. Lose a llama."
           ],
           "triggers": [
             {
@@ -79,6 +79,13 @@
               "args": {
                 "statistic": "food",
                 "amount": 10
+              }
+            },
+            {
+              "type": "statisticUpdate",
+              "args": {
+                "statistic": "herdSize",
+                "amount": -1
               }
             }
           ]
