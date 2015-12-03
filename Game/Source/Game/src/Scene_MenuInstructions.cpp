@@ -85,11 +85,13 @@ Scene_MenuInstructions::Scene_MenuInstructions(Game * _game) :
 
 	std::vector<TextLabel * > instructions;
 	std::vector<std::string> instructionText;
-	instructionText.push_back("Keep your herd healthy by balancing your rations and speed.");
-	instructionText.push_back("Move your cursor to the bottom of the screen to bring up the Llama herd's resource manager.");
-	instructionText.push_back("Control the food consumption using the right half of the pie menu.");
-	instructionText.push_back("Control the travel speed using the left half of the pie menu.");
+	instructionText.push_back("Move your cursor to the bottom of the screen during travel to bring up the herd's resources.");
+	instructionText.push_back("Control food consumption using the right half of the pie menu.");
+	instructionText.push_back("Control travel speed using the left half of the pie menu.");
 	instructionText.push_back("Events will appear at random and may effect the herd's statistics.");
+	instructionText.push_back("Not feeding your llamas will cause their health to drop.");
+	instructionText.push_back("Moving fast while not eating will cause your health to drop faster");
+	instructionText.push_back("Remember to keep your health up by eating and resting, or you might lose llamas along the way!");
 
 	for (std::string i : instructionText){
 		TextLabel * l = new TextLabel(uiLayer->world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, textShader);

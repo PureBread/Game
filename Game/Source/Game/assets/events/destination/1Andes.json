@@ -58,39 +58,17 @@
           "speaker": "Speaker 1",
           "text": [
               "HOW TO PLAY",
-              "Keep your herd healthy by balancing your rations and speed.",
-              "Move your cursor to the bottom of the screen to bring up the Llama herd's resource manager.",
-              "Control the food consumption using the right half of the pie menu.",
-              "Control the travel speed using the left half of the pie menu.",
+              "Move your cursor to the bottom of the screen during travel to bring up the herd's resources.",
+              "Control food consumption using the right half of the pie menu.",
+              "Control travel speed using the left half of the pie menu.",
               "Events will appear at random and may effect the herd's statistics.",
-              "...",
-              "Would you like to see hints?"
+              "Not feeding your llamas will cause their health to drop.",
+              "Moving fast while not eating will cause your health to drop faster.",
+              "Remember to keep your health up by eating and resting, or you might lose llamas along the way!"
           ]     
         }
       ],
       "options": [
-      {
-        "text": "yes",
-        "link": "hints"
-      },
-      {
-        "text": "no",
-        "link": "continue"
-      }
-      ]
-    },
-    {
-      "id": "hints",
-      "dialogue": [
-        {
-          "speaker": "Speaker 1",
-          "text": [
-              "Rations: eat enough to keep your health up but don't eat so fast that you run out of food before you reach each destination.",
-              "Speed: moving too fast will cause your health to drop faster but moving too slow will slow down your progress.",
-              "Remember, food is more import to your health than speed!"
-          ]
-        }
-      ],"options": [
       {
         "text": "",
         "link": "continue"
