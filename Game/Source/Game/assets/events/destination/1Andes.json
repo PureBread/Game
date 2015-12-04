@@ -43,7 +43,7 @@
       "options": [
       {
         "text": "yes",
-        "link": "instructions"
+        "link": "instructions1"
       },
       {
         "text": "no",
@@ -52,18 +52,98 @@
       ]
     },
     {
-      "id": "instructions",
+      "id": "instructions1",
       "dialogue": [
         {
           "speaker": "Speaker 1",
           "text": [
               "HOW TO PLAY",
-              "Move your cursor to the bottom of the screen during travel to bring up the herd's resources.",
-              "Control food consumption using the right half of the pie menu.",
-              "Control travel speed using the left half of the pie menu.",
-              "Events will appear at random and may effect the herd's statistics.",
+              "Move your cursor to the bottom of the screen during travel to bring up the herd's resources."
+          ]     
+        }
+      ],
+      "options": [
+      {
+        "text": "",
+        "link": "instructions3"
+      }
+      ]
+    },
+    {
+      "id": "instructions3",
+      "dialogue": [
+        {
+          "speaker": "Speaker 1",
+          "text": [
+              "Control food consumption using the right half of the pie menu."
+          ]     
+        }
+      ],
+      "options": [
+      {
+        "text": "",
+        "link": "instructions4"
+      }
+      ]
+    },
+    {
+      "id": "instructions4",
+      "dialogue": [
+        {
+          "speaker": "Speaker 1",
+          "text": [
+              "Control travel speed using the left half of the pie menu."
+          ]     
+        }
+      ],
+      "options": [
+      {
+        "text": "",
+        "link": "instructions5"
+      }
+      ]
+    },
+    {
+      "id": "instructions5",
+      "dialogue": [
+        {
+          "speaker": "Speaker 1",
+          "text": [
+              "Events will appear at random and may effect the herd's statistics."
+          ]     
+        }
+      ],
+      "options": [
+      {
+        "text": "",
+        "link": "instructions6"
+      }
+      ]
+    },
+    {
+      "id": "instructions6",
+      "dialogue": [
+        {
+          "speaker": "Speaker 1",
+          "text": [
               "Not feeding your llamas will cause their health to drop.",
-              "Moving fast while not eating will cause your health to drop faster.",
+              "Moving fast while not eating will cause their health to drop faster."
+          ]     
+        }
+      ],
+      "options": [
+      {
+        "text": "",
+        "link": "instructions8"
+      }
+      ]
+    },
+    {
+      "id": "instructions8",
+      "dialogue": [
+        {
+          "speaker": "Speaker 1",
+          "text": [
               "Remember to keep your health up by eating and resting, or you might lose llamas along the way!"
           ]     
         }
