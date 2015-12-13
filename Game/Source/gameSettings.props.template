@@ -10,6 +10,7 @@
 		<BULLET_DIR>C:\dev\Bullet-2.83-alpha</BULLET_DIR>
 		<FREETYPE_DIR>C:\dev\freetype-2.5.5</FREETYPE_DIR>
 		<CPPREST_DIR>C:\dev\RestCpp</CPPREST_DIR>
+    	<ANT_DIR>C:\dev\AntTweakBar</ANT_DIR>
 		<ENGINE_DIR>C:\S-Tengine2</ENGINE_DIR>
 	</PropertyGroup>
 	<ItemDefinitionGroup />
