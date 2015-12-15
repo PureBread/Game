@@ -68,9 +68,9 @@ Scene_MenuOptions::Scene_MenuOptions(Game * _game) :
 	titleText->setText(L"OPTIONS");
 	titleText->horizontalAlignment = kCENTER;
 	if(sweet::fullscreen){
-		fullscreenToggle->label->setText(L"WINDOWED");
+		fullscreenToggle->setLabel("WINDOWED");
 	}else{
-		fullscreenToggle->label->setText(L"FULLSCREEN");
+		fullscreenToggle->setLabel("FULLSCREEN");
 	}
 	volumeText->setText(L"VOLUME");
 	volumeText->horizontalAlignment = kCENTER;
@@ -88,15 +88,15 @@ Scene_MenuOptions::Scene_MenuOptions(Game * _game) :
 	});
 
 
-	back->label->setText(L"BACK");
+	back->setLabel("BACK");
 	
 	
 	fullscreenToggle->eventManager.addEventListener("click", [this, fullscreenToggle](sweet::Event *){
 		game->toggleFullScreen();
 		if(sweet::fullscreen){
-			fullscreenToggle->label->setText(L"WINDOWED");
+			fullscreenToggle->setLabel("WINDOWED");
 		}else{
-			fullscreenToggle->label->setText(L"FULLSCREEN");
+			fullscreenToggle->setLabel("FULLSCREEN");
 		}
 	});
 	back->eventManager.addEventListener("click", [this](sweet::Event *){

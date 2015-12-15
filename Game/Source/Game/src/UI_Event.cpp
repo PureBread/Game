@@ -49,7 +49,7 @@ UI_Event::UI_Event(BulletWorld * _world, Shader * _textShader) :
 	text->verticalAlignment = kTOP;
 	text->setWrapMode(kWORD);
 
-	nextButton->label->setText("NEXT");
+	nextButton->setLabel("NEXT");
 
 	nextButton->eventManager.addEventListener("click", [this](sweet::Event * _event){
 		eventManager->triggerEvent("next");
@@ -131,8 +131,8 @@ bool UI_Event::sayNext(){
 			optionOne->setMouseEnabled(true);
 			optionTwo->setMouseEnabled(true);
 			
-			optionOne->label->setText(currentConversation->options.at(0)->text);
-			optionTwo->label->setText(currentConversation->options.at(1)->text);
+			optionOne->setLabel(currentConversation->options.at(0)->text);
+			optionTwo->setLabel(currentConversation->options.at(1)->text);
 		}else{
 			nextButton->setVisible(true);
 			optionOne->setVisible(false);

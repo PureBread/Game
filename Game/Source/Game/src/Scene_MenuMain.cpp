@@ -62,10 +62,10 @@ Scene_MenuMain::Scene_MenuMain(Game * _game) :
 	MY_Button * b2 = new MY_Button(uiLayer->world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, 3);
 	MY_Button * b3 = new MY_Button(uiLayer->world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, 3);
 	MY_Button * b4 = new MY_Button(uiLayer->world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, 3);
-	b1->label->setText(L"PLAY GAME");
-	b2->label->setText(L"INSTRUCTIONS");
-	b3->label->setText(L"OPTIONS");
-	b4->label->setText(L"EXIT GAME");
+	b1->setLabel("PLAY GAME");
+	b2->setLabel("INSTRUCTIONS");
+	b3->setLabel("OPTIONS");
+	b4->setLabel("EXIT GAME");
 	
 	b1->eventManager.addEventListener("click", [this](sweet::Event *){
 		// TODO: reset game before switching to scene

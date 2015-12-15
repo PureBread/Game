@@ -13,7 +13,8 @@ ComponentShaderText * MY_Button::btnTextShader = nullptr;
 
 MY_Button::MY_Button(BulletWorld * _world, Font * _font, unsigned long int _size) :
 	NodeUI(_world, kENTITIES, true),
-	label(nullptr)
+	label(nullptr),
+	textToSet(L"")
 {
 	if (btnTextShader == nullptr){
 		btnTextShader = new ComponentShaderText(true);
@@ -41,10 +42,11 @@ MY_Button::MY_Button(BulletWorld * _world, Font * _font, unsigned long int _size
 	background->mesh->pushTexture2D(texNormal);
 
 	label->horizontalAlignment = kCENTER;
+	label->setRationalWidth(1.f);
 
 	VerticalLinearLayout * vl = new VerticalLinearLayout(world);
 	vl->addChild(label);
-	vl->horizontalAlignment = kCENTER;
+	//vl->horizontalAlignment = kCENTER;
 	vl->verticalAlignment = kTOP;
 	vl->setRationalWidth(1.f);
 	vl->setRationalHeight(1.f);
@@ -74,5 +76,17 @@ void MY_Button::update(Step * _step){
 		background->mesh->removeTextureAt(0);
 		background->mesh->pushTexture2D(texNew);
 	}
+
+	if(textToSet != L""){
+		label->setText(textToSet);
+		textToSet = L"";
+	}
 	NodeUI::update(_step);
+}
+
+void MY_Button::setLabel(std::string _text){
+	textToSet = std::wstring(_text.begin(), _text.end());
+}
+void MY_Button::setLabel(std::wstring _text){
+	textToSet = _text;
 }
