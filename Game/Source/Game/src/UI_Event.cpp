@@ -12,7 +12,8 @@ UI_Event::UI_Event(BulletWorld * _world, Shader * _textShader) :
 	optionOne(new MY_Button(_world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, 3)),
 	optionTwo(new MY_Button(_world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, 3)),
 	buttonsLayout(new HorizontalLinearLayout(_world)),
-	currentEvent(nullptr)
+	currentEvent(nullptr),
+	eventManager(new sweet::EventManager())
 {
 	setRenderMode(kTEXTURE);
 
@@ -51,19 +52,17 @@ UI_Event::UI_Event(BulletWorld * _world, Shader * _textShader) :
 	nextButton->label->setText("NEXT");
 
 	nextButton->eventManager.addEventListener("click", [this](sweet::Event * _event){
-		if(!this->sayNext()){
-			// prevent the user from clicking buttons while they're not visible
-			nextButton->setMouseEnabled(false);
-			optionOne->setMouseEnabled(false);
-			optionTwo->setMouseEnabled(false);
-			setVisible(false);
-		}
+		eventManager->triggerEvent("next");
 	});
 	optionOne->eventManager.addEventListener("click", [this](sweet::Event * _event){
-		select(0);
+		sweet::Event * e = new sweet::Event("select");
+		e->setIntData("option", 0);
+		eventManager->triggerEvent(e);
 	});
 	optionTwo->eventManager.addEventListener("click", [this](sweet::Event * _event){
-		select(1);
+		sweet::Event * e = new sweet::Event("select");
+		e->setIntData("option", 1);
+		eventManager->triggerEvent(e);
 	});
 
 	
@@ -72,10 +71,29 @@ UI_Event::UI_Event(BulletWorld * _world, Shader * _textShader) :
 	optionOne->setMouseEnabled(false);
 	optionTwo->setMouseEnabled(false);
 	setVisible(false);
+
+
+	eventManager->addEventListener("select", [this](sweet::Event * _event){
+		select(_event->getIntData("option"));
+	});eventManager->addEventListener("next", [this](sweet::Event * _event){
+		if(!this->sayNext()){
+			// prevent the user from clicking buttons while they're not visible
+			nextButton->setMouseEnabled(false);
+			optionOne->setMouseEnabled(false);
+			optionTwo->setMouseEnabled(false);
+			setVisible(false);
+		}
+	});
 }
 
-UI_Event::~UI_Event(){}
+UI_Event::~UI_Event(){
+	delete eventManager;
+}
 
+void UI_Event::update(Step * _step){
+	eventManager->update(_step);
+	VerticalLinearLayout::update(_step);
+}
 
 void UI_Event::startEvent(Event * _event){
 	MY_ResourceManager::scenario->getAudio("EVENT_OPEN")->sound->play();

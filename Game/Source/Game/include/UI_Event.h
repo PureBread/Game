@@ -14,6 +14,8 @@ public:
 	MY_Button * nextButton;
 	HorizontalLinearLayout * buttonsLayout;
 
+	sweet::EventManager * eventManager;
+
 	UI_Event(BulletWorld * _world, Shader * _textShader);
 	~UI_Event();
 
@@ -21,4 +23,6 @@ public:
 	void startEvent(Event * _event);
 
 	virtual bool sayNext() override;
+
+	virtual void update(Step * _step) override;
 };
