@@ -237,6 +237,11 @@ MY_Scene::MY_Scene(Game * _game) :
 		childTransform->addChild(fadeTimeout, false);
 	});
 
+	// sound effect listener
+	manager.globalEventManager.addEventListener("sfx", [this](sweet::Event * _event){
+		currentEvent->scenario->getAudio(_event->getStringData("name"))->sound->play();
+	});
+
 
 	// reference counting for member variables
 	++baseShader->referenceCount;
