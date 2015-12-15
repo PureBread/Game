@@ -101,17 +101,27 @@ Scene_Menu::Scene_Menu(Game * _game) :
 	title->setMarginBottom(0.9f);
 	title->horizontalAlignment = kCENTER;
 	uiLayer->addChild(title);
+
+	// reference counting for member variables
+	++baseShader->referenceCount;
+	++textShader->referenceCount;
+
+	++screenSurface->referenceCount;
+	++screenSurfaceShader->referenceCount;
+	++screenFBO->referenceCount;
 }
 
 Scene_Menu::~Scene_Menu(){
 	delete uiLayer;
 	deleteChildTransform();
-	baseShader->safeDelete();
-	textShader->safeDelete();
+	
+	// auto-delete member variables
+	baseShader->decrementAndDelete();
+	textShader->decrementAndDelete();
 
-	screenSurface->safeDelete();
-	//screenSurfaceShader->safeDelete();
-	screenFBO->safeDelete();
+	screenSurface->decrementAndDelete();
+	screenSurfaceShader->decrementAndDelete();
+	screenFBO->decrementAndDelete();
 }
 
 

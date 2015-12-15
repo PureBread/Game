@@ -236,17 +236,28 @@ MY_Scene::MY_Scene(Game * _game) :
 		fadeTimeout->start();
 		childTransform->addChild(fadeTimeout, false);
 	});
+
+
+	// reference counting for member variables
+	++baseShader->referenceCount;
+	++textShader->referenceCount;
+
+	++screenSurface->referenceCount;
+	++screenSurfaceShader->referenceCount;
+	++screenFBO->referenceCount;
 }
 
 MY_Scene::~MY_Scene(){
 	delete uiLayer;
 	deleteChildTransform();
-	baseShader->safeDelete();
-	textShader->safeDelete();
+	
+	// auto-delete member variables
+	baseShader->decrementAndDelete();
+	textShader->decrementAndDelete();
 
-	screenSurface->safeDelete();
-	//screenSurfaceShader->safeDelete();
-	screenFBO->safeDelete();
+	screenSurface->decrementAndDelete();
+	screenSurfaceShader->decrementAndDelete();
+	screenFBO->decrementAndDelete();
 }
 
 
