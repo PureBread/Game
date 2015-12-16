@@ -8,6 +8,7 @@
 #include <Step.h>
 #include <NumberUtils.h>
 #include <MY_ResourceManager.h>
+#include <MY_Game.h>
 #include <Sprite.h>
 
 Event::Event(EventType _type, Scenario * _scenario) :
@@ -116,13 +117,16 @@ void PlayerManager::update(Step * _step){
 void PlayerManager::moment(){
 	// update statistics
 	statistics["progress"] += statistics["speed"]*speedMultiplier;
-	statistics["wool"] += statistics["herdSize"]*woolMultiplier;
-	if(statistics["food"] <= FLT_EPSILON){
-		statistics["rations"] = 0;
-	}else{
-		statistics["food"] -= (statistics["rations"] * statistics["herdSize"])*rationsMultiplier;
+	
+	if(!MY_Game::casualMode){
+		statistics["wool"] += statistics["herdSize"]*woolMultiplier;
+		if(statistics["food"] <= FLT_EPSILON){
+			statistics["rations"] = 0;
+		}else{
+			statistics["food"] -= (statistics["rations"] * statistics["herdSize"])*rationsMultiplier;
+		}
+		statistics["health"] += ((statistics["rations"]-1)*1.5f - (statistics["speed"] - 1))*healthMultiplier;
 	}
-	statistics["health"] += ((statistics["rations"]-1)*1.5f - (statistics["speed"] - 1))*healthMultiplier;
 
 	// check for events
 	markers.currentPosition = statistics["progress"];
@@ -147,7 +151,7 @@ bool PlayerManager::shouldTriggerDestinationEvent(){
 
 bool PlayerManager::shouldTriggerLossEvent(){
 	// random check which is more likely to succeed when health is low
-	return sweet::NumberUtils::randomFloat(0, 100) < (lossEventBaseChance * (100 - statistics["health"])/100);
+	return !MY_Game::casualMode && sweet::NumberUtils::randomFloat(0, 100) < (lossEventBaseChance * (100 - statistics["health"])/100);
 }
 
 bool PlayerManager::shouldTriggerRandomEvent(){

@@ -2,6 +2,7 @@
 
 #include <UI_Controls.h>
 #include <MY_ResourceManager.h>
+#include <MY_Game.h>
 #include <Easing.h>
 
 UI_Controls::UI_Controls(PlayerManager * _manager, BulletWorld * _world, Shader * _textShader) :
@@ -258,6 +259,10 @@ UI_Controls::UI_Controls(PlayerManager * _manager, BulletWorld * _world, Shader 
 UI_Controls::~UI_Controls(){}
 
 void UI_Controls::update(Step * _step){
+	if(MY_Game::casualMode){
+		slideUp = false;
+		currSlideTime = slideDuration;
+	}
 	if (slideUp && currSlideTime <= slideDuration){
 		float posY = Easing::easeOutCubic(currSlideTime, -ui->getHeight(true, true) * 1.4, ui->getHeight(true, true)*0.4, slideDuration);
 		ui->childTransform->translate(glm::vec3(0, posY, 0), false);
@@ -274,8 +279,10 @@ void UI_Controls::update(Step * _step){
 }
 
 void UI_Controls::setSlide(bool _slideUp){
-	slideUp = _slideUp;
-	currSlideTime = std::max(0.f, slideDuration - currSlideTime);
+	if(!MY_Game::casualMode){
+		slideUp = _slideUp;
+		currSlideTime = std::max(0.f, slideDuration - currSlideTime);
+	}
 }
 
 void UI_Controls::disable(){

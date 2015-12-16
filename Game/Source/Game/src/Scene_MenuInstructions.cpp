@@ -49,7 +49,7 @@
 #include <MY_Button.h>
 #include <sweet/UI.h>
 
-Scene_MenuInstructions::Scene_MenuInstructions(Game * _game) :
+Scene_MenuInstructions::Scene_MenuInstructions(MY_Game * _game) :
 	Scene_Menu(_game)
 {
 	// buttons

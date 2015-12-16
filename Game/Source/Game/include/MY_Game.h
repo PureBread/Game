@@ -4,7 +4,7 @@
 
 class MY_Game : public Game{
 public:
-	bool casualMode;
+	static bool casualMode;
 
 	MY_Game();
 	~MY_Game();

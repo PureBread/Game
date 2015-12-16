@@ -56,7 +56,7 @@
 
 #include <VCam.h>
 
-MY_Scene::MY_Scene(Game * _game) :
+MY_Scene::MY_Scene(MY_Game * _game) :
 	Scene(_game),
 	screenSurfaceShader(new Shader("assets/RenderSurface", false, true)),
 	screenSurface(new RenderSurface(screenSurfaceShader)),

@@ -9,6 +9,6 @@ public:
 	virtual void update(Step * _step) override;
 	
 
-	Scene_MenuInstructions(Game * _game);
+	Scene_MenuInstructions(MY_Game * _game);
 	~Scene_MenuInstructions();
 };

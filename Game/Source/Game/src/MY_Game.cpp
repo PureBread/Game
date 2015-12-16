@@ -6,9 +6,10 @@
 #include <Scene_MenuOptions.h>
 #include <Scene_MenuInstructions.h>
 
+bool MY_Game::casualMode = false;
+
 MY_Game::MY_Game() :
-	Game(true, std::pair<std::string, Scene *>("MENU_MAIN", new Scene_MenuMain(this)), false),
-	casualMode(false)
+	Game(true, std::pair<std::string, Scene *>("MENU_MAIN", new Scene_MenuMain(this)), false)
 {
 	scenes["MAIN"] = new MY_Scene(this);
 	scenes["MENU_OPTIONS"] = new Scene_MenuOptions(this);

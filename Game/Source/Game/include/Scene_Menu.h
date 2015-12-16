@@ -8,6 +8,7 @@
 #include <ContinuousArtScroller.h>
 #include <ShaderComponentReplace.h>
 #include <MY_ResourceManager.h>
+#include <MY_Game.h>
 
 class PerspectiveCamera;
 class MousePerspectiveCamera;
@@ -54,6 +55,6 @@ public:
 
 	UILayer * uiLayer;
 
-	Scene_Menu(Game * _game);
+	Scene_Menu(MY_Game * _game);
 	~Scene_Menu();
 };

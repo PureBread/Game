@@ -14,6 +14,7 @@
 #include <UI_Event.h>
 #include <UI_Controls.h>
 #include <Timeout.h>
+#include <MY_Game.h>
 
 class PerspectiveCamera;
 class MousePerspectiveCamera;
@@ -79,6 +80,6 @@ public:
 
 	UILayer * uiLayer;
 
-	MY_Scene(Game * _game);
+	MY_Scene(MY_Game * _game);
 	~MY_Scene();
 };

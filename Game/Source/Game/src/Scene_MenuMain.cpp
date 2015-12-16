@@ -49,7 +49,7 @@
 
 #include <MY_Button.h>
 #include <MY_Scene.h>
-Scene_MenuMain::Scene_MenuMain(Game * _game) :
+Scene_MenuMain::Scene_MenuMain(MY_Game * _game) :
 	Scene_Menu(_game)
 {
 	// buttons
@@ -67,10 +67,10 @@ Scene_MenuMain::Scene_MenuMain(Game * _game) :
 	b3->setLabel("OPTIONS");
 	b4->setLabel("EXIT GAME");
 	
-	b1->eventManager.addEventListener("click", [this](sweet::Event *){
+	b1->eventManager.addEventListener("click", [this, _game](sweet::Event *){
 		// TODO: reset game before switching to scene
 		if(game->scenes.find("MAIN") == game->scenes.end()){
-			game->scenes["MAIN"] = new MY_Scene(game);
+			game->scenes["MAIN"] = new MY_Scene(_game);
 		}game->switchScene("MAIN", false);
 		
 	});

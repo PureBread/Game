@@ -49,7 +49,7 @@
 
 #include <MY_Button.h>
 
-Scene_Menu::Scene_Menu(Game * _game) :
+Scene_Menu::Scene_Menu(MY_Game * _game) :
 	Scene(_game),
 	screenSurfaceShader(new Shader("assets/engine basics/DefaultRenderSurface", false, true)),
 	screenSurface(new RenderSurface(screenSurfaceShader)),
