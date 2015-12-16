@@ -10,7 +10,7 @@ UI_Controls::UI_Controls(PlayerManager * _manager, BulletWorld * _world, Shader 
 	uiHit(new NodeUI(_world)),
 	ui(new NodeUI(_world)),
 	slideDuration(0.3f),
-	currSlideTime(0.f),
+	currSlideTime(0.3f),
 	slideUp(false)
 {
 
