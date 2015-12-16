@@ -64,7 +64,7 @@ MY_Scene::MY_Scene(MY_Game * _game) :
 	baseShader(new ComponentShaderBase(true)),
 	replaceShader(new ComponentShaderBase(true)),
 	replaceShaderComponent(new ShaderComponentReplace(replaceShader)),
-	hsvShaderComponent(new ShaderComponentHsv(replaceShader, 0, 1, 1)),
+	hsvShaderComponent(new ShaderComponentHsv(replaceShader, 0, 1, 0)),
 	textShader(new ComponentShaderText(true)),
 	uiLayer(new UILayer(0,0,0,0)),
 	progress(0),
