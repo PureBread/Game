@@ -7,8 +7,10 @@
 #include <Game.h>
 #include <MY_ResourceManager.h>
 #include <Log.h>
+#include <NumberUtils.h>
 
 #include <MY_Game.h>
+#include <ctime>
 
 #ifdef _DEBUG
 	// memory leak debugging
@@ -30,6 +32,11 @@ int WinMain(HINSTANCE inst, HINSTANCE prev, LPSTR cmd, int show){
 	sweet::initialize("Llammigration");
 	MY_ResourceManager::init();
 	MY_ResourceManager::load();
+
+	// seed the RNG
+	sweet::NumberUtils::seed(std::time(nullptr));
+
+
 	MY_Game * game = new MY_Game();
 
 	while (game->isRunning){
