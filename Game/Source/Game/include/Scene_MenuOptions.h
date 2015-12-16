@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Scene_Menu.h>
+#include <MY_Game.h>
 class Slider;
 class TextLabel;
 
@@ -11,6 +12,6 @@ public:
 	Slider * volume;
 	TextLabel * volumeText;
 
-	Scene_MenuOptions(Game * _game);
+	Scene_MenuOptions(MY_Game * _game);
 	~Scene_MenuOptions();
 };

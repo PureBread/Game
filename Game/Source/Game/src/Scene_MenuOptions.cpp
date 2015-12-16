@@ -49,7 +49,7 @@
 #include <MY_Button.h>
 #include <sweet/UI.h>
 
-Scene_MenuOptions::Scene_MenuOptions(Game * _game) :
+Scene_MenuOptions::Scene_MenuOptions(MY_Game * _game) :
 	Scene_Menu(_game)
 {
 	// buttons
@@ -59,8 +59,9 @@ Scene_MenuOptions::Scene_MenuOptions(Game * _game) :
 	vl->background->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("SCROLL_MENU")->texture);
 
 	TextLabel * titleText = new TextLabel(uiLayer->world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, textShader);
-
+	
 	MY_Button * fullscreenToggle = new MY_Button(uiLayer->world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, 3);
+	MY_Button * casualToggle = new MY_Button(uiLayer->world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, 3);
 	volumeText = new TextLabel(uiLayer->world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, textShader);
 	volume = new Slider(uiLayer->world, NodeOpenAL::getListenerGain(), 0, 2.f);
 	MY_Button * back = new MY_Button(uiLayer->world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, 3);
@@ -68,9 +69,14 @@ Scene_MenuOptions::Scene_MenuOptions(Game * _game) :
 	titleText->setText(L"OPTIONS");
 	titleText->horizontalAlignment = kCENTER;
 	if(sweet::fullscreen){
-		fullscreenToggle->setLabel("WINDOWED");
-	}else{
 		fullscreenToggle->setLabel("FULLSCREEN");
+	}else{
+		fullscreenToggle->setLabel("WINDOWED");
+	}
+	if(_game->casualMode){
+		casualToggle->setLabel("CASUAL");
+	}else{
+		casualToggle->setLabel("CHALLENGE");
 	}
 	volumeText->setText(L"VOLUME");
 	volumeText->horizontalAlignment = kCENTER;
@@ -94,9 +100,17 @@ Scene_MenuOptions::Scene_MenuOptions(Game * _game) :
 	fullscreenToggle->eventManager.addEventListener("click", [this, fullscreenToggle](sweet::Event *){
 		game->toggleFullScreen();
 		if(sweet::fullscreen){
-			fullscreenToggle->setLabel("WINDOWED");
-		}else{
 			fullscreenToggle->setLabel("FULLSCREEN");
+		}else{
+			fullscreenToggle->setLabel("WINDOWED");
+		}
+	});
+	casualToggle->eventManager.addEventListener("click", [this, _game, casualToggle](sweet::Event *){
+		_game->casualMode = !_game->casualMode;
+		if(_game->casualMode){
+			casualToggle->setLabel("CASUAL");
+		}else{
+			casualToggle->setLabel("CHALLENGE");
 		}
 	});
 	back->eventManager.addEventListener("click", [this](sweet::Event *){
@@ -105,6 +119,7 @@ Scene_MenuOptions::Scene_MenuOptions(Game * _game) :
 	
 	vl->addChild(titleText);
 	vl->addChild(fullscreenToggle);
+	vl->addChild(casualToggle);
 	vl->addChild(volumeText);
 	vl->addChild(volume);
 	vl->addChild(back);
