@@ -173,6 +173,10 @@
         "type": "audio",
         "src": "Button SFX5.ogg"
     },{
+        "id": "BUTTON3",
+        "type": "audio",
+        "src": "Button SFX6.ogg"
+    },{
         "id": "EVENT_OPEN",
         "type": "audio",
         "src": "Button SFX1.ogg"

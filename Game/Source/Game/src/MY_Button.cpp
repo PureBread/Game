@@ -54,7 +54,7 @@ MY_Button::MY_Button(BulletWorld * _world, Font * _font, unsigned long int _size
 
 	eventManager.addEventListener("click", [](sweet::Event * _event){
 		std::stringstream ss;
-		ss << "BUTTON" << sweet::NumberUtils::randomInt(1,2);
+		ss << "BUTTON" << sweet::NumberUtils::randomInt(1,3);
 		MY_ResourceManager::scenario->getAudio(ss.str())->sound->play();
 	});
 }
