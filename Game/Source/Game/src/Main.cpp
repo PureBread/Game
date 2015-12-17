@@ -46,6 +46,7 @@ int WinMain(HINSTANCE inst, HINSTANCE prev, LPSTR cmd, int show){
 	delete game;
 	game = nullptr;
 	MY_ResourceManager::destruct();
+	Scenario::destruct();
 #ifdef _DEBUG
 	std::cout << "Final node count: " << Node::nodes.size() << std::endl;
 

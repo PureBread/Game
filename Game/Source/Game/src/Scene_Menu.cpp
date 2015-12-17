@@ -28,9 +28,7 @@
 #include <Box2DDebugDrawer.h>
 
 #include <MousePerspectiveCamera.h>
-#include <FollowCamera.h>
 
-#include <System.h>
 #include <Mouse.h>
 #include <Keyboard.h>
 #include <GLFW\glfw3.h>
@@ -64,7 +62,7 @@ Scene_Menu::Scene_Menu(MY_Game * _game) :
 
 	textShader->setColor(0,0,0);
 
-	glm::uvec2 sd = sweet::getScreenDimensions();
+	glm::uvec2 sd = sweet::getWindowDimensions();
 	uiLayer->resize(0, sd.x, 0, sd.y);
 
 	// texture
@@ -85,6 +83,7 @@ Scene_Menu::Scene_Menu(MY_Game * _game) :
 	bg4->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("MENU_BG4")->texture);
 	bg5->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("MENU_BG5")->texture);
 	
+	// need to use a NodeUI as a container so that the bg goes behind the menu stuff
 	NodeUI * bgNode = new NodeUI(uiLayer->world);
 	uiLayer->addChild(bgNode);
 	bgNode->childTransform->addChild(bg5);
@@ -126,7 +125,7 @@ Scene_Menu::~Scene_Menu(){
 
 
 void Scene_Menu::update(Step * _step){
-	glm::uvec2 sd = sweet::getScreenDimensions();
+	glm::uvec2 sd = sweet::getWindowDimensions();
 	uiLayer->resize(0, sd.x, 0, sd.y);
 	
 	bg5->firstParent()->scale(sd.x*1.02f, sd.y*1.02f, 1, false);
@@ -144,8 +143,8 @@ void Scene_Menu::update(Step * _step){
 	bg2->firstParent()->translate(x*0.08f + sd.x*0.5f, y*0.08f + sd.y*0.5f, 0, false);
 	bg1->firstParent()->translate(x*0.10f + sd.x*0.5f, y*0.10f + sd.y*0.5f, 0, false);
 
-	if(keyboard->keyJustDown(GLFW_KEY_F12)){
-		game->takeScreenshot();
+	if(keyboard->keyJustDown(GLFW_KEY_F11)){
+		game->toggleFullScreen();
 	}
 
 	if (keyboard->keyJustDown(GLFW_KEY_2)){

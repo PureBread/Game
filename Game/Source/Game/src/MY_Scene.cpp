@@ -29,9 +29,7 @@
 #include <Box2DDebugDrawer.h>
 
 #include <MousePerspectiveCamera.h>
-#include <FollowCamera.h>
 
-#include <System.h>
 #include <Mouse.h>
 #include <Keyboard.h>
 #include <GLFW\glfw3.h>
@@ -118,7 +116,7 @@ MY_Scene::MY_Scene(MY_Game * _game) :
 	debugCam->speed = 1;
 
 	//
-	glm::uvec2 sd = sweet::getScreenDimensions();
+	glm::uvec2 sd = sweet::getWindowDimensions();
 	uiLayer->resize(0, sd.x, 0, sd.y);
 
 
@@ -400,7 +398,7 @@ void MY_Scene::update(Step * _step){
 	progress += speed;
 
 	Scene::update(_step);
-	glm::uvec2 sd = sweet::getScreenDimensions();
+	glm::uvec2 sd = sweet::getWindowDimensions();
 	uiLayer->resize(0, sd.x, 0, sd.y);
 	//uiLayer->invalidateLayout();
 	uiLayer->update(_step);

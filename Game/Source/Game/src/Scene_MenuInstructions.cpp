@@ -28,9 +28,7 @@
 #include <Box2DDebugDrawer.h>
 
 #include <MousePerspectiveCamera.h>
-#include <FollowCamera.h>
 
-#include <System.h>
 #include <Mouse.h>
 #include <Keyboard.h>
 #include <GLFW\glfw3.h>

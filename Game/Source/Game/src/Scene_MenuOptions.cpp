@@ -28,9 +28,7 @@
 #include <Box2DDebugDrawer.h>
 
 #include <MousePerspectiveCamera.h>
-#include <FollowCamera.h>
 
-#include <System.h>
 #include <Mouse.h>
 #include <Keyboard.h>
 #include <GLFW\glfw3.h>
@@ -69,7 +67,7 @@ Scene_MenuOptions::Scene_MenuOptions(MY_Game * _game) :
 	
 	titleText->setText(L"OPTIONS");
 	titleText->horizontalAlignment = kCENTER;
-	if(sweet::fullscreen){
+	if(sweet::config.fullscreen){
 		fullscreenToggle->setLabel("FULLSCREEN");
 	}else{
 		fullscreenToggle->setLabel("WINDOWED");
@@ -96,7 +94,7 @@ Scene_MenuOptions::Scene_MenuOptions(MY_Game * _game) :
 	
 	fullscreenToggle->eventManager.addEventListener("click", [this, fullscreenToggle](sweet::Event *){
 		game->toggleFullScreen();
-		if(sweet::fullscreen){
+		if(sweet::config.fullscreen){
 			fullscreenToggle->setLabel("FULLSCREEN");
 		}else{
 			fullscreenToggle->setLabel("WINDOWED");
