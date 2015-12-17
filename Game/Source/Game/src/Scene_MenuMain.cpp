@@ -1,6 +1,8 @@
 #pragma once
 
 #include <Scene_MenuMain.h>
+#include <Scene_MenuInstructions.h>
+#include <Scene_MenuOptions.h>
 
 #include <Game.h>
 #include <MeshEntity.h>
@@ -72,10 +74,12 @@ Scene_MenuMain::Scene_MenuMain(MY_Game * _game) :
 		}game->switchScene("MAIN", false);
 		
 	});
-	b2->eventManager.addEventListener("click", [this](sweet::Event *){
+	b2->eventManager.addEventListener("click", [this, _game](sweet::Event *){
+		game->scenes["MENU_INSTRUCTIONS"] = new Scene_MenuInstructions(_game);
 		game->switchScene("MENU_INSTRUCTIONS", false);
 	});
-	b3->eventManager.addEventListener("click", [this](sweet::Event *){
+	b3->eventManager.addEventListener("click", [this, _game](sweet::Event *){
+		game->scenes["MENU_OPTIONS"] = new Scene_MenuOptions(_game);
 		game->switchScene("MENU_OPTIONS", false);
 	});
 	b4->eventManager.addEventListener("click", [this](sweet::Event *){

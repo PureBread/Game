@@ -178,6 +178,11 @@ void Scene_Menu::render(sweet::MatrixStack * _matrixStack, RenderOptions * _rend
 void Scene_Menu::load(){
 	Scene::load();	
 
+	screenSurfaceShader->load();
+
+	baseShader->load();
+	textShader->load();
+
 	screenSurface->load();
 	screenFBO->load();
 	uiLayer->load();
@@ -187,6 +192,11 @@ void Scene_Menu::unload(){
 	uiLayer->unload();
 	screenFBO->unload();
 	screenSurface->unload();
+
+	textShader->unload();
+	baseShader->unload();
+
+	screenSurfaceShader->unload();
 
 	Scene::unload();	
 }

@@ -109,7 +109,7 @@ Scene_MenuOptions::Scene_MenuOptions(MY_Game * _game) :
 		}
 	});
 	back->eventManager.addEventListener("click", [this](sweet::Event *){
-		game->switchScene("MENU_MAIN", false);
+		game->switchScene("MENU_MAIN", true);
 	});
 	
 	vl->addChild(titleText);

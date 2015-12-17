@@ -75,7 +75,7 @@ Scene_MenuInstructions::Scene_MenuInstructions(MY_Game * _game) :
 	back->setMarginTop(20);
 	
 	back->eventManager.addEventListener("click", [this](sweet::Event *){
-		game->switchScene("MENU_MAIN", false);
+		game->switchScene("MENU_MAIN", true);
 	});
 	
 	vl->addChild(titleText);

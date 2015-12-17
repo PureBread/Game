@@ -80,6 +80,7 @@ MY_Scene::MY_Scene(MY_Game * _game) :
 	replaceShader->addComponent(replaceShaderComponent);
 	replaceShader->addComponent(hsvShaderComponent);
 	replaceShader->compileShader();
+	replaceShader->unload();
 	replaceShader->load();
 	
 	textShader->setColor(0,0,0);
@@ -241,6 +242,7 @@ MY_Scene::MY_Scene(MY_Game * _game) :
 
 	// reference counting for member variables
 	++baseShader->referenceCount;
+	++replaceShader->referenceCount;
 	++textShader->referenceCount;
 
 	++screenSurface->referenceCount;
@@ -254,6 +256,7 @@ MY_Scene::~MY_Scene(){
 	
 	// auto-delete member variables
 	baseShader->decrementAndDelete();
+	replaceShader->decrementAndDelete();
 	textShader->decrementAndDelete();
 
 	screenSurface->decrementAndDelete();
@@ -294,7 +297,7 @@ void MY_Scene::update(Step * _step){
 		screenSurfaceShader->load();
 	}
 	
-	glUseProgram(screenSurfaceShader->getProgramId());
+	screenSurfaceShader->bindShader();
 	GLint test = glGetUniformLocation(screenSurfaceShader->getProgramId(), "time");
 	checkForGlError(0,__FILE__,__LINE__);
 	if(test != -1){
@@ -424,17 +427,29 @@ void MY_Scene::render(sweet::MatrixStack * _matrixStack, RenderOptions * _render
 }
 
 void MY_Scene::load(){
-	Scene::load();	
+	if(!loaded){
+		replaceShader->load();
+		baseShader->load();
+	
+		screenSurfaceShader->load();
+		screenSurface->load();
+		screenFBO->load();
+		uiLayer->load();
+	}
 
-	screenSurface->load();
-	screenFBO->load();
-	uiLayer->load();
+	Scene::load();	
 }
 
 void MY_Scene::unload(){
-	uiLayer->unload();
-	screenFBO->unload();
-	screenSurface->unload();
+	if(loaded){
+		uiLayer->unload();
+		screenFBO->unload();
+		screenSurfaceShader->unload();
+		screenSurface->unload();
+	
+		baseShader->unload();
+		replaceShader->unload();
+	}
 
 	Scene::unload();	
 }
