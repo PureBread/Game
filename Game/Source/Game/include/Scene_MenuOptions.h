@@ -11,6 +11,7 @@ public:
 	
 	Slider * volume;
 	TextLabel * volumeText;
+	float newVolume;
 
 	Scene_MenuOptions(MY_Game * _game);
 	~Scene_MenuOptions();

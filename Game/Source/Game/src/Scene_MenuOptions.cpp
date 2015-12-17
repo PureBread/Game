@@ -50,7 +50,8 @@
 #include <sweet/UI.h>
 
 Scene_MenuOptions::Scene_MenuOptions(MY_Game * _game) :
-	Scene_Menu(_game)
+	Scene_Menu(_game),
+	newVolume(-1)
 {
 	// buttons
 	VerticalLinearLayout * vl = new VerticalLinearLayout(uiLayer->world);
@@ -86,11 +87,7 @@ Scene_MenuOptions::Scene_MenuOptions(MY_Game * _game) :
 	volume->setHeight(MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font->getLineHeight());
 	volume->setStepped(0.1);
 	volume->eventManager.addEventListener("change", [this](sweet::Event * _event){
-		std::wstringstream ss;
-		ss << L"VOLUME: " << (volume->getValue()/2.f);
-		volumeText->setText(ss.str());
-		volumeText->invalidateLayout();
-		NodeOpenAL::setListenerGain(volume->getValue());
+		newVolume = volume->getValue();
 	});
 
 
@@ -140,5 +137,11 @@ Scene_MenuOptions::~Scene_MenuOptions(){
 
 
 void Scene_MenuOptions::update(Step * _step){
+	if(newVolume >= 0){
+		std::wstringstream ss;
+		ss << L"VOLUME: " << newVolume*0.5f;
+		volumeText->setText(ss.str());
+		NodeOpenAL::setListenerGain(newVolume);
+	}
 	Scene_Menu::update(_step);
 }
