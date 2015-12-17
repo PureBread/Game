@@ -379,16 +379,16 @@ void MY_Scene::update(Step * _step){
 	}
 	// camera controls
 	if (keyboard->keyDown(GLFW_KEY_UP)){
-		activeCamera->parents.at(0)->translate((activeCamera->upVectorRotated) * camSpeed);
+		activeCamera->firstParent()->translate((activeCamera->upVectorRotated) * camSpeed);
 	}
 	if (keyboard->keyDown(GLFW_KEY_DOWN)){
-		activeCamera->parents.at(0)->translate((activeCamera->upVectorRotated) * -camSpeed);
+		activeCamera->firstParent()->translate((activeCamera->upVectorRotated) * -camSpeed);
 	}
 	if (keyboard->keyDown(GLFW_KEY_LEFT)){
-		activeCamera->parents.at(0)->translate((activeCamera->rightVectorRotated) * -camSpeed);
+		activeCamera->firstParent()->translate((activeCamera->rightVectorRotated) * -camSpeed);
 	}
 	if (keyboard->keyDown(GLFW_KEY_RIGHT)){
-		activeCamera->parents.at(0)->translate((activeCamera->rightVectorRotated) * camSpeed);
+		activeCamera->firstParent()->translate((activeCamera->rightVectorRotated) * camSpeed);
 	}
 
 
@@ -397,8 +397,66 @@ void MY_Scene::update(Step * _step){
 	}
 
 	progress += speed;
+	
+	/*
+	glm::uvec2 _sd = sweet::getWindowDimensions();
+	glm::vec3 pos = activeCamera->worldToScreen(manager.levelPath->llamas.at(0)->center->getWorldPos(), _sd);
+	
+	// distort the llamas actual world position with the surface shader's distortion logic!!! lololol
+	glm::vec2 uv = glm::vec2(pos.x / _sd.x, pos.y / _sd.y);
+	float xd = (0.75 - abs(uv.x - 0.5) - 0.25);
+	float yd = (0.75 - abs(uv.y - 0.5) - 0.25);
+
+	uv.x -= sin((float)sweet::lastTimestamp*0.1001f)*0.1f*xd;
+	uv.y -= sin((float)sweet::lastTimestamp*0.0501f)*0.1f*yd;
+
+	pos.x = uv.x * _sd.x;
+	pos.y = uv.y * _sd.y;
+
+	double mX = mouse->mouseX();
+	double mY = mouse->mouseY();
+	std::cout << "llama " << 0 << "\tscreenPos: " << pos.x << ", " << pos.y << "\tmouse: " << mX << ", " << mY << "\tdiff: " << pos.x - mX << ", " << pos.y - mY << std::endl;
+	*/
+
+	// Detect llama clicks
+	if (currentEvent == nullptr && mouse->leftJustReleased()){
+		for (signed long int i = manager.levelPath->llamas.size()-1; i >= 0; --i){
+			Llama * l = manager.levelPath->llamas.at(i);
+
+			// llamas world position, plug into cam world to screen pos, compare against mouse.x mouse.y
+			glm::uvec2 sd = sweet::getWindowDimensions();
+			glm::vec3 pos = activeCamera->worldToScreen(l->center->getWorldPos(), sd);
+			float r = 50;
+
+			// distort the llamas actual world position with the surface shader's distortion logic!!! lololol
+			glm::vec2 uv = glm::vec2(pos.x / sd.x, pos.y / sd.y);
+			float xd = (0.75 - abs(uv.x - 0.5) - 0.25);
+			float yd = (0.75 - abs(uv.y - 0.5) - 0.25);
+
+			uv.x -= sin((float)sweet::lastTimestamp*0.1001f)*0.1f*xd;
+			uv.y -= sin((float)sweet::lastTimestamp*0.0501f)*0.1f*yd;
+
+			pos.x = uv.x * sd.x;
+			pos.y = uv.y * sd.y;
+
+			double mX = mouse->mouseX();
+			double mY = mouse->mouseY();
+
+			if (l->leader == nullptr){
+				std::cout << "llama " << 0 << "\tscreenPos: " << pos.x << ", " << pos.y << "\tmouse: " << mX << ", " << mY << "\tdiff: " << pos.x - mX << ", " << pos.y - mY << std::endl;
+			}
+			if (mX <= pos.x + r && mX >= pos.x - r && mY <= pos.y + r && mY >= pos.y - r){
+				std::cout << "Llama clicked! " << i << std::endl;
+				std::stringstream ss;
+				//ss << "LLAMA_BLEET" << sweet::NumberUtils::randomInt(1, 3);
+				MY_ResourceManager::scenario->getAudio("DEFAULT")->sound->play();
+				break;
+			}
+		}
+	}
 
 	Scene::update(_step);
+
 	glm::uvec2 sd = sweet::getWindowDimensions();
 	uiLayer->resize(0, sd.x, 0, sd.y);
 	//uiLayer->invalidateLayout();

@@ -81,18 +81,8 @@ vec4 stuff3(vec2 uv){
 }
 
 vec4 stuff4(vec2 uv){
-	//float xd = 0.5 - uv.x;
-	//float yd = 0.5 - uv.y;
-	float xd = map(uv.x, 0, 1, -1.5, 1.5);
-	float yd = map(uv.y, 0, 1, -1.5, 1.5);
-
-	xd = (0.75 - abs(Texcoord.x-0.5)-0.25);
-	yd = (0.75 - abs(Texcoord.y-0.5)-0.25);
-	//return vec4(xd, yd, 0, 1);
-
-
-	//xd += sign(xd)*0.5;
-	//yd += sign(yd)*0.5;
+	float xd = (0.75 - abs(uv.x-0.5)-0.25);
+	float yd = (0.75 - abs(uv.y-0.5)-0.25);
 
 	uv.x += sin(time*0.1001f)*0.1f*xd;
 	uv.y += sin(time*0.0501f)*0.1f*yd;
