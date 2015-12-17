@@ -83,7 +83,7 @@ Scene_MenuOptions::Scene_MenuOptions(MY_Game * _game) :
 
 	volume->setRationalWidth(0.5f);
 	volume->setHeight(MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font->getLineHeight());
-	volume->setStepped(0.1);
+	volume->setStepped(0.2);
 	volume->eventManager.addEventListener("change", [this](sweet::Event * _event){
 		newVolume = volume->getValue();
 	});
@@ -137,9 +137,10 @@ Scene_MenuOptions::~Scene_MenuOptions(){
 void Scene_MenuOptions::update(Step * _step){
 	if(newVolume >= 0){
 		std::wstringstream ss;
-		ss << L"VOLUME: " << newVolume*0.5f;
+		ss << L"VOLUME: " << newVolume*5.f;
 		volumeText->setText(ss.str());
 		NodeOpenAL::setListenerGain(newVolume);
+		newVolume = -1;
 	}
 	Scene_Menu::update(_step);
 }
