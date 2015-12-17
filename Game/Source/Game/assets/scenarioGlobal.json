@@ -19,6 +19,11 @@
     },
 
 
+    {
+        "id": "SKY",
+        "type": "texture",
+        "src": "sky.png"
+    },
 
     {
         "id": "UI_BACK",

@@ -188,9 +188,7 @@ MY_Scene::MY_Scene(MY_Game * _game) :
 	layerSkyMesh->meshTransform->translate(0,0.5,0);
 	layerSkyMesh->childTransform->scale(150);
 
-	Texture * texture = new Texture("assets/textures/sky.png", true, false);
-	texture->load();
-	layerSkyMesh->mesh->pushTexture2D(texture);
+	layerSkyMesh->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("SKY")->texture);
 	layerSkyMesh->mesh->scaleModeMag = layerSkyMesh->mesh->scaleModeMin = GL_NEAREST;
 
 	manager.loadDefaults();
