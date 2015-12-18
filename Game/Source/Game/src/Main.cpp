@@ -26,8 +26,9 @@ int main(void){
 #else
 int WinMain(HINSTANCE inst, HINSTANCE prev, LPSTR cmd, int show){	
 #endif
-
+	
 	Log::THROW_ON_ERROR = true;
+	Log::THROW_ON_WARN = true;
 
 	sweet::initialize("Llammigration");
 	MY_ResourceManager::init();
@@ -38,7 +39,7 @@ int WinMain(HINSTANCE inst, HINSTANCE prev, LPSTR cmd, int show){
 
 
 	MY_Game * game = new MY_Game();
-
+	game->init();
 	while (game->isRunning){
 		game->performGameLoop();
 	}
