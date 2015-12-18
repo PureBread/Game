@@ -15,6 +15,11 @@ SpeechBubble::SpeechBubble(Shader * _shader, Camera * _cam, Llama * _llama) :
 {
 	mesh->setScaleMode(GL_NEAREST);
 
+	// move the llama's mesh up so that the origin is aligned with the base
+	for (unsigned long int i = 0; i < mesh->vertices.size(); ++i){
+		mesh->vertices.at(i).y += 0.5f;
+	}
+
 	setVisible(false);
 }
 
@@ -27,7 +32,7 @@ void SpeechBubble::update(Step * _step){
 		if (duration <= 0){
 			//setVisible(false);
 		} else{
-			setPos(llama->center->getWorldPos());
+			setPos(llama->head->getWorldPos());
 			//duration -= _step->getDeltaTime();
 		}
 	}

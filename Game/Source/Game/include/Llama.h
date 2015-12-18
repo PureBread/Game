@@ -26,6 +26,7 @@ public:
 Sprite * llama;
 	Llama * leader;
 	Transform * center;
+	Transform * head;
 	SpeechBubble * speechBubble;
 
 	bool isHopping;
