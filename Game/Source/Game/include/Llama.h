@@ -4,6 +4,7 @@
 
 class Sprite;
 class Shader;
+class Transform;
 
 class Llama : public Entity{
 private:
@@ -23,6 +24,8 @@ protected:
 public:
 Sprite * llama;
 	Llama * leader;
+
+	Transform * center;
 
 	bool isHopping;
 	float hopSpeed;
