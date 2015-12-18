@@ -20,6 +20,7 @@ void MY_Game::addSplashes(){
 MY_Game::MY_Game() :
 	Game(std::pair<std::string, Scene *>("MENU_MAIN", new Scene_MenuMain(this)))
 {
+	scenes["MAIN"] = new MY_Scene(this);
 	//MY_ResourceManager::scenario->getAudio("ANDES")->sound->play(true);
 }
 
