@@ -194,6 +194,15 @@ MY_Scene::MY_Scene(MY_Game * _game) :
 
 	manager.loadDefaults();
 
+
+	
+
+	bubbleNode = new NodeUI(uiLayer->world);
+	bubbleNode->setRationalHeight(1.f);
+	bubbleNode->setRationalWidth(1.f);
+	uiLayer->addChild(bubbleNode);
+	bubbleNode->background->setVisible(false);
+
 	
 	uiControls = new UI_Controls(&manager, uiLayer->world, textShader);
 	uiLayer->addChild(uiControls);
@@ -453,7 +462,7 @@ void MY_Scene::update(Step * _step){
 				// this sucks
 				if (l->speechBubble == nullptr){
 					l->speechBubble = new SpeechBubble(uiLayer->shader, activeCamera, l);
-					uiLayer->childTransform->addChild(l->speechBubble);
+					bubbleNode->childTransform->addChild(l->speechBubble);
 				}
 
 				l->speechBubble->enable();

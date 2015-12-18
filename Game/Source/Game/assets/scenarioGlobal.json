@@ -204,9 +204,25 @@
     	"type": "texture",
     	"src": "menu/4.png"
     },{
-    	"id": "MENU_BG5",
-    	"type": "texture",
-    	"src": "menu/5.png"
+        "id": "MENU_BG5",
+        "type": "texture",
+        "src": "menu/5.png"
+    },
+
+    {
+        "id": "BUBBLES_1",
+        "type": "texture",
+        "src": "BUBBLES/1.png"
+    },
+    {
+        "id": "BUBBLES_2",
+        "type": "texture",
+        "src": "BUBBLES/2.png"
+    },
+    {
+        "id": "BUBBLES_3",
+        "type": "texture",
+        "src": "BUBBLES/3.png"
     }
   ]
 }

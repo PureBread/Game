@@ -79,6 +79,7 @@ public:
 	virtual void unload() override;
 
 	UILayer * uiLayer;
+	NodeUI * bubbleNode;
 
 	MY_Scene(MY_Game * _game);
 	~MY_Scene();
