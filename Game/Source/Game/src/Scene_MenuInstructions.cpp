@@ -65,14 +65,15 @@ Scene_MenuInstructions::Scene_MenuInstructions(MY_Game * _game) :
 	titleText->horizontalAlignment = kCENTER;
 
 
-	image->setMarginTop(25);
+	image->setMarginTop(30);
 	image->background->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("INSTRUCTIONS")->texture);
-	image->setRationalHeight(0.32f);
+	image->setRationalHeight(0.7f);
 	image->setRationalWidth(0.7f);
+	image->background->mesh->uvEdgeMode = GL_CLAMP;
 	//image->background->mesh->scaleModeMag = image->background->mesh->scaleModeMin = GL_NEAREST;
-
+	
+	back->setMarginTop(15);
 	back->setLabel("BACK");
-	back->setMarginTop(20);
 	
 	back->eventManager.addEventListener("click", [this](sweet::Event *){
 		game->switchScene("MENU_MAIN", true);
@@ -80,26 +81,6 @@ Scene_MenuInstructions::Scene_MenuInstructions(MY_Game * _game) :
 	
 	vl->addChild(titleText);
 	vl->addChild(image);
-
-	std::vector<TextLabel * > instructions;
-	std::vector<std::string> instructionText;
-	instructionText.push_back("Move your cursor to the bottom of the screen during travel to bring up the herd's resources.");
-	instructionText.push_back("Control food consumption using the right half of the pie menu.");
-	instructionText.push_back("Control travel speed using the left half of the pie menu.");
-	instructionText.push_back("Events will appear at random and may effect the herd's statistics.");
-	instructionText.push_back("Not feeding your llamas will cause their health to drop.");
-	instructionText.push_back("Moving fast while not eating will cause your health to drop faster");
-	instructionText.push_back("Remember to keep your health up by eating and resting, or you might lose llamas along the way!");
-
-	for (std::string i : instructionText){
-		TextLabel * l = new TextLabel(uiLayer->world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, textShader);
-		instructions.push_back(l);
-		l->horizontalAlignment = kCENTER;
-		l->setText(i);
-		vl->addChild(l);
-		l->setRationalWidth(1.f, vl);
-	}
-
 	vl->addChild(back);
 	
 	vl->boxSizing = BoxSizing::kBORDER_BOX;
@@ -111,12 +92,4 @@ Scene_MenuInstructions::Scene_MenuInstructions(MY_Game * _game) :
 	uiLayer->addChild(vl);
 
 	uiLayer->addMouseIndicator();
-}
-
-Scene_MenuInstructions::~Scene_MenuInstructions(){
-}
-
-
-void Scene_MenuInstructions::update(Step * _step){
-	Scene_Menu::update(_step);
 }
