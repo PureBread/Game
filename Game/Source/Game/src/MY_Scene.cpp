@@ -50,7 +50,7 @@
 
 #include <LevelPath.h>
 #include <Llama.h>
-
+#include <SpeechBubble.h>
 
 #include <VCam.h>
 
@@ -448,8 +448,15 @@ void MY_Scene::update(Step * _step){
 			if (mX <= pos.x + r && mX >= pos.x - r && mY <= pos.y + r && mY >= pos.y - r){
 				std::cout << "Llama clicked! " << i << std::endl;
 				std::stringstream ss;
-				//ss << "LLAMA_BLEET" << sweet::NumberUtils::randomInt(1, 3);
-				MY_ResourceManager::scenario->getAudio("DEFAULT")->sound->play();
+				ss << "LLAMA_BLEET" << sweet::NumberUtils::randomInt(1, 3);
+				MY_ResourceManager::scenario->getAudio(ss.str())->sound->play();
+				// this sucks
+				if (l->speechBubble == nullptr){
+					l->speechBubble = new SpeechBubble(uiLayer->shader, activeCamera, l);
+					uiLayer->childTransform->addChild(l->speechBubble);
+				}
+
+				l->speechBubble->enable();
 				break;
 			}
 		}

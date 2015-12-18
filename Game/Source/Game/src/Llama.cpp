@@ -8,11 +8,13 @@
 #include <glm/gtx/rotate_vector.hpp>
 #include <glm/gtx/vector_angle.hpp>
 #include <MY_ResourceManager.h>
+#include <SpeechBubble.h>
 #include <NumberUtils.h>
 
 Llama::Llama(Shader * _shader) :
 	llama(new Sprite(_shader)),
 	center(new Transform()),
+	speechBubble(nullptr),
 	isHopping(false),
 	hopSpeed(0.1f),
 	hopSpeedMultiplier(1.f),
@@ -42,8 +44,8 @@ Llama::~Llama(){
 }
 
 void Llama::update(Step * _step){
-
 	Entity::update(_step);
+
 	if (isHopping){
 		currHopTime += _step->deltaTime;
 

@@ -5,6 +5,7 @@
 class Sprite;
 class Shader;
 class Transform;
+class SpeechBubble;
 
 class Llama : public Entity{
 private:
@@ -24,8 +25,8 @@ protected:
 public:
 Sprite * llama;
 	Llama * leader;
-
 	Transform * center;
+	SpeechBubble * speechBubble;
 
 	bool isHopping;
 	float hopSpeed;
