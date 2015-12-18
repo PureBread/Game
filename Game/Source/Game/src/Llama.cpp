@@ -14,6 +14,7 @@
 Llama::Llama(Shader * _shader) :
 	llama(new Sprite(_shader)),
 	center(new Transform()),
+	head(new Transform()),
 	speechBubble(nullptr),
 	isHopping(false),
 	hopSpeed(0.1f),
@@ -32,7 +33,8 @@ Llama::Llama(Shader * _shader) :
 	childTransform->addChild(llama);
 	llama->mesh->scaleModeMag = llama->mesh->scaleModeMin = GL_NEAREST;
 
-	llama->childTransform->addChild(center)->translate(0, 0.5, 0);
+	llama->meshTransform->addChild(center)->translate(0, 0.5, 0);
+	llama->meshTransform->addChild(head)->translate(0.5, 1, 0);
 
 	// move the llama's mesh up so that the origin is aligned with the base
 	for (unsigned long int i = 0; i < llama->mesh->vertices.size(); ++i){
