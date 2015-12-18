@@ -33,7 +33,7 @@ PlayerManager::PlayerManager(ShaderComponentReplace * _replaceComponent) :
 	loadDefaults();
 	
 	markers.eventManager.listeners["destination"].push_back([this](sweet::Event * _e){
-		destinationEvent = "assets/events/destination/" + _e->getStringData("scenario") + ".json";
+		destinationEvent = _e->getStringData("scenario");
 	});
 
 
@@ -160,9 +160,13 @@ bool PlayerManager::shouldTriggerRandomEvent(){
 }
 
 Event * PlayerManager::triggerDestinationEvent(){
+	std::string d = "assets/events/destination/" + destinationEvent + ".json";
 	for(unsigned long int i = 0; i < MY_ResourceManager::destinationEvents.size(); ++i){
-		if(MY_ResourceManager::destinationEvents.at(i)->id == destinationEvent){
+		if(MY_ResourceManager::destinationEvents.at(i)->id == d){
 			Event * e = new Event(kDESTINATION, MY_ResourceManager::destinationEvents.at(i));
+			
+			MY_Game::switchAudio(destinationEvent);
+
 			destinationEvent = "";
 			return e;
 		}

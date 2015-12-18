@@ -107,5 +107,8 @@ Scene_MenuMain::~Scene_MenuMain(){
 }
 
 void Scene_MenuMain::update(Step * _step){
+	if(MY_Game::currentAudio == nullptr){
+		MY_Game::switchAudio("1Andes");
+	}
 	Scene_Menu::update(_step);
 }

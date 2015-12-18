@@ -10,6 +10,7 @@
 #include <Scene_Splash_Engine.h>
 
 bool MY_Game::casualMode = false;
+OpenAL_Sound * MY_Game::currentAudio = nullptr;
 
 void MY_Game::addSplashes(){
 	Game::addSplashes(); // add engine default splashes
@@ -24,4 +25,12 @@ MY_Game::MY_Game() :
 
 MY_Game::~MY_Game(){
 
+}
+
+void MY_Game::switchAudio(std::string _newAudio){
+	if(currentAudio != nullptr){
+		currentAudio->stop();
+	}
+	currentAudio = MY_ResourceManager::scenario->getAudio(_newAudio)->sound;
+	currentAudio->play(true);
 }
