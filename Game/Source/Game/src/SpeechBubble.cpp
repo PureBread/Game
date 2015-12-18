@@ -10,7 +10,7 @@ SpeechBubble::SpeechBubble(Shader * _shader, Camera * _cam, Llama * _llama) :
 	Sprite(_shader),
 	cam(_cam),
 	llama(_llama),
-	length(5.f),
+	length(2.f),
 	duration(0.f)
 {
 	mesh->setScaleMode(GL_NEAREST);
@@ -30,10 +30,10 @@ void SpeechBubble::update(Step * _step){
 
 	if (isVisible()){
 		if (duration <= 0){
-			//setVisible(false);
+			setVisible(false);
 		} else{
 			setPos(llama->head->getWorldPos());
-			//duration -= _step->getDeltaTime();
+			duration -= _step->getDeltaTime();
 		}
 	}
 }
