@@ -275,7 +275,51 @@ MY_Scene::~MY_Scene(){
 
 
 void MY_Scene::update(Step * _step){
-	
+
+
+	// Detect llama clicks
+	if (currentEvent == nullptr && mouse->leftJustReleased()){
+		for (signed long int i = manager.levelPath->llamas.size() - 1; i >= 0; --i){
+			Llama * l = manager.levelPath->llamas.at(i);
+
+			// llamas world position, plug into cam world to screen pos, compare against mouse.x mouse.y
+			glm::uvec2 sd = sweet::getWindowDimensions();
+			glm::vec3 pos = activeCamera->worldToScreen(l->center->getWorldPos(), sd);
+			float r = 50;
+
+			// distort the llamas actual world position with the surface shader's distortion logic!!! lololol
+			glm::vec2 uv = glm::vec2(pos.x / sd.x, pos.y / sd.y);
+			float xd = (0.75 - abs(uv.x - 0.5) - 0.25);
+			float yd = (0.75 - abs(uv.y - 0.5) - 0.25);
+
+			uv.x -= sin((float)sweet::lastTimestamp*0.1001f)*0.1f*xd;
+			uv.y -= sin((float)sweet::lastTimestamp*0.0501f)*0.1f*yd;
+
+			pos.x = uv.x * sd.x;
+			pos.y = uv.y * sd.y;
+
+			double mX = mouse->mouseX();
+			double mY = mouse->mouseY();
+
+			if (l->leader == nullptr){
+				std::cout << "llama " << 0 << "\tscreenPos: " << pos.x << ", " << pos.y << "\tmouse: " << mX << ", " << mY << "\tdiff: " << pos.x - mX << ", " << pos.y - mY << std::endl;
+			}
+			if (glm::distance2(glm::vec2(mX, mY), glm::vec2(pos.x, pos.y)) < r*r){
+				std::cout << "Llama clicked! " << i << std::endl;
+				std::stringstream ss;
+				ss << "LLAMA_BLEET" << sweet::NumberUtils::randomInt(1, 3);
+				MY_ResourceManager::scenario->getAudio(ss.str())->sound->play();
+				// this sucks
+				if (l->speechBubble == nullptr){
+					l->speechBubble = new SpeechBubble(uiLayer->shader, activeCamera, l);
+					bubbleNode->childTransform->addChild(l->speechBubble);
+				}
+
+				l->speechBubble->enable();
+				break;
+			}
+		}
+	}
 	// loss state check
 	if(manager.statistics["herdSize"] == 0 && !paused){
 		manager.globalEventManager.triggerEvent("gameOver");
@@ -426,50 +470,6 @@ void MY_Scene::update(Step * _step){
 	double mY = mouse->mouseY();
 	std::cout << "llama " << 0 << "\tscreenPos: " << pos.x << ", " << pos.y << "\tmouse: " << mX << ", " << mY << "\tdiff: " << pos.x - mX << ", " << pos.y - mY << std::endl;
 	*/
-
-	// Detect llama clicks
-	if (currentEvent == nullptr && mouse->leftJustReleased()){
-		for (signed long int i = manager.levelPath->llamas.size()-1; i >= 0; --i){
-			Llama * l = manager.levelPath->llamas.at(i);
-
-			// llamas world position, plug into cam world to screen pos, compare against mouse.x mouse.y
-			glm::uvec2 sd = sweet::getWindowDimensions();
-			glm::vec3 pos = activeCamera->worldToScreen(l->center->getWorldPos(), sd);
-			float r = 50;
-
-			// distort the llamas actual world position with the surface shader's distortion logic!!! lololol
-			glm::vec2 uv = glm::vec2(pos.x / sd.x, pos.y / sd.y);
-			float xd = (0.75 - abs(uv.x - 0.5) - 0.25);
-			float yd = (0.75 - abs(uv.y - 0.5) - 0.25);
-
-			uv.x -= sin((float)sweet::lastTimestamp*0.1001f)*0.1f*xd;
-			uv.y -= sin((float)sweet::lastTimestamp*0.0501f)*0.1f*yd;
-
-			pos.x = uv.x * sd.x;
-			pos.y = uv.y * sd.y;
-
-			double mX = mouse->mouseX();
-			double mY = mouse->mouseY();
-
-			if (l->leader == nullptr){
-				std::cout << "llama " << 0 << "\tscreenPos: " << pos.x << ", " << pos.y << "\tmouse: " << mX << ", " << mY << "\tdiff: " << pos.x - mX << ", " << pos.y - mY << std::endl;
-			}
-			if (mX <= pos.x + r && mX >= pos.x - r && mY <= pos.y + r && mY >= pos.y - r){
-				std::cout << "Llama clicked! " << i << std::endl;
-				std::stringstream ss;
-				ss << "LLAMA_BLEET" << sweet::NumberUtils::randomInt(1, 3);
-				MY_ResourceManager::scenario->getAudio(ss.str())->sound->play();
-				// this sucks
-				if (l->speechBubble == nullptr){
-					l->speechBubble = new SpeechBubble(uiLayer->shader, activeCamera, l);
-					bubbleNode->childTransform->addChild(l->speechBubble);
-				}
-
-				l->speechBubble->enable();
-				break;
-			}
-		}
-	}
 
 	Scene::update(_step);
 
