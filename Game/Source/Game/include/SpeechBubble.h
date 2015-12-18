@@ -5,6 +5,8 @@
 class Camera;
 class Llama;
 
+#define NUM_BUBBLES 20
+
 class SpeechBubble : public Sprite{
 public:
 	float length;

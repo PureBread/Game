@@ -45,7 +45,7 @@ void SpeechBubble::enable(){
 	
 	// load new texture
 	std::stringstream ss;
-	ss << "BUBBLES_" << sweet::NumberUtils::randomInt(1, 3);
+	ss << "BUBBLES_" << sweet::NumberUtils::randomInt(1, NUM_BUBBLES);
 	Texture * tex = MY_ResourceManager::scenario->getTexture(ss.str())->texture;
 	mesh->pushTexture2D(tex);
 	
