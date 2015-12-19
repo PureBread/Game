@@ -82,6 +82,11 @@ Scene_Menu::Scene_Menu(MY_Game * _game) :
 	bg3->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("MENU_BG3")->texture);
 	bg4->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("MENU_BG4")->texture);
 	bg5->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("MENU_BG5")->texture);
+	bg1->mesh->setScaleMode(GL_NEAREST);
+	bg2->mesh->setScaleMode(GL_NEAREST);
+	bg3->mesh->setScaleMode(GL_NEAREST);
+	bg4->mesh->setScaleMode(GL_NEAREST);
+	bg5->mesh->setScaleMode(GL_NEAREST);
 	
 	// need to use a NodeUI as a container so that the bg goes behind the menu stuff
 	NodeUI * bgNode = new NodeUI(uiLayer->world);

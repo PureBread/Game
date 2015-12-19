@@ -22,7 +22,8 @@
     {
         "id": "SKY",
         "type": "texture",
-        "src": "sky.png"
+        "src": "sky.png",
+        "generateMipmaps": false
     },
 
     {
@@ -74,14 +75,16 @@
     {
         "id": "LLAMA",
         "type": "texture",
-        "src": "llama!!!!!/smolllama1_white.png"
+        "src": "llama!!!!!/smolllama1_white.png",
+        "generateMipmaps": false
     },
 
 
     {
         "id": "LLAMA_LEADER",
         "type": "texture",
-        "src": "llama!!!!!/smolllama1_black.png"
+        "src": "llama!!!!!/smolllama1_black.png",
+        "generateMipmaps": false
     },
 
     
@@ -202,105 +205,130 @@
     {
     	"id": "MENU_BG1",
     	"type": "texture",
-    	"src": "menu/1.png"
+    	"src": "menu/1.png",
+        "generateMipmaps": false
     },{
     	"id": "MENU_BG2",
     	"type": "texture",
-    	"src": "menu/2.png"
+    	"src": "menu/2.png",
+        "generateMipmaps": false
     },{
     	"id": "MENU_BG3",
     	"type": "texture",
-    	"src": "menu/3.png"
+    	"src": "menu/3.png",
+        "generateMipmaps": false
     },{
     	"id": "MENU_BG4",
     	"type": "texture",
-    	"src": "menu/4.png"
+    	"src": "menu/4.png",
+        "generateMipmaps": false
     },{
         "id": "MENU_BG5",
         "type": "texture",
-        "src": "menu/5.png"
+        "src": "menu/5.png",
+        "generateMipmaps": false
     },
 
     {
         "id": "BUBBLES_1",
         "type": "texture",
-        "src": "BUBBLES/1.png"
+        "src": "BUBBLES/1.png",
+        "generateMipMaps": false
     },{
         "id": "BUBBLES_2",
         "type": "texture",
-        "src": "BUBBLES/2.png"
+        "src": "BUBBLES/2.png",
+        "generateMipMaps": false
     },{
         "id": "BUBBLES_3",
         "type": "texture",
-        "src": "BUBBLES/3.png"
+        "src": "BUBBLES/3.png",
+        "generateMipMaps": false
     },{
         "id": "BUBBLES_4",
         "type": "texture",
-        "src": "BUBBLES/4.png"
+        "src": "BUBBLES/4.png",
+        "generateMipMaps": false
     },{
         "id": "BUBBLES_5",
         "type": "texture",
-        "src": "BUBBLES/5.png"
+        "src": "BUBBLES/5.png",
+        "generateMipMaps": false
     },{
         "id": "BUBBLES_6",
         "type": "texture",
-        "src": "BUBBLES/6.png"
+        "src": "BUBBLES/6.png",
+        "generateMipMaps": false
     },{
         "id": "BUBBLES_7",
         "type": "texture",
-        "src": "BUBBLES/7.png"
+        "src": "BUBBLES/7.png",
+        "generateMipMaps": false
     },{
         "id": "BUBBLES_8",
         "type": "texture",
-        "src": "BUBBLES/8.png"
+        "src": "BUBBLES/8.png",
+        "generateMipMaps": false
     },{
         "id": "BUBBLES_9",
         "type": "texture",
-        "src": "BUBBLES/9.png"
+        "src": "BUBBLES/9.png",
+        "generateMipMaps": false
     },{
         "id": "BUBBLES_10",
         "type": "texture",
-        "src": "BUBBLES/10.png"
+        "src": "BUBBLES/10.png",
+        "generateMipMaps": false
     },{
         "id": "BUBBLES_11",
         "type": "texture",
-        "src": "BUBBLES/11.png"
+        "src": "BUBBLES/11.png",
+        "generateMipMaps": false
     },{
         "id": "BUBBLES_12",
         "type": "texture",
-        "src": "BUBBLES/12.png"
+        "src": "BUBBLES/12.png",
+        "generateMipMaps": false
     },{
         "id": "BUBBLES_13",
         "type": "texture",
-        "src": "BUBBLES/13.png"
+        "src": "BUBBLES/13.png",
+        "generateMipMaps": false
     },{
         "id": "BUBBLES_14",
         "type": "texture",
-        "src": "BUBBLES/14.png"
+        "src": "BUBBLES/14.png",
+        "generateMipMaps": false
     },{
         "id": "BUBBLES_15",
         "type": "texture",
-        "src": "BUBBLES/15.png"
+        "src": "BUBBLES/15.png",
+        "generateMipMaps": false
     },{
         "id": "BUBBLES_16",
         "type": "texture",
-        "src": "BUBBLES/16.png"
+        "src": "BUBBLES/16.png",
+        "generateMipMaps": false
     },{
         "id": "BUBBLES_17",
         "type": "texture",
-        "src": "BUBBLES/17.png"
+        "src": "BUBBLES/17.png",
+        "generateMipMaps": false
     },{
         "id": "BUBBLES_18",
         "type": "texture",
-        "src": "BUBBLES/18.png"
+        "src": "BUBBLES/18.png",
+        "generateMipMaps": false
     },{
         "id": "BUBBLES_19",
         "type": "texture",
-        "src": "BUBBLES/19.png"
+        "src": "BUBBLES/19.png",
+        "generateMipMaps": false
     },{
         "id": "BUBBLES_20",
         "type": "texture",
-        "src": "BUBBLES/20.png"
+        "src": "BUBBLES/20.png",
+        "generateMipMaps": false
     }
   ]
 }

@@ -187,7 +187,7 @@ MY_Scene::MY_Scene(MY_Game * _game) :
 	layerSky->childTransform->addChild(layerSkyMesh, false);
 	layerSkyMesh->childTransform->translate(0,-50,0);
 	layerSkyMesh->meshTransform->translate(0,0.5,0);
-	layerSkyMesh->childTransform->scale(150);
+	layerSkyMesh->childTransform->scale(175);
 
 	layerSkyMesh->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("SKY")->texture);
 	layerSkyMesh->mesh->scaleModeMag = layerSkyMesh->mesh->scaleModeMin = GL_NEAREST;
@@ -275,6 +275,7 @@ MY_Scene::~MY_Scene(){
 
 
 void MY_Scene::update(Step * _step){
+	glm::uvec2 sd = sweet::getWindowDimensions();
 
 
 	// Detect llama clicks
@@ -283,7 +284,6 @@ void MY_Scene::update(Step * _step){
 			Llama * l = manager.levelPath->llamas.at(i);
 
 			// llamas world position, plug into cam world to screen pos, compare against mouse.x mouse.y
-			glm::uvec2 sd = sweet::getWindowDimensions();
 			glm::vec3 pos = activeCamera->worldToScreen(l->center->getWorldPos(), sd);
 			float r = 50;
 
@@ -473,9 +473,7 @@ void MY_Scene::update(Step * _step){
 
 	Scene::update(_step);
 
-	glm::uvec2 sd = sweet::getWindowDimensions();
 	uiLayer->resize(0, sd.x, 0, sd.y);
-	//uiLayer->invalidateLayout();
 	uiLayer->update(_step);
 }
 
@@ -486,9 +484,7 @@ void MY_Scene::render(sweet::MatrixStack * _matrixStack, RenderOptions * _render
 	//Bind frameBuffer
 	screenFBO->bindFrameBuffer();
 	//render the scene to the buffer
-	_renderOptions->clearColour[0] = layerSky->colorReplaceBlack.r;
-	_renderOptions->clearColour[1] = layerSky->colorReplaceBlack.g;
-	_renderOptions->clearColour[2] = layerSky->colorReplaceBlack.b;
+	_renderOptions->setClearColour(layerSky->colorReplaceBlack.r, layerSky->colorReplaceBlack.g, layerSky->colorReplaceBlack.b, 1.f);
 	_renderOptions->depthEnabled = false;
 	_renderOptions->clear();
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
