@@ -137,6 +137,8 @@ void Scene_Menu::update(Step * _step){
 	bg2->firstParent()->translate(x*0.08f + sd.x*0.5f, y*0.08f + sd.y*0.5f, 0, false);
 	bg1->firstParent()->translate(x*0.10f + sd.x*0.5f, y*0.10f + sd.y*0.5f, 0, false);
 
+
+#ifdef _DEBUG
 	if(keyboard->keyJustDown(GLFW_KEY_F11)){
 		game->toggleFullScreen();
 	}
@@ -144,6 +146,7 @@ void Scene_Menu::update(Step * _step){
 	if (keyboard->keyJustDown(GLFW_KEY_2)){
 		Transform::drawTransforms = !Transform::drawTransforms;
 	}
+#endif
 	
 	uiLayer->update(_step);
 	Scene::update(_step);

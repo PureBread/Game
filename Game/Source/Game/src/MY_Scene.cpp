@@ -93,6 +93,7 @@ MY_Scene::MY_Scene(MY_Game * _game) :
 	delete cameras.at(0)->parents.at(0);
 	cameras.pop_back();
 
+#ifdef _DEBUG
 	//Set up debug camera
 	debugCam = new MousePerspectiveCamera();
 	cameras.push_back(debugCam);
@@ -103,6 +104,7 @@ MY_Scene::MY_Scene(MY_Game * _game) :
 	debugCam->yaw = 90.0f;
 	debugCam->pitch = -10.0f;
 	debugCam->speed = 1;
+#endif
 
 	//
 	glm::uvec2 sd = sweet::getWindowDimensions();
@@ -327,17 +329,8 @@ void MY_Scene::update(Step * _step){
 
 
 
-	if(keyboard->keyJustDown(GLFW_KEY_R)){
-		manager.globalEventManager.triggerEvent("gameOver");
-	}
 	manager.globalEventManager.update(_step);
-
-	// screen shader stuff
-	if(keyboard->keyJustDown(GLFW_KEY_L)){
-		screenSurfaceShader->unload();
-		screenSurfaceShader->loadFromFile(screenSurfaceShader->vertSource, screenSurfaceShader->fragSource);
-		screenSurfaceShader->load();
-	}
+	
 	
 	screenSurfaceShader->bindShader();
 	GLint test = glGetUniformLocation(screenSurfaceShader->getProgramId(), "time");
@@ -409,6 +402,16 @@ void MY_Scene::update(Step * _step){
 		game->takeScreenshot();
 	}
 
+#ifdef _DEBUG
+	if(keyboard->keyJustDown(GLFW_KEY_R)){
+		manager.globalEventManager.triggerEvent("gameOver");
+	}
+	// screen shader stuff
+	if(keyboard->keyJustDown(GLFW_KEY_L)){
+		screenSurfaceShader->unload();
+		screenSurfaceShader->loadFromFile(screenSurfaceShader->vertSource, screenSurfaceShader->fragSource);
+		screenSurfaceShader->load();
+	}
 	if (keyboard->keyJustDown(GLFW_KEY_1)){
 		cycleCamera();
 	}if (keyboard->keyJustDown(GLFW_KEY_2)){
@@ -440,28 +443,9 @@ void MY_Scene::update(Step * _step){
 	if (keyboard->keyJustDown(GLFW_KEY_ESCAPE)){
 		game->switchScene("MENU_MAIN", false);
 	}
+#endif
 
 	progress += speed;
-	
-	/*
-	glm::uvec2 _sd = sweet::getWindowDimensions();
-	glm::vec3 pos = activeCamera->worldToScreen(manager.levelPath->llamas.at(0)->center->getWorldPos(), _sd);
-	
-	// distort the llamas actual world position with the surface shader's distortion logic!!! lololol
-	glm::vec2 uv = glm::vec2(pos.x / _sd.x, pos.y / _sd.y);
-	float xd = (0.75 - abs(uv.x - 0.5) - 0.25);
-	float yd = (0.75 - abs(uv.y - 0.5) - 0.25);
-
-	uv.x -= sin((float)sweet::lastTimestamp*0.1001f)*0.1f*xd;
-	uv.y -= sin((float)sweet::lastTimestamp*0.0501f)*0.1f*yd;
-
-	pos.x = uv.x * _sd.x;
-	pos.y = uv.y * _sd.y;
-
-	double mX = mouse->mouseX();
-	double mY = mouse->mouseY();
-	std::cout << "llama " << 0 << "\tscreenPos: " << pos.x << ", " << pos.y << "\tmouse: " << mX << ", " << mY << "\tdiff: " << pos.x - mX << ", " << pos.y - mY << std::endl;
-	*/
 
 	Scene::update(_step);
 
@@ -479,7 +463,6 @@ void MY_Scene::render(sweet::MatrixStack * _matrixStack, RenderOptions * _render
 	_renderOptions->setClearColour(layerSky->colorReplaceBlack.r, layerSky->colorReplaceBlack.g, layerSky->colorReplaceBlack.b, 1.f);
 	_renderOptions->depthEnabled = false;
 	_renderOptions->clear();
-	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	Scene::render(_matrixStack, _renderOptions);
 
 	//Render the buffer to the render surface
