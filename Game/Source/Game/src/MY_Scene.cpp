@@ -486,7 +486,9 @@ void MY_Scene::render(sweet::MatrixStack * _matrixStack, RenderOptions * _render
 	//Bind frameBuffer
 	screenFBO->bindFrameBuffer();
 	//render the scene to the buffer
-	_renderOptions->clearColour[0] = 1;
+	_renderOptions->clearColour[0] = layerSky->colorReplaceBlack.r;
+	_renderOptions->clearColour[1] = layerSky->colorReplaceBlack.g;
+	_renderOptions->clearColour[2] = layerSky->colorReplaceBlack.b;
 	_renderOptions->depthEnabled = false;
 	_renderOptions->clear();
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
