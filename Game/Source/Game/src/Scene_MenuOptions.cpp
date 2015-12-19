@@ -58,8 +58,6 @@ Scene_MenuOptions::Scene_MenuOptions(MY_Game * _game) :
 	vl->background->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("SCROLL_MENU")->texture);
 
 	TextLabel * titleText = new TextLabel(uiLayer->world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, textShader);
-	
-	MY_Button * fullscreenToggle = new MY_Button(uiLayer->world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, 3);
 	MY_Button * casualToggle = new MY_Button(uiLayer->world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, 3);
 	volumeText = new TextLabel(uiLayer->world, MY_ResourceManager::scenario->getFont("HURLY-BURLY")->font, textShader);
 	volume = new Slider(uiLayer->world, NodeOpenAL::getListenerGain(), 0, 2.f);
@@ -67,11 +65,6 @@ Scene_MenuOptions::Scene_MenuOptions(MY_Game * _game) :
 	
 	titleText->setText(L"OPTIONS");
 	titleText->horizontalAlignment = kCENTER;
-	if(sweet::config.fullscreen){
-		fullscreenToggle->setLabel("FULLSCREEN");
-	}else{
-		fullscreenToggle->setLabel("WINDOWED");
-	}
 	if(_game->casualMode){
 		casualToggle->setLabel("CASUAL");
 	}else{
@@ -91,15 +84,6 @@ Scene_MenuOptions::Scene_MenuOptions(MY_Game * _game) :
 
 	back->setLabel("BACK");
 	
-	
-	fullscreenToggle->eventManager.addEventListener("click", [this, fullscreenToggle](sweet::Event *){
-		game->toggleFullScreen();
-		if(sweet::config.fullscreen){
-			fullscreenToggle->setLabel("FULLSCREEN");
-		}else{
-			fullscreenToggle->setLabel("WINDOWED");
-		}
-	});
 	casualToggle->eventManager.addEventListener("click", [this, _game, casualToggle](sweet::Event *){
 		_game->casualMode = !_game->casualMode;
 		if(_game->casualMode){
@@ -113,7 +97,6 @@ Scene_MenuOptions::Scene_MenuOptions(MY_Game * _game) :
 	});
 	
 	vl->addChild(titleText);
-	vl->addChild(fullscreenToggle);
 	vl->addChild(casualToggle);
 	vl->addChild(volumeText);
 	vl->addChild(volume);
