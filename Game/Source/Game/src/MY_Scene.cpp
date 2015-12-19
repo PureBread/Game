@@ -80,22 +80,10 @@ MY_Scene::MY_Scene(MY_Game * _game) :
 	replaceShader->addComponent(replaceShaderComponent);
 	replaceShader->addComponent(hsvShaderComponent);
 	replaceShader->compileShader();
-	replaceShader->unload();
-	replaceShader->load();
 	
 	textShader->setColor(0,0,0);
 
 	screenSurface->uvEdgeMode = GL_CLAMP_TO_EDGE;
-	screenSurface->load();
-
-
-	//maskShader = new ComponentShaderBase(true);
-	//maskShader->addComponent(new ShaderComponentMVP(maskShader));
-	//maskShader->addComponent(new ShaderComponentTexture(maskShader));
-	//maskComponent = new ShaderComponentMask(maskShader);
-	//maskShader->addComponent(maskComponent);
-	//maskShader->compileShader();
-
 
 	textShader->textComponent->setColor(glm::vec3(0.0f, 0.0f, 0.0f));
 
@@ -136,6 +124,15 @@ MY_Scene::MY_Scene(MY_Game * _game) :
 
 	// art layers
 	layerSky = new ArtLayer(replaceShaderComponent);
+	layerSkyMesh = new MeshEntity(MeshFactory::getPlaneMesh(), replaceShader);
+	layerSky->childTransform->addChild(layerSkyMesh, false);
+	layerSkyMesh->childTransform->translate(0,-50,0);
+	layerSkyMesh->meshTransform->translate(0,0.5,0);
+	layerSkyMesh->childTransform->scale(175);
+
+	layerSkyMesh->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("SKY")->texture);
+	layerSkyMesh->mesh->scaleModeMag = layerSkyMesh->mesh->scaleModeMin = GL_NEAREST;
+
 	layerBgDetail = new ContinuousArtScroller("BG5", replaceShader);
 	layerBg = new ContinuousArtScroller("BG4", replaceShader);
 	layerLlamas = new ContinuousArtScroller("BG3", replaceShader);
@@ -183,14 +180,6 @@ MY_Scene::MY_Scene(MY_Game * _game) :
 	}
 
 
-	layerSkyMesh = new MeshEntity(MeshFactory::getPlaneMesh(), replaceShader);
-	layerSky->childTransform->addChild(layerSkyMesh, false);
-	layerSkyMesh->childTransform->translate(0,-50,0);
-	layerSkyMesh->meshTransform->translate(0,0.5,0);
-	layerSkyMesh->childTransform->scale(175);
-
-	layerSkyMesh->mesh->pushTexture2D(MY_ResourceManager::scenario->getTexture("SKY")->texture);
-	layerSkyMesh->mesh->scaleModeMag = layerSkyMesh->mesh->scaleModeMin = GL_NEAREST;
 
 	manager.loadDefaults();
 
