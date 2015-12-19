@@ -122,14 +122,14 @@ void Scene_Menu::update(Step * _step){
 	glm::uvec2 sd = sweet::getWindowDimensions();
 	uiLayer->resize(0, sd.x, 0, sd.y);
 	
-	bg5->firstParent()->scale(sd.x*1.02f, sd.y*1.02f, 1, false);
-	bg4->firstParent()->scale(sd.x*1.04f, sd.y*1.04f, 1, false);
-	bg3->firstParent()->scale(sd.x*1.06f, sd.y*1.06f, 1, false);
-	bg2->firstParent()->scale(sd.x*1.08f, sd.y*1.08f, 1, false);
-	bg1->firstParent()->scale(sd.x*1.10f, sd.y*1.10f, 1, false);
+	bg5->firstParent()->scale(sd.x*1.20f, sd.y*1.20f, 1.f, false);
+	bg4->firstParent()->scale(sd.x*1.22f, sd.y*1.22f, 1.f, false);
+	bg3->firstParent()->scale(sd.x*1.24f, sd.y*1.24f, 1.f, false);
+	bg2->firstParent()->scale(sd.x*1.26f, sd.y*1.26f, 1.f, false);
+	bg1->firstParent()->scale(sd.x*1.28f, sd.y*1.28f, 1.f, false);
 	
-	float x = mouse->mouseX() - sd.x*0.5f;
-	float y = mouse->mouseY() - sd.y*0.5f;
+	float x = mouse->mouseX() - sd.x*0.5f + glm::sin(_step->time*0.5)*500;
+	float y = mouse->mouseY() - sd.y*0.5f + glm::sin(_step->time*0.25)*500;
 
 	bg5->firstParent()->translate(x*0.02f + sd.x*0.5f, y*0.02f + sd.y*0.5f, 0, false);
 	bg4->firstParent()->translate(x*0.04f + sd.x*0.5f, y*0.04f + sd.y*0.5f, 0, false);
