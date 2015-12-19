@@ -33,7 +33,7 @@
             "link": "outcome1"
           },
           {
-            "text": "Tend to wound",
+            "text": "Help the llama",
             "link": "outcome2"
           }
       ]
@@ -46,9 +46,11 @@
           "text": [
               "You scold the llama for being impatient and irresponsible.",
               "The llama quietly bows to your judgment.",
-              "You calmly tell him that he should not have done what he did and help him up.",
-              "The rest of the herd can barely contain their laughter, but you tell them to keep it down.",
-              "Gain food."
+              "You tell him that he should not have done.",
+              "The llama lowers his head in shame as he limps back to the herd.",
+              "He appears to have injured his leg.",
+              "It was his own fault.",
+              "Gain food, lose health."
           ],
           "triggers": [
             {
@@ -56,6 +58,13 @@
               "args": {
                 "statistic": "food",
                 "amount": 10
+              }
+            },
+            {
+              "type": "statisticUpdate",
+              "args": {
+                "statistic": "health",
+                "amount": -5
               }
             }
           ]
@@ -68,9 +77,12 @@
         {
           "speaker": "Speaker 1",
           "text": [
-              "You calmly tell him that he should not have done what he did and help him up.",
-              "The rest of the herd can barely contain their laughter.",
-              "You tell them to keep it down while you try to keep your voice straight.",
+              "You open your eyes to the llama awkwardly lying on the ground, legs sprawled in all directions.",
+              "Everyone laughs at him and you can barely contain your own laughter as you help him up.",
+              "Having become the laughingstock of the herd, the llama yells,",
+              "\"Stop laughing at me! Leave me alone. I hate all of you! Go away!/"",
+              "Despite your best efforts, you are not able to appease him.",
+              "To avoid further argument, you grant his wish and continue along on your journey without him.",
               "Gain food. Lose a llama."
           ],
           "triggers": [

@@ -33,7 +33,7 @@
             "link": "outcome1"
           },
           {
-            "text": "Tend to wound",
+            "text": "Help the llama",
             "link": "outcome2"
           }
       ]
@@ -46,9 +46,9 @@
           "text": [
               "You scold the llama for being impatient and irresponsible.",
               "He does not take kindly to you tone lashes out against you:",
-              "\"You're not my dad! You don't tell me what to do. Go away\".",
-              "Despite your best efforts, you're not able to convince him.",
-              "To avoid further argument, you grant his wish and continue along on your journey with the herd.",
+              "\"You're not my dad! You can't tell me what to do. I never wanted to be in this herd anyway!\"",
+              "Despite your best efforts, you're not able to calm him down.",
+              "To avoid further argument and lost time, the herd continues on the journey without him.",
               "Lose 1 llama, gain food."
           ],
           "triggers": [
@@ -78,8 +78,8 @@
           "text": [
               "You calmly tell him that he should not have done what he did and help him up.",
               "The rest of the herd can barely contain their laughter.",
-              "You tell them to keep it down while you try to keep your voice straight.",
-              "Gain food."
+              "You tell them to keep it down while you try to tend to the llama's wounds.",
+              "Gain food, lose health."
           ],
           "triggers": [
             {
@@ -87,6 +87,13 @@
               "args": {
                 "statistic": "food",
                 "amount": 10
+              }
+            },
+            {
+              "type": "statisticUpdate",
+              "args": {
+                "statistic": "health",
+                "amount": -5
               }
             }
           ]
