@@ -24,11 +24,11 @@
       ],
       "options": [
           {
-            "text": "Offer help to the llama as you pass",
+            "text": "Offer help",
             "link": "outcome"
           },
           {
-            "text": "Continue past without acknowledging the llama",
+            "text": "Continue past",
             "link": "pass_outcome"
           }
       ]
