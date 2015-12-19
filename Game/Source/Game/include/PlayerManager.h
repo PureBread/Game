@@ -43,6 +43,15 @@ public:
 	sweet::EventManager globalEventManager;
 	Markers markers;
 	LevelPath * levelPath;
+
+	/* statistics are:
+	health:		0-100
+	food:		0-100
+	wool:		0-100
+	rations:	0,1,2
+	speed:		0,1,2
+	progress:	continuous
+	*/
 	std::map<std::string, float> statistics;
 
 	// global multipliers applied regardless of player input

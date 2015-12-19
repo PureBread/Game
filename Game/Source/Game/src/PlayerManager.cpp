@@ -128,6 +128,11 @@ void PlayerManager::moment(){
 		statistics["health"] += ((statistics["rations"]-1)*1.5f - (statistics["speed"] - 1))*healthMultiplier;
 	}
 
+	// clamp statistics
+	statistics["health"] = std::max(0.f, std::min(statistics["health"], 100.f));
+	statistics["wool"] = std::max(0.f, std::min(statistics["wool"], 100.f));
+	statistics["food"] = std::max(0.f, std::min(statistics["food"], 100.f));
+
 	// check for events
 	markers.currentPosition = statistics["progress"];
 	markers.update(nullptr);
