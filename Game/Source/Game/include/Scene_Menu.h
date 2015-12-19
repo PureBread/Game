@@ -33,10 +33,6 @@ class ComponentShaderText;
 
 class Scene_Menu : public Scene{
 public:
-	Shader * screenSurfaceShader;
-	RenderSurface * screenSurface;
-	StandardFrameBuffer * screenFBO;
-	
 	ComponentShaderBase * baseShader;
 	ComponentShaderText * textShader;
 	

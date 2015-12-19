@@ -49,9 +49,6 @@
 
 Scene_Menu::Scene_Menu(MY_Game * _game) :
 	Scene(_game),
-	screenSurfaceShader(new Shader("assets/engine basics/DefaultRenderSurface", false, true)),
-	screenSurface(new RenderSurface(screenSurfaceShader)),
-	screenFBO(new StandardFrameBuffer(true)),
 	baseShader(new ComponentShaderBase(true)),
 	textShader(new ComponentShaderText(true)),
 	uiLayer(new UILayer(0,0,0,0))
@@ -109,10 +106,6 @@ Scene_Menu::Scene_Menu(MY_Game * _game) :
 	// reference counting for member variables
 	++baseShader->referenceCount;
 	++textShader->referenceCount;
-
-	++screenSurface->referenceCount;
-	++screenSurfaceShader->referenceCount;
-	++screenFBO->referenceCount;
 }
 
 Scene_Menu::~Scene_Menu(){
@@ -122,10 +115,6 @@ Scene_Menu::~Scene_Menu(){
 	// auto-delete member variables
 	baseShader->decrementAndDelete();
 	textShader->decrementAndDelete();
-
-	screenSurface->decrementAndDelete();
-	screenSurfaceShader->decrementAndDelete();
-	screenFBO->decrementAndDelete();
 }
 
 
@@ -161,47 +150,25 @@ void Scene_Menu::update(Step * _step){
 }
 
 void Scene_Menu::render(sweet::MatrixStack * _matrixStack, RenderOptions * _renderOptions){
-	screenFBO->resize(game->viewPortWidth, game->viewPortHeight);
-	//Bind frameBuffer
-	screenFBO->bindFrameBuffer();
-	//render the scene to the buffer
-	
-	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	_renderOptions->clearColour[0] = 44.f/255.f;
-	_renderOptions->clearColour[1] = 180.f/255.f;
-	_renderOptions->clearColour[2] = 180.f/255.f;
+	_renderOptions->setClearColour(44.f/255.f, 180.f/255.f, 180.f/255.f, 1.f);
 	_renderOptions->depthEnabled = false;
 	_renderOptions->clear();
 	Scene::render(_matrixStack, _renderOptions);
-
-	//Render the buffer to the render surface
-	screenSurface->render(screenFBO->getTextureId());
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	uiLayer->render(_matrixStack, _renderOptions);
 }
 
 void Scene_Menu::load(){
-	Scene::load();	
-
-	screenSurfaceShader->load();
+	Scene::load();
 
 	baseShader->load();
 	textShader->load();
-
-	screenSurface->load();
-	screenFBO->load();
 	uiLayer->load();
 }
 
 void Scene_Menu::unload(){
 	uiLayer->unload();
-	screenFBO->unload();
-	screenSurface->unload();
 
 	textShader->unload();
 	baseShader->unload();
-
-	screenSurfaceShader->unload();
-
 	Scene::unload();	
 }
