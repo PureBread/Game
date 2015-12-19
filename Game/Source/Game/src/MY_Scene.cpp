@@ -384,8 +384,11 @@ void MY_Scene::update(Step * _step){
 	// visual update stuff
 	float x = manager.statistics["progress"];//activeCamera->parents.at(0)->getTranslationVector().x;
 	glm::vec3 v = playerCam->firstParent()->getTranslationVector();
-	playerCam->firstParent()->translate(v.x + ((x-1)*50.f - v.x)*_step->deltaTimeCorrection*0.05f, v.y, v.z, false);
-
+	if(manager.levelPath->llamas.size() > 0){
+		float x2 = manager.levelPath->llamas.at(0)->center->getWorldPos().x/50.f + 0.33f;
+		playerCam->firstParent()->translate(v.x + (x2*50.f - v.x)*_step->deltaTimeCorrection*0.05f, v.y, v.z, false);
+		x = x2+1;
+	}
 	
 	{
 		// update sky layer
