@@ -20,7 +20,8 @@
 		"TreatsForAllB"
 	],
 	"destinationEvents": [
-		"1Andes",
-		"2SaltFlats"
+		"ANDES",
+		"SALT_FLATS",
+		"MACHU_PICCHU"
 	]
 }

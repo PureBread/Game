@@ -1,0 +1,79 @@
+{
+  "assets": [],
+  "characters": [],
+  "conversations": [
+    {
+      "id": "intro",
+      "dialogue": [
+        {
+          "speaker": "Speaker 1",
+          "text": [
+              "blah blah intro"
+          ]
+        }
+      ],
+
+      "options": [
+      {
+        "text": "",
+        "link": "scene1"
+      }
+      ]
+    },
+    {
+      "id": "scene1",
+      "dialogue": [
+        {
+          "speaker": "Speaker 1",
+          "text": [
+              "blah blah quetion?"
+          ],
+          "triggers": [
+            {
+              "type": "destinationUpdate",
+              "args": {}
+            }
+          ]
+        }
+      ],
+          "options": [
+          {
+            "text": "Yes",
+            "link": "facts"
+          },
+          {
+            "text": "No",
+            "link": "leave"
+          }
+        ]
+    },
+    {
+      "id": "facts",
+      "dialogue": [
+        {
+          "speaker": "Speaker 1",
+          "text": [
+              "blah blah facts"
+          ]
+        }
+      ],
+          "options": [
+          {
+            "text": "",
+            "link": "leave"
+          }
+        ]
+    },
+    {
+      "id": "leave",
+      "dialogue": [
+        {
+          "speaker": "Speaker 1",
+          "text": [
+              "blah blah leave"
+          ]
+        }
+      ]
+    }
+  ]
+}

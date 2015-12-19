@@ -161,10 +161,22 @@
     },
 
     {
-        "id": "1Andes",
+        "id": "ANDES",
         "type": "audio",
         "src": "Andes.ogg"
     },{
+        "id": "SALT_FLATS",
+        "type": "audio",
+        "src": "Salt Flats.ogg"
+    },{
+        "id": "MACHU_PICCHU",
+        "type": "audio",
+        "src": "Machu Picchu.ogg"
+    },
+
+
+
+    {
         "id": "BUTTON1",
         "type": "audio",
         "src": "Button SFX2.ogg"
