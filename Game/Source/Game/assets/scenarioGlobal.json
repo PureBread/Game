@@ -175,6 +175,10 @@
         "id": "MACHU_PICCHU",
         "type": "audio",
         "src": "Machu Picchu.ogg"
+    },{
+        "id": "GAME_OVER",
+        "type": "audio",
+        "src": "Andes.ogg"
     },
 
 
