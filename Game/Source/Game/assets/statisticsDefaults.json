@@ -1,12 +1,12 @@
 {
 	"statistics" : 
 	{
-		"food" : 50,
+		"food" : 100,
 		"health" : 100,
-		"wool" : 50,
+		"wool" : 10,
 		"speed" : 1,
 		"rations" : 1,
-		"herdSize" : 6,
+		"herdSize" : 5,
 		"progress": 0
 	}
 }
