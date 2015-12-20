@@ -3,7 +3,7 @@
       {  
          "id":"Sfx_ATemptingOffer",
          "type":"audio",
-         "src":"Sfx_ATemptingOffer.ogg"
+         "src":"events/Sfx_ATemptingOffer.ogg"
       }
   ],
   "characters": [  ],

@@ -3,7 +3,7 @@
       {  
          "id":"Sfx_ASmallDetour",
          "type":"audio",
-         "src":"Sfx_ASmallDetour.ogg"
+         "src":"events/Sfx_ASmallDetour.ogg"
       }
   ],
   "characters": [],

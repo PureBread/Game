@@ -1,5 +1,10 @@
 {
   "assets": [
+      {  
+         "id":"Sfx_BeastsOfTheForest",
+         "type":"audio",
+         "src":"events/Sfx_BeastsOfTheForest.ogg"
+      }
   ],
   "characters": [
     {
@@ -15,7 +20,20 @@
         {
           "speaker": "Speaker 1",
           "text": [
-              "As you get deeper into the lower forest regions, you start hearing distant growls in the night.",
+              "As you get deeper into the lower forest regions, you start hearing distant growls in the night."
+          ],
+          "triggers":[  
+            {  
+               "type":"sfx",
+               "args":{  
+                  "name":"Sfx_BeastsOfTheForest"
+               }
+            }
+          ]
+        },
+         {
+          "speaker": "Speaker 1",
+          "text": [
               "One night you spot two golden eyes staring at you in the dark of night.",
               "You can't be sure about it, but you fear a jaguar is on your trail.",
               "Your mother warned you about these large, black cats when you were young.",

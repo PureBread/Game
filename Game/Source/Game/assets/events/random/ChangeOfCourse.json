@@ -1,13 +1,12 @@
 {
   "assets": [
+      {  
+         "id":"Sfx_ASmallDetour",
+         "type":"audio",
+         "src":"events/Sfx_ASmallDetour.ogg"
+      }
   ],
-  "characters": [
-    {
-
-    },{
-        
-    }
-  ],
+  "characters": [ ],
   "conversations": [
     {
       "id": "intro",
