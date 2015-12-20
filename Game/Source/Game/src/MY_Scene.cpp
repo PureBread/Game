@@ -52,7 +52,6 @@
 #include <Llama.h>
 #include <SpeechBubble.h>
 
-#include <VCam.h>
 
 MY_Scene::MY_Scene(MY_Game * _game) :
 	Scene(_game),
