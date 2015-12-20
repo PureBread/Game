@@ -392,8 +392,9 @@ void MY_Scene::update(Step * _step){
 	manager.levelPath->colorReplaceWhite = manager.markers.coloursReplaceBlack[NUM_LAYERS-2];
 	
 	if(keyboard->keyJustDown(GLFW_KEY_F12)){
-		//game->toggleFullScreen();
 		game->takeScreenshot();
+	}if (keyboard->keyJustDown(GLFW_KEY_ESCAPE)){
+		game->switchScene("MENU_MAIN", false);
 	}
 
 #ifdef _DEBUG
@@ -431,11 +432,6 @@ void MY_Scene::update(Step * _step){
 	}
 	if (keyboard->keyDown(GLFW_KEY_RIGHT)){
 		activeCamera->firstParent()->translate((activeCamera->rightVectorRotated) * camSpeed);
-	}
-
-
-	if (keyboard->keyJustDown(GLFW_KEY_ESCAPE)){
-		game->switchScene("MENU_MAIN", false);
 	}
 #endif
 
