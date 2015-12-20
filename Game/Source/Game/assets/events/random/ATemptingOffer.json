@@ -1,13 +1,12 @@
 {
   "assets": [
+      {  
+         "id":"Sfx_ATemptingOffer",
+         "type":"audio",
+         "src":"Sfx_ATemptingOffer.ogg"
+      }
   ],
-  "characters": [
-    {
-
-    },{
-        
-    }
-  ],
+  "characters": [  ],
   "conversations": [
     {
       "id": "intro",
@@ -18,7 +17,20 @@
               "You come across a sign with some writing on it.",
               "It reads: \"Are you a single, male llama?",
               "Are you looking for a soul mate?",
-              "I am female llama waiting for my llama prince to sweep me off my feet.",
+              "I am female llama waiting for my llama prince to sweep me off my feet."
+          ],
+          "triggers":[  
+            {  
+               "type":"sfx",
+               "args":{  
+                  "name":"Sfx_ATemptingOffer"
+               }
+            }
+          ]
+        },
+        {
+          "speaker": "Speaker 1",
+          "text": [
               "P.S. I'm totally not a leopard trying to prey on young llamas.",
               "Find me in the shack by the hill.\""
           ]

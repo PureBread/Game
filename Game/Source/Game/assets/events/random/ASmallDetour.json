@@ -1,13 +1,12 @@
 {
   "assets": [
+      {  
+         "id":"Sfx_ASmallDetour",
+         "type":"audio",
+         "src":"Sfx_ASmallDetour.ogg"
+      }
   ],
-  "characters": [
-    {
-
-    },{
-        
-    }
-  ],
+  "characters": [],
   "conversations": [
     {
       "id": "intro",
@@ -15,7 +14,20 @@
         {
           "speaker": "Speaker 1",
           "text": [
-              "Due to the recent rainfall, a mudslide has obstructed your path along the cliffs.",
+              "Due to the recent rainfall, a mudslide has obstructed your path along the cliffs."
+          ],
+          "triggers":[  
+            {  
+               "type":"sfx",
+               "args":{  
+                  "name":"Sfx_ASmallDetour"
+               }
+            }
+          ]
+        },
+        {
+          "speaker": "Speaker 1",
+          "text": [
               "Do you wait for the path to clear up or do you make a detour around the other side of the mountain?"
           ]
         }

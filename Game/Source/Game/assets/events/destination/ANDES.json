@@ -1,14 +1,6 @@
 {  
-   "assets":[  
-      {  
-         "id":"CHIRP",
-         "type":"audio",
-         "src":"chirp.ogg"
-      }
-   ],
-   "characters":[  
-
-   ],
+   "assets":[ ],
+   "characters":[ ],
    "conversations":[  
       {  
          "id":"intro",
@@ -24,14 +16,6 @@
                   "The Incan gods called down to you, declaring that the herd was in danger.",
                   "In their brief moment of revelation, they didn't say how exactly, but that's not what matters at this point.",
                   "They urged that the only way to save the herd was to find the Place of Divination."
-               ],
-               "triggers":[  
-                  {  
-                     "type":"sfx",
-                     "args":{  
-                        "name":"CHIRP"
-                     }
-                  }
                ]
             }
          ],

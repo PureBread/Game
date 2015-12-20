@@ -1,13 +1,12 @@
 {
   "assets": [
-  ],
-  "characters": [
     {
-
-    },{
-        
+      "id": "Sfx_ALlamasDayOut",
+      "type": "audio",
+      "src": "events/Sfx_ALlama’sDayOut.ogg"
     }
   ],
+  "characters": [],
   "conversations": [
     {
       "id": "intro",
@@ -19,7 +18,15 @@
               "Walking for a long time is even more tedious.",
               "One of the herd mentions that he has broken his ankle and can walk no more.",
               "Miraculously, there is a therapeutic llama care centre not too far off."
-          ]
+          ],
+               "triggers":[  
+                  {  
+                     "type":"sfx",
+                     "args":{  
+                        "name":"Sfx_ALlamasDayOut"
+                     }
+                  }
+               ]
         }
       ],
       "options": [
