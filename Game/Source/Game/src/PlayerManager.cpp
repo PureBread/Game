@@ -20,12 +20,12 @@ Event::Event(EventType _type, Scenario * _scenario) :
 PlayerManager::PlayerManager(ShaderComponentReplace * _replaceComponent) :
 	momentDelay(0.016f),
 	momentTimer(0),
-	speedMultiplier(0.001f),
-	woolMultiplier(0.0005f),
-	rationsMultiplier(0.0005f),
+	speedMultiplier(0.0015f),
+	woolMultiplier(0.0015f),
+	rationsMultiplier(0.003f),
 	healthMultiplier(0.005f),
-	randomEventBaseChance(0.2f),
-	lossEventBaseChance(0.2f),
+	randomEventBaseChance(0.15f),
+	lossEventBaseChance(0.3f),
 	eventToTrigger(nullptr),
 	destinationEvent(""),
 	levelPath(new LevelPath("walkLayer.png", _replaceComponent))
