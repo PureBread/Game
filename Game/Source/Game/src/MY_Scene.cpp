@@ -52,6 +52,7 @@
 #include <Llama.h>
 #include <SpeechBubble.h>
 
+#include <Step.h>
 
 MY_Scene::MY_Scene(MY_Game * _game) :
 	Scene(_game),
@@ -329,7 +330,7 @@ void MY_Scene::update(Step * _step){
 	GLint test = glGetUniformLocation(screenSurfaceShader->getProgramId(), "time");
 	checkForGlError(0,__FILE__,__LINE__);
 	if(test != -1){
-		glUniform1f(test, (float)sweet::lastTimestamp);
+		glUniform1f(test, (float)_step->lastTimestamp);
 		checkForGlError(0,__FILE__,__LINE__);
 	}
 	
