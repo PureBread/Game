@@ -183,6 +183,8 @@
 
 
 
+
+
     {
         "id": "BUTTON1",
         "type": "audio",
@@ -203,6 +205,29 @@
         "id": "EVENT_CLOSE",
         "type": "audio",
         "src": "Event SFX3.ogg"
+    },
+
+
+    {
+        "id": "LLAMA_1",
+        "type": "audio",
+        "src": "Llama SFX1.ogg"
+    },{
+        "id": "LLAMA_2",
+        "type": "audio",
+        "src": "Llama SFX2.ogg"
+    },{
+        "id": "LLAMA_3",
+        "type": "audio",
+        "src": "Llama SFX3.ogg"
+    },{
+        "id": "LLAMA_4",
+        "type": "audio",
+        "src": "Llama SFX4.ogg"
+    },{
+        "id": "LLAMA_5",
+        "type": "audio",
+        "src": "Llama SFX5.ogg"
     },
 
 

@@ -56,6 +56,13 @@ void SpeechBubble::enable(){
 	
 	// scale to match texture
 	childTransform->scale(tex->width, tex->height, 1, false);
+
+	// load new sound and randomize pitch
+	ss.str(std::string());
+	ss << "LLAMA_" << sweet::NumberUtils::randomInt(1, 5);
+	OpenAL_Sound * s = MY_ResourceManager::scenario->getAudio(ss.str())->sound;
+	s->setPitch(sweet::NumberUtils::randomInt(5,15)/10.f);
+	s->play();
 }
 
 void SpeechBubble::setPos(glm::vec3 _pos){

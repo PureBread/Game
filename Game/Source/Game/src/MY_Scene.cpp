@@ -293,9 +293,6 @@ void MY_Scene::update(Step * _step){
 			double mY = mouse->mouseY();
 
 			if (glm::distance2(glm::vec2(mX, mY), glm::vec2(pos.x, pos.y)) < r*r){
-				std::stringstream ss;
-				ss << "LLAMA_BLEET" << sweet::NumberUtils::randomInt(1, 3);
-				MY_ResourceManager::scenario->getAudio(ss.str())->sound->play();
 				// if the llama doesn't have a speech bubble yet, make one here
 				if (l->speechBubble == nullptr){
 					l->speechBubble = new SpeechBubble(uiLayer->shader, activeCamera, l);
