@@ -57,14 +57,14 @@
               "type": "statisticUpdate",
               "args": {
                 "statistic": "food",
-                "amount": -5
+                "amount": 5
               }
             },
             {
               "type": "statisticUpdate",
               "args": {
                 "statistic": "wool",
-                "amount": 5
+                "amount": -5
               }
             }
           ]
