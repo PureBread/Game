@@ -39,11 +39,11 @@
         {
           "speaker": "Speaker 1",
           "text": [
-              "Your party continues at the loss of that llama, yet the next day some more food goes missing.",
-              "You backtrack to where you left the llama and recruit him back into the party.",
-              "Fortunately for you, no food goes missing the next day.",
-              "The culprit must have learned their lesson after fearing expulsion from the herd.",
-              "Lose some food"
+              "You tell the suspect to pack his bags and leave.",
+              "As he is bidding tearful farewells to all his friends, you suddenly have a flashback to earlier that morning.",
+              "In the flash back you are eating breakfast...wait...you are eating your second breakfast.",
+              "You must have forgotten about already eating it.",
+              "You clear your throat and announce that since you're feeling gracious today, so you've decided to let him stay."
           ],
           "triggers": [
             {
@@ -65,7 +65,7 @@
           "text": [
               "You investigate the matter and challenge the accusation until concrete proof is found.",
               "You find out it was actually him.",
-              "You discipline the llama by abstaining him of second breakfast for five days.",
+              "You discipline the llama by sending him to bed without dinner.",
               "That'll teach him!",
               "That night, the llama steals some more food and runs away from the herd.",
               "Good riddance.",
