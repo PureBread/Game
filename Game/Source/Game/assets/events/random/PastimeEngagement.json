@@ -1,0 +1,99 @@
+{
+  "assets": [
+  ],
+  "characters": [
+    {
+
+    },{
+        
+    }
+  ],
+  "conversations": [
+    {
+      "id": "intro",
+      "dialogue": [
+        {
+          "speaker": "Speaker 1",
+          "text": [
+              "You wander into a small hamlet and decide to trade with the humans there.",
+              "You see some little humans chasing after a round ball.",
+              "One of the little humans kicks the ball in your direction, and it stumbles in front of you.",
+              "The little human points towards the ball, expecting you to give it to him."
+          ]
+        }
+      ],
+      "options": [
+          {
+            "text": "Kick it away",
+            "link": "outcome1"
+          },
+          {
+            "text": "Kick towards him",
+            "link": "outcome2"
+          }
+      ]
+    },
+    {
+      "id": "outcome1",
+      "dialogue": [
+        {
+          "speaker": "Speaker 1",
+          "text": [
+              "You kick the ball away from the little human.",
+              "He frowns at you and goes over the round object to retrieve it.",
+              "You trade your wool for food and continue on your merry way.",
+              "Gain some food, lose some wool."
+          ],
+          "triggers": [
+            {
+              "type": "statisticUpdate",
+              "args": {
+                "statistic": "food",
+                "amount": 5
+              }
+            },
+            {
+              "type": "statisticUpdate",
+              "args": {
+                "statistic": "wool",
+                "amount": -5
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "outcome2",
+      "dialogue": [
+        {
+          "speaker": "Speaker 1",
+          "text": [
+              "You kick the ball back towards the little human.",
+              "He regards your gesture and smiles.",
+              "Later as you are speaking to the big humans to trade, the little human comes running and whispers something into the ear of the big human.",
+              "The big human looks at the round object and smiles at you.",
+              "You trade your wool for some food, but the big human gives you extra bags of feed for no obvious reason.",
+              "Gain food, lose some wool."
+          ],
+          "triggers": [
+            {
+              "type": "statisticUpdate",
+              "args": {
+                "statistic": "food",
+                "amount": 10
+              }
+            },
+            {
+              "type": "statisticUpdate",
+              "args": {
+                "statistic": "wool",
+                "amount": -5
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "assets": [
+  ],
+  "characters": [
+    {
+
+    },{
+        
+    }
+  ],
+  "conversations": [
+    {
+      "id": "intro",
+      "dialogue": [
+        {
+          "speaker": "Speaker 1",
+          "text": [
+              "Your journey takes you along a long meandering river.",
+              "You’re glad to be by its side for its water which you can drink and take frequent baths in.",
+              "You encounter several colourful birds by the trees along the banks.",
+              "As you prepare to stop for the night beside a nice sandy spot, one flock of parrots comes down from a tree and warns you of caiman residing in the river.",
+              "Never having seen one, you ask the parrots what it is.",
+              "They explain it’s a large lizard-like reptile with large, sharp teeth which eats anything that goes near the river."
+          ]
+        }
+      ],
+      "options": [
+          {
+            "text": "Leave the area",
+            "link": "outcome1"
+          },
+          {
+            "text": "Stay the night",
+            "link": "outcome2"
+          }
+      ]
+    },
+    {
+      "id": "outcome1",
+      "dialogue": [
+        {
+          "speaker": "Speaker 1",
+          "text": [
+              "You decide the nice sandy spot isn’t worth risking your life for.",
+              "While trying to gather the herd, you count one less llama.",
+              "You glance towards the river and see ripples around a long, dark shadow within the water.",
+              "Hoping that the llama escaped by itself, you quickly lead the herd away from the river.",
+              "Lose 1 llama and some health."
+          ],
+          "triggers": [
+            {
+              "type": "statisticUpdate",
+              "args": {
+                "statistic": "herdSize",
+                "amount": -1
+              }
+            },
+            {
+              "type": "statisticUpdate",
+              "args": {
+                "statistic": "health",
+                "amount": -5
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "outcome2",
+      "dialogue": [
+        {
+          "speaker": "Speaker 1",
+          "text": [
+              "You decide to stay the night by the river.",
+              "Wary of any possible threats, the herd takes turns keeping watch.",
+              "Nothing of importance happens that night.",
+              "You wake up beside a beautiful spot beside the river and depart on your journey.",
+          ]
+        }
+      ]
+    }
+  ]
+}

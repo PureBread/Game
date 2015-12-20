@@ -1,0 +1,75 @@
+{
+  "assets": [
+  ],
+  "characters": [
+    {
+
+    },{
+        
+    }
+  ],
+  "conversations": [
+    {
+      "id": "intro",
+      "dialogue": [
+        {
+          "speaker": "Speaker 1",
+          "text": [
+              "You notice a large lake with pink water in the distance.",
+              "The pink water turns out to be a large group of birds roosting by the water.",
+              "What looks to be a tall, pink bird approaches you and tells you that she is a flamingo and that she is looking for her son, who seems to have run your way.",
+              "You tell her no, having not seen any bird fly your way.",
+              "But she tells you that flamingos can’t fly and asks for your help to track him."
+          ]
+        }
+      ],
+      "options": [
+          {
+            "text": "Move on",
+            "link": "outcome1"
+          },
+          {
+            "text": "Help her out",
+            "link": "outcome2"
+          }
+      ]
+    },
+    {
+      "id": "outcome1",
+      "dialogue": [
+        {
+          "speaker": "Speaker 1",
+          "text": [
+              "Telling her you have no time for idle chit chat, you move past her.",
+              "But from request by the herd, you stop by the lake for some fun in the water before eventually continuing."            
+          ]
+        }
+      ]
+    },
+    {
+      "id": "outcome2",
+      "dialogue": [
+        {
+          "speaker": "Speaker 1",
+          "text": [
+              "You search around the area, but to no avail.",
+              "You don’t find the son.",
+              "Having given up the search, you’re about to break the news to the mother, when suddenly your pack starts to shake and strange noises emerge from within it.",
+              "Upon closer inspection it turns out that the baby flamingo had indeed tried to get into your pack.",
+              "The mother rewards you with some feed for helping her out and returns to the lake along with her offspring.",
+              "Gain food."
+          ],
+          "triggers": [
+            {
+              "type": "statisticUpdate",
+              "args": {
+                "statistic": "food",
+                "amount": 10
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
