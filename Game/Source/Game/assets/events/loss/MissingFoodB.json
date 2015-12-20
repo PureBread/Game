@@ -1,13 +1,12 @@
 {
   "assets": [
+      {  
+         "id":"Sfx_MissingFood",
+         "type":"audio",
+         "src":"events/Sfx_MissingFood.ogg"
+      }
   ],
-  "characters": [
-    {
-
-    },{
-        
-    }
-  ],
+  "characters": [],
   "conversations": [
     {
       "id": "intro",
@@ -15,7 +14,20 @@
         {
           "speaker": "Speaker 1",
           "text": [
-              "You open your packs to have a second breakfast, only to find that it is nowhere in sight.",
+              "You open your packs to have a second breakfast, only to find that it is nowhere in sight."
+          ],
+          "triggers":[  
+            {  
+               "type":"sfx",
+               "args":{  
+                  "name":"Sfx_MissingFood"
+               }
+            }
+          ]
+        },
+        {
+          "speaker": "Speaker 1",
+          "text": [
               "Someone accuses a young llama sneaking around last night.",
               "Reflecting back, he was known for his mischievous nature.",
               "Do you:"

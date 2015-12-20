@@ -1,9 +1,9 @@
 {
   "assets": [
       {  
-         "id":"Sfx_ASmallDetour",
+         "id":"Sfx_ChangeOfCourse",
          "type":"audio",
-         "src":"events/Sfx_ASmallDetour.ogg"
+         "src":"events/Sfx_ChangeOfCourse.ogg"
       }
   ],
   "characters": [ ],
@@ -16,6 +16,14 @@
           "text": [
               "A young llama from the herd approaches you and tell you that the Incan gods talked to her last night.",
               "She says that she was told to lead the herd towards a small waterfall."
+          ],
+          "triggers":[  
+            {  
+               "type":"sfx",
+               "args":{  
+                  "name":"Sfx_ChangeOfCourse"
+               }
+            }
           ]
         }
       ],

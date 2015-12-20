@@ -1,13 +1,12 @@
 {
   "assets": [
+      {  
+         "id":"Sfx_ForkInTheRoad",
+         "type":"audio",
+         "src":"events/Sfx_ForkInTheRoad.ogg"
+      }
   ],
-  "characters": [
-    {
-
-    },{
-        
-    }
-  ],
+  "characters": [],
   "conversations": [
     {
       "id": "intro",
@@ -16,7 +15,20 @@
           "speaker": "Speaker 1",
           "text": [
               "The dirt road you'd been following lately breaks into two.",
-              "You know not which direction will lead you to the Place of Divination.",
+              "You know not which direction will lead you to the Place of Divination."
+          ],
+          "triggers":[  
+            {  
+               "type":"sfx",
+               "args":{  
+                  "name":"Sfx_ForkInTheRoad"
+               }
+            }
+          ]
+        },
+        {
+          "speaker": "Speaker 1",
+          "text": [
               "You're conscious of the herd's curious eyes on you."
           ]
         }

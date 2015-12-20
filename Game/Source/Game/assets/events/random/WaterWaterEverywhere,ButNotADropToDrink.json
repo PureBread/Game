@@ -1,13 +1,12 @@
 {
   "assets": [
+      {  
+         "id":"Sfx_WaterWaterEverywhere",
+         "type":"audio",
+         "src":"events/Sfx_WaterWaterEverywhere.ogg"
+      }
   ],
-  "characters": [
-    {
-
-    },{
-        
-    }
-  ],
+  "characters": [],
   "conversations": [
     {
       "id": "intro",
@@ -45,9 +44,31 @@
               "Having given up on your futile effort, you continue forward with a low morale.",
               "All of a sudden you hear a thunderclap in the sky.",
               "Clouds start forming out of thin air.",
-              "The gods have answered your prayers.",
+              "The gods have answered your prayers."
+          ],
+          "triggers": [
+            {
+              "type": "statisticUpdate",
+              "args": {
+                "statistic": "health",
+                "amount": 5
+              }
+            }
+          ]
+        },
+        {
+          "speaker": "Speaker 1",
+          "text": [
               "Rain starts to fall from the skies and you quench your thirst.",
               "Gain some health."
+          ],
+          "triggers": [
+            {
+              "type": "sfx",
+               "args":{  
+                  "name":"Sfx_WaterWaterEverywhere"
+               }
+            }
           ],
           "triggers": [
             {
@@ -69,7 +90,29 @@
           "text": [
               "You continue forward with a low morale, your excessive thirst a constant reminder.",
               "A day passes.",
-              "Eventually you find a meandering river in your path.",
+              "Eventually you find a meandering river in your path."
+          ],
+          "triggers": [
+            {
+              "type": "sfx",
+               "args":{  
+                  "name":"Sfx_WaterWaterEverywhere"
+               }
+            }
+          ],
+          "triggers": [
+            {
+              "type": "statisticUpdate",
+              "args": {
+                "statistic": "health",
+                "amount": -5
+              }
+            }
+          ]
+        },
+        {
+          "speaker": "Speaker 1",
+          "text": [
               "You quench your thirst there.",
               "But not fast enough.",
               "The absence of water on the travelling herd takes its toll.",
