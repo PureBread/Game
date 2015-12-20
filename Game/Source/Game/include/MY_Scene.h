@@ -44,12 +44,8 @@ public:
 	ShaderComponentReplace * replaceShaderComponent;
 	ShaderComponentHsv * hsvShaderComponent;
 	ComponentShaderText * textShader;
-
-	//ComponentShaderBase * maskShader;
-	//ShaderComponentMask * maskComponent;
 	
 	PerspectiveCamera * playerCam;
-	
 	MousePerspectiveCamera * debugCam;
 
 	PlayerManager manager;

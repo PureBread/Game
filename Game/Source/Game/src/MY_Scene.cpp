@@ -292,20 +292,17 @@ void MY_Scene::update(Step * _step){
 			double mX = mouse->mouseX();
 			double mY = mouse->mouseY();
 
-			if (l->leader == nullptr){
-				std::cout << "llama " << 0 << "\tscreenPos: " << pos.x << ", " << pos.y << "\tmouse: " << mX << ", " << mY << "\tdiff: " << pos.x - mX << ", " << pos.y - mY << std::endl;
-			}
 			if (glm::distance2(glm::vec2(mX, mY), glm::vec2(pos.x, pos.y)) < r*r){
-				std::cout << "Llama clicked! " << i << std::endl;
 				std::stringstream ss;
 				ss << "LLAMA_BLEET" << sweet::NumberUtils::randomInt(1, 3);
 				MY_ResourceManager::scenario->getAudio(ss.str())->sound->play();
-				// this sucks
+				// if the llama doesn't have a speech bubble yet, make one here
 				if (l->speechBubble == nullptr){
 					l->speechBubble = new SpeechBubble(uiLayer->shader, activeCamera, l);
 					bubbleNode->childTransform->addChild(l->speechBubble);
 				}
 
+				// trigger a random speech bubble sound/image
 				l->speechBubble->enable();
 				break;
 			}

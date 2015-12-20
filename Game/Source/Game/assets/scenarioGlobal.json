@@ -333,6 +333,46 @@
         "type": "texture",
         "src": "BUBBLES/20.png",
         "generateMipMaps": false
+    },{
+        "id": "BUBBLES_21",
+        "type": "texture",
+        "src": "BUBBLES/21.png",
+        "generateMipMaps": false
+    },{
+        "id": "BUBBLES_22",
+        "type": "texture",
+        "src": "BUBBLES/22.png",
+        "generateMipMaps": false
+    },{
+        "id": "BUBBLES_23",
+        "type": "texture",
+        "src": "BUBBLES/23.png",
+        "generateMipMaps": false
+    },{
+        "id": "BUBBLES_24",
+        "type": "texture",
+        "src": "BUBBLES/24.png",
+        "generateMipMaps": false
+    },{
+        "id": "BUBBLES_25",
+        "type": "texture",
+        "src": "BUBBLES/25.png",
+        "generateMipMaps": false
+    },{
+        "id": "BUBBLES_26",
+        "type": "texture",
+        "src": "BUBBLES/26.png",
+        "generateMipMaps": false
+    },{
+        "id": "BUBBLES_27",
+        "type": "texture",
+        "src": "BUBBLES/27.png",
+        "generateMipMaps": false
+    },{
+        "id": "BUBBLES_28",
+        "type": "texture",
+        "src": "BUBBLES/28.png",
+        "generateMipMaps": false
     }
   ]
 }

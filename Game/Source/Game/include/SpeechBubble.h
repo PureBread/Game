@@ -5,7 +5,7 @@
 class Camera;
 class Llama;
 
-#define NUM_BUBBLES 20
+#define NUM_BUBBLES 28
 
 class SpeechBubble : public Sprite{
 public:

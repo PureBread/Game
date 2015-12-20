@@ -54,6 +54,7 @@ void SpeechBubble::enable(){
 	Texture * tex = MY_ResourceManager::scenario->getTexture(ss.str())->texture;
 	mesh->pushTexture2D(tex);
 	
+	// scale to match texture
 	childTransform->scale(tex->width, tex->height, 1, false);
 }
 
