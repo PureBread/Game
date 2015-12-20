@@ -31,7 +31,6 @@
     <ClCompile Include="src\SpeechBubble.cpp" />
     <ClCompile Include="src\UI_Controls.cpp" />
     <ClCompile Include="src\UI_Event.cpp" />
-    <ClCompile Include="src\VCam.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ArtLayer.h" />
@@ -53,7 +52,6 @@
     <ClInclude Include="include\SpeechBubble.h" />
     <ClInclude Include="include\UI_Controls.h" />
     <ClInclude Include="include\UI_Event.h" />
-    <ClInclude Include="include\VCam.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
