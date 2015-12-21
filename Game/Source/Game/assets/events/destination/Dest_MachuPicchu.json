@@ -13,8 +13,6 @@
               "As you're climbing it, you start to notice ruins atop the crest.",
               "You've arrived at Machu Picchu, the once lost city of the Incans.",
               "There isn’t much happening here right now, but you see curators working on restoring the crumbled buildings.",
-              "You decide to try and stock up on supplies.",
-              "You take all of the wool accumulated from your trip back up the mountains and trade it with the locals for some flour. (Food and Health refilled, Wool emptied)",
               "You see a sign directing tourists towards the entrance.",
               "Do you want to stay and take a tour?"
           ],
@@ -69,6 +67,8 @@
           "text": [
               "you take a quick selfie as a keepsake.",
               "As cool as the city was, you realize that this isn't the Place of Divination.",
+              "You decide to stock up on supplies, taking all of the wool accumulated from your trip and trade it with the locals for some flour.",
+              "(Food and Health refilled, Wool emptied)",
               "You continue your northward march through the mountain range."
           ]
         }
