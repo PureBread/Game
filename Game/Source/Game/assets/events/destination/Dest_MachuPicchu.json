@@ -12,24 +12,7 @@
               "Large swaths of rocky outcrops bar your way, forcing you to climb your way forward.",
               "As you're climbing it, you start to notice ruins atop the crest.",
               "You've arrived at Machu Picchu, the once lost city of the Incans.",
-              "There isn’t much happening here right now, but you see curators working on restoring the crumbled buildings."
-          ]
-        }
-      ],
-
-      "options": [
-      {
-        "text": "",
-        "link": "scene1"
-      }
-      ]
-    },
-    {
-      "id": "scene1",
-      "dialogue": [
-        {
-          "speaker": "Speaker 1",
-          "text": [
+              "There isn’t much happening here right now, but you see curators working on restoring the crumbled buildings.",
               "You decide to try and stock up on supplies.",
               "You take all of the wool accumulated from your trip back up the mountains and trade it with the locals for some flour. (Food and Health refilled, Wool emptied)",
               "You see a sign directing tourists towards the entrance.",
@@ -61,11 +44,14 @@
           "speaker": "Speaker 1",
           "text": [
               "One of the curators begins the tour.",
-              "She takes you through the city, passing several broken structures scattered throughout.",
+              "The guide passes out Inca Kola, a yellow-coloured soft drink iconic to Peru, courtesy of the tour.",
+              "As everyone sips on the sweet beverage, she takes you through the city, passing several broken structures scattered throughout.",
               "She mentions that Machu Picchu means 'Old Peak', and is part of the New7Wonders of the World.",
               "You learn that the city was built by the Incas around 1450, only to be abandoned a century later, following the Spanish conquest of South America.",
+              "A few llamas yelp as a brightly coloured blur of feathers whirs pass you.",
+              "The guide explains that it was an Andean Cock-of-the-Rock, the national bird of Peru.",
               "The tour comes to an end, but as cool as the city was, you realize that this can't be the Place of Divination.",
-              "You continue your northward march through the mountain range in hopes of one day finding the place you saw in your dreams."
+              "You take a quick selfie as a keepsake."
           ]
         }
       ],
@@ -82,7 +68,7 @@
         {
           "speaker": "Speaker 1",
           "text": [
-              "After making sure everyone has checked out of the tourist area, the herd ventures forth northwards."
+              "You continue your northward march through the mountain range."
           ]
         }
       ]
