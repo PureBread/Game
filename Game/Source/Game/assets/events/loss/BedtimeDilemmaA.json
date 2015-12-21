@@ -20,7 +20,7 @@
               "You encounter several colourful birds by the trees along the banks.",
               "As you prepare to stop for the night beside a nice sandy spot, one flock of parrots comes down from a tree and warns you of caiman residing in the river.",
               "Never having seen one, you ask the parrots what it is.",
-              "They explain it’s a large lizard-like reptile with large, sharp teeth which eats anything that goes near the river."
+              "They explain it’s a Caiman, a large lizard-like reptile with large, sharp teeth which eats anything that goes near the river."
           ]
         }
       ],
@@ -44,7 +44,7 @@
               "You decide the nice sandy spot isn’t worth risking your life for.",
               "As you try to find a spot away from the river, you see yellow eyes gleaming at you from the water.",
               "You hasten your pace to get out of the area as quickly as possible.",
-              "Even after finding a better spot, your irrational fear of caimans keeps you awake all night.",
+              "Even after finding a better spot, your irrational fear of Caimans keeps you awake all night.",
               "Lose some health."
           ],
           "triggers": [
@@ -68,7 +68,8 @@
               "You decide to stay the night by the river.",
               "How much trouble can a large lizard cause anyways.",
               "Unfortunately for you, while trying to gather the herd the next morning, you count one less llama.",
-              "Lose 1 llama."
+              "During breakfast, you distirbute the missing llama's meal amongst the rest of the herd and hurry to leave the area.",
+              "Lose 1 llama and gain some health."
           ],
           "triggers": [
             {
@@ -76,6 +77,13 @@
               "args": {
                 "statistic": "herdSize",
                 "amount": -1
+              }
+            },
+            {
+              "type": "statisticUpdate",
+              "args": {
+                "statistic": "health",
+                "amount": 5
               }
             }
           ]

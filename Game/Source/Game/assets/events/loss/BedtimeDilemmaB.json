@@ -20,7 +20,7 @@
               "You encounter several colourful birds by the trees along the banks.",
               "As you prepare to stop for the night beside a nice sandy spot, one flock of parrots comes down from a tree and warns you of caiman residing in the river.",
               "Never having seen one, you ask the parrots what it is.",
-              "They explain it’s a large lizard-like reptile with large, sharp teeth which eats anything that goes near the river."
+              "They explain it’s a Caiman, a large lizard-like reptile with large, sharp teeth which eats anything that goes near the river."
           ]
         }
       ],
@@ -45,7 +45,8 @@
               "While trying to gather the herd, you count one less llama.",
               "You glance towards the river and see ripples around a long, dark shadow within the water.",
               "Hoping that the llama escaped by itself, you quickly lead the herd away from the river.",
-              "Lose 1 llama and some health."
+              "You distirbute the missing llama's food amongst the rest of the herd.",
+              "Lose 1 llama and some food."
           ],
           "triggers": [
             {
@@ -58,8 +59,8 @@
             {
               "type": "statisticUpdate",
               "args": {
-                "statistic": "health",
-                "amount": -5
+                "statistic": "food",
+                "amount": 5
               }
             }
           ]
