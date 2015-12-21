@@ -38,6 +38,11 @@ private:
 	Event * triggerDestinationEvent();
 	Event * triggerLossEvent();
 	Event * triggerRandomEvent();
+	
+	bool randomEventIsValid(Scenario * _event);
+	bool lossEventIsValid(Scenario * _event);
+	std::vector<Scenario *> usedRandomScenarios;
+	std::vector<Scenario *> usedLossScenarios;
 public:
 	// container for all of the event managers on the event scenarios
 	sweet::EventManager globalEventManager;

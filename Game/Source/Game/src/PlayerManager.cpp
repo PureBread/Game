@@ -136,6 +136,13 @@ void PlayerManager::moment(){
 	// check for events
 	markers.currentPosition = statistics["progress"];
 	markers.update(nullptr);
+	
+	if(usedRandomScenarios.size() == MY_ResourceManager::randomEvents.size()){
+		usedRandomScenarios.clear();
+	}
+	if(usedLossScenarios.size() == MY_ResourceManager::lossEvents.size()){
+		usedLossScenarios.clear();
+	}
 
 	if(shouldTriggerDestinationEvent()){
 		eventToTrigger = triggerDestinationEvent();
@@ -179,40 +186,46 @@ Event * PlayerManager::triggerDestinationEvent(){
 	return nullptr;
 }
 
+bool PlayerManager::randomEventIsValid(Scenario * _event){
+	for(unsigned long int i = 0; i < usedRandomScenarios.size(); ++i){
+		if(usedRandomScenarios.at(i) == _event){
+			return false;
+		}
+	}
+	return true;
+}
+
+bool PlayerManager::lossEventIsValid(Scenario * _event){
+	for(unsigned long int i = 0; i < usedLossScenarios.size(); ++i){
+		if(usedLossScenarios.at(i) == _event){
+			return false;
+		}
+	}
+	return true;
+}
+
 Event * PlayerManager::triggerLossEvent(){
-	bool eventValid = true;
 	unsigned long int selectedEvent;
 	Scenario * scenario;
 	do{
 		// get random event
 		selectedEvent = sweet::NumberUtils::randomInt(0, MY_ResourceManager::lossEvents.size()-1);
 		scenario = MY_ResourceManager::lossEvents.at(selectedEvent);
-		// check if event is valid
-	}while(!eventValid); // while random event 
-
-	// if the event is non-repeatable, remove it from the active event list
-	if(false){
-		MY_ResourceManager::lossEvents.erase(MY_ResourceManager::lossEvents.begin()+selectedEvent);
-	}
+	}while(!lossEventIsValid(scenario));
+	usedLossScenarios.push_back(scenario);
 	
 	return new Event(kLOSS, scenario);
 }
 
 Event * PlayerManager::triggerRandomEvent(){
-	bool eventValid = true;
 	unsigned long int selectedEvent;
 	Scenario * scenario;
 	do{
 		// get random event
 		selectedEvent = sweet::NumberUtils::randomInt(0, MY_ResourceManager::randomEvents.size()-1);
 		scenario = MY_ResourceManager::randomEvents.at(selectedEvent);
-		// check if event is valid
-	}while(!eventValid); // while random event 
-
-	// if the event is non-repeatable, remove it from the active event list
-	if(false){
-		MY_ResourceManager::randomEvents.erase(MY_ResourceManager::randomEvents.begin()+selectedEvent);
-	}
+	}while(!randomEventIsValid(scenario)); 
+	usedRandomScenarios.push_back(scenario);
 
 	return new Event(kRANDOM, scenario);
 }
