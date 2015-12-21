@@ -25,16 +25,16 @@
       "options": [
           {
             "text": "Offer help",
-            "link": "outcome"
+            "link": "outcome1"
           },
           {
             "text": "Continue past",
-            "link": "pass_outcome"
+            "link": "outcome2"
           }
       ]
     },
     {
-      "id": "outcome",
+      "id": "outcome1",
       "dialogue": [
         {
           "speaker": "Speaker 1",
@@ -63,7 +63,7 @@
       ]
     },
     {
-      "id": "pass_outcome",
+      "id": "outcome2",
       "dialogue": [
         {
           "speaker": "Speaker 1",
