@@ -1,25 +1,9 @@
 {
 	"randomEvents": [
-		"TheWearyTraveller",
-		"ASmallDetour",
-		"ATemptingOffer",
-		"BeastsOfTheForest",
-		"ChangeOfCourse",
-		"ForkInTheRoad",
-		"TheWanderingTrader",
-		"WaterWaterEverywhere,ButNotADropToDrink",
         "APinkSunset",
         "PastimeEngagement"
 	],
 	"lossEvents": [
-		"TheCookieHoarderA",
-		"TheCookieHoarderB",
-		"ALlamasDayOutA",
-		"ALlamasDayOutB",
-		"MissingFoodA",
-		"MissingFoodB",
-		"TreatsForAllA",
-		"TreatsForAllB",
         "BedtimeDilemmaA",
         "BedtimeDilemmaB"
 	],
