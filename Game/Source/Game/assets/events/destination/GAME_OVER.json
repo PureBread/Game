@@ -8,8 +8,10 @@
         {
           "speaker": "Speaker 1",
           "text": [
-              "game over",
-              "k bye"
+              "Game Over",
+              "Too bad the gods didn't warn you about incompetence getting in the way of your journey.",
+              "You really should try harder next time.",
+              "The Place of Divination isn't going to find itself.."
           ],
           "triggers": [
             {
