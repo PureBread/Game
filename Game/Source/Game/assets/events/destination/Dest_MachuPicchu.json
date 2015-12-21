@@ -45,8 +45,24 @@
               "The guide passes out Inca Kola, a yellow-coloured soft drink iconic to Peru, courtesy of the tour.",
               "As everyone sips on the sweet beverage, she takes you through the city, passing several broken structures scattered throughout.",
               "She mentions that Machu Picchu means 'Old Peak', and is part of the New7Wonders of the World.",
-              "You learn that the city was built by the Incas around 1450, only to be abandoned a century later, following the Spanish conquest of South America.",
-              "A few llamas yelp as a brightly coloured blur of feathers whirs pass you.",
+              "You learn that the city was built by the Incas around 1450, only to be abandoned a century later, following the Spanish conquest of South America."
+          ]
+        }
+      ],
+          "options": [
+          {
+            "text": "",
+            "link": "facts1"
+          }
+        ]
+    },
+    {
+      "id": "facts1",
+      "dialogue": [
+        {
+          "speaker": "Speaker 1",
+          "text": [
+	      "A few llamas yelp as a brightly coloured blur of feathers whirs pass you.",
               "The guide explains that it was an Andean Cock-of-the-Rock, the national bird of Peru.",
               "Before you know it, the tour comes to an end." 
           ]
