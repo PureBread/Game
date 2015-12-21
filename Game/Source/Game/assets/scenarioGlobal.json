@@ -75,7 +75,7 @@
     {
         "id": "LLAMA",
         "type": "texture",
-        "src": "llama!!!!!/smolllama1_white.png",
+        "src": "llama_leader.png",
         "generateMipmaps": false
     },
 
@@ -83,7 +83,7 @@
     {
         "id": "LLAMA_LEADER",
         "type": "texture",
-        "src": "llama!!!!!/smolllama1_black.png",
+        "src": "llama_follower.png",
         "generateMipmaps": false
     },
 
