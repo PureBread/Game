@@ -17,6 +17,11 @@
         "src": "Hurly-Burly.ttf",
         "size": 48
     },
+    {
+        "id": "SPLASH",
+        "type": "audio",
+        "src": "splash.ogg"
+    },
 
 
     {

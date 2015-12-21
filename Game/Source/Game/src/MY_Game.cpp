@@ -13,15 +13,16 @@ bool MY_Game::casualMode = false;
 OpenAL_Sound * MY_Game::currentAudio = nullptr;
 
 void MY_Game::addSplashes(){
-	Game::addSplashes(); // add engine default splashes
-	addSplash(new Scene_Splash(this, new Texture("assets/textures/splash-purebread.png", false, true), Scenario::defaultAudio->sound));
+	// add engine default splashes
+	Game::addSplashes();
+	// add PureBread splash
+	addSplash(new Scene_Splash(this, new Texture("assets/textures/splash-purebread.png", false, true), MY_ResourceManager::scenario->getAudio("SPLASH")->sound));
 }
 
 MY_Game::MY_Game() :
 	Game(std::pair<std::string, Scene *>("MENU_MAIN", new Scene_MenuMain(this)))
 {
 	scenes["MAIN"] = new MY_Scene(this);
-	//MY_ResourceManager::scenario->getAudio("ANDES")->sound->play(true);
 }
 
 MY_Game::~MY_Game(){
