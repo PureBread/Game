@@ -29,9 +29,16 @@ MY_Game::~MY_Game(){
 }
 
 void MY_Game::switchAudio(std::string _newAudio){
+	OpenAL_Sound * newAudio = MY_ResourceManager::scenario->getAudio(_newAudio)->sound;
+	// if it's the same song, return early to avoid restarting it
+	if(currentAudio == newAudio){
+		return;
+	}
+	// if a song is already playing, stop it
 	if(currentAudio != nullptr){
 		currentAudio->stop();
 	}
-	currentAudio = MY_ResourceManager::scenario->getAudio(_newAudio)->sound;
+	// start the new song
+	currentAudio = newAudio;
 	currentAudio->play(true);
 }
