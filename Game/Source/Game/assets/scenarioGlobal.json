@@ -166,19 +166,19 @@
     {
         "id": "ANDES",
         "type": "audio",
-        "src": "Andes.ogg"
+        "src": "Track_Andes.ogg"
     },{
         "id": "SALT_FLATS",
         "type": "audio",
-        "src": "Salt Flats.ogg"
+        "src": "Track_SaltFlats.ogg"
     },{
         "id": "MACHU_PICCHU",
         "type": "audio",
-        "src": "Machu Picchu.ogg"
+        "src": "Track_MachuPicchu.ogg"
     },{
         "id": "GAME_OVER",
         "type": "audio",
-        "src": "Andes.ogg"
+        "src": "Track_Andes.ogg"
     },
 
 
@@ -188,46 +188,46 @@
     {
         "id": "BUTTON1",
         "type": "audio",
-        "src": "Button SFX2.ogg"
+        "src": "Sfx_Button1.ogg"
     },{
         "id": "BUTTON2",
         "type": "audio",
-        "src": "Button SFX5.ogg"
+        "src": "Sfx_Button2.ogg"
     },{
         "id": "BUTTON3",
         "type": "audio",
-        "src": "Button SFX6.ogg"
+        "src": "Sfx_Button3.ogg"
     },{
         "id": "EVENT_OPEN",
         "type": "audio",
-        "src": "Button SFX1.ogg"
+        "src": "Sfx_EventOpen.ogg"
     },{
         "id": "EVENT_CLOSE",
         "type": "audio",
-        "src": "Event SFX3.ogg"
+        "src": "Sfx_EventClose.ogg"
     },
 
 
     {
         "id": "LLAMA_1",
         "type": "audio",
-        "src": "Llama SFX1.ogg"
+        "src": "Sfx_Llama1.ogg"
     },{
         "id": "LLAMA_2",
         "type": "audio",
-        "src": "Llama SFX2.ogg"
+        "src": "Sfx_Llama2.ogg"
     },{
         "id": "LLAMA_3",
         "type": "audio",
-        "src": "Llama SFX3.ogg"
+        "src": "Sfx_Llama3.ogg"
     },{
         "id": "LLAMA_4",
         "type": "audio",
-        "src": "Llama SFX4.ogg"
+        "src": "Sfx_Llama4.ogg"
     },{
         "id": "LLAMA_5",
         "type": "audio",
-        "src": "Llama SFX5.ogg"
+        "src": "Sfx_Llama5.ogg"
     },
 
 
