@@ -7,7 +7,9 @@
 		"ChangeOfCourse",
 		"ForkInTheRoad",
 		"TheWanderingTrader",
-		"WaterWaterEverywhere,ButNotADropToDrink"
+		"WaterWaterEverywhere,ButNotADropToDrink",
+        "APinkSunset",
+        "PastimeEngagement"
 	],
 	"lossEvents": [
 		"TheCookieHoarderA",
@@ -17,12 +19,14 @@
 		"MissingFoodA",
 		"MissingFoodB",
 		"TreatsForAllA",
-		"TreatsForAllB"
+		"TreatsForAllB",
+        "BedtimeDilemmaA",
+        "BedtimeDilemmaB"
 	],
 	"destinationEvents": [
-		"ANDES",
-		"SALT_FLATS",
-		"MACHU_PICCHU",
+		"Dest_Andes",
+		"Dest_SaltFlats",
+		"Dest_MachuPicchu",
 		"GAME_OVER"
 	]
 }
