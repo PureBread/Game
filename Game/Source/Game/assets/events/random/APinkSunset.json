@@ -1,13 +1,6 @@
 {
-  "assets": [
-  ],
-  "characters": [
-    {
-
-    },{
-        
-    }
-  ],
+  "assets": [],
+  "characters": [],
   "conversations": [
     {
       "id": "intro",
