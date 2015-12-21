@@ -1,13 +1,12 @@
 {
   "assets": [
-  ],
-  "characters": [
     {
-
-    },{
-        
+      "id": "Sfx_PastimeEngagement",
+      "type": "audio",
+      "src": "events/Sfx_PastimeEngagement.ogg"
     }
   ],
+  "characters": [],
   "conversations": [
     {
       "id": "intro",
@@ -15,7 +14,20 @@
         {
           "speaker": "Speaker 1",
           "text": [
-              "You wander into a small hamlet and decide to trade with the humans there.",
+              "You wander into a small hamlet and decide to trade with the humans there."
+          ],
+           "triggers":[  
+              {  
+                 "type":"sfx",
+                 "args":{  
+                    "name":"Sfx_PastimeEngagement"
+                 }
+              }
+           ]
+        },
+        {
+          "speaker": "Speaker 1",
+          "text": [              
               "You see some little humans chasing after a round ball.",
               "One of the little humans kicks the ball in your direction, and it stumbles in front of you.",
               "The little human points towards the ball, expecting you to give it to him."

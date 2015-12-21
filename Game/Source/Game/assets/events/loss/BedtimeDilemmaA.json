@@ -1,13 +1,12 @@
 {
   "assets": [
-  ],
-  "characters": [
     {
-
-    },{
-        
+      "id": "Sfx_BedtimeDilemma",
+      "type": "audio",
+      "src": "events/Sfx_BedtimeDilemma.ogg"
     }
   ],
+  "characters": [],
   "conversations": [
     {
       "id": "intro",
@@ -15,7 +14,20 @@
         {
           "speaker": "Speaker 1",
           "text": [
-              "Your journey takes you along a long meandering river.",
+              "Your journey takes you along a long meandering river."
+          ],
+           "triggers":[  
+              {  
+                 "type":"sfx",
+                 "args":{  
+                    "name":"Sfx_BedtimeDilemma"
+                 }
+              }
+           ]
+        },
+        {
+          "speaker": "Speaker 1",
+          "text": [
               "You're glad to be by its side for its water which you can drink and take frequent baths in.",
               "You encounter several colourful birds by the trees along the banks.",
               "As you prepare to stop for the night beside a nice sandy spot, one flock of parrots comes down from a tree and warns you of caiman residing in the river.",
