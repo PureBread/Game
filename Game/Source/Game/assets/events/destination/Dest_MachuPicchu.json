@@ -50,8 +50,7 @@
               "You learn that the city was built by the Incas around 1450, only to be abandoned a century later, following the Spanish conquest of South America.",
               "A few llamas yelp as a brightly coloured blur of feathers whirs pass you.",
               "The guide explains that it was an Andean Cock-of-the-Rock, the national bird of Peru.",
-              "Before you know it, the tour comes to an end, you take a quick selfie as a keepsake.",
-              "As cool as the city was, you realize that this isn't the Place of Divination."
+              "Before you know it, the tour comes to an end." 
           ]
         }
       ],
@@ -68,6 +67,8 @@
         {
           "speaker": "Speaker 1",
           "text": [
+              "you take a quick selfie as a keepsake.",
+              "As cool as the city was, you realize that this isn't the Place of Divination.",
               "You continue your northward march through the mountain range."
           ]
         }
