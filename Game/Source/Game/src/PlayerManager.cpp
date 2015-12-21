@@ -120,12 +120,9 @@ void PlayerManager::moment(){
 	
 	if(!MY_Game::casualMode){
 		statistics["wool"] += statistics["herdSize"]*woolMultiplier;
-		if(statistics["food"] <= FLT_EPSILON){
-			statistics["rations"] = 0;
-		}else{
-			statistics["food"] -= (statistics["rations"] * statistics["herdSize"])*rationsMultiplier;
-		}
-		statistics["health"] += ((statistics["rations"]-1)*1.5f - (statistics["speed"] - 1))*healthMultiplier;
+		float r = statistics["food"] <= FLT_EPSILON ? 0 : statistics["rations"];
+		statistics["food"] -= (r * statistics["herdSize"])*rationsMultiplier;
+		statistics["health"] += ((r-1)*1.5f - (statistics["speed"] - 1))*healthMultiplier;
 	}
 
 	// clamp statistics
