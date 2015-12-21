@@ -87,17 +87,6 @@
         "generateMipmaps": false
     },
 
-    
-    {
-        "id": "MENU_MAIN",
-        "type": "texture",
-        "src": "menu_main.png"
-    },
-    {
-        "id": "MENU_OPTIONS",
-        "type": "texture",
-        "src": "menu_options.png"
-    },
     {
         "id": "SCROLL_MENU",
         "type": "texture",
@@ -164,15 +153,15 @@
     },
 
     {
-        "id": "ANDES",
+        "id": "Dest_Andes",
         "type": "audio",
         "src": "Track_Andes.ogg"
     },{
-        "id": "SALT_FLATS",
+        "id": "Dest_SaltFlats",
         "type": "audio",
         "src": "Track_SaltFlats.ogg"
     },{
-        "id": "MACHU_PICCHU",
+        "id": "Dest_MachuPicchu",
         "type": "audio",
         "src": "Track_MachuPicchu.ogg"
     },{
